@@ -1,0 +1,17 @@
+# Logs 
+*.log
+
+# Compiled files
+*.class
+
+# Netbeans' files
+/nbproject/private
+dist/
+build/
+
+# Enviroment
+.env
+
+# Temp files
+*.temp
+*.swp
