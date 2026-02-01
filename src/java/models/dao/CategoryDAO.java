@@ -9,14 +9,23 @@ import utilities.DBConnection;
 
 public class CategoryDAO implements Accessible<Category> {
 
+    private ServletContext sc;
+    private Connection connection;
+
     public CategoryDAO() {
     }
 
-    private Connection getConnection()
+    public CategoryDAO(ServletContext sc)
             throws ClassNotFoundException, SQLException {
-        return new DBConnection().getConnection();
+        this.sc = sc;
     }
-    
+
+    private Connection getConnection(ServletContext sc) 
+            throws ClassNotFoundException, SQLException {
+        this.connection = new DBConnection().getConnection();
+        return this.connection;
+    }
+
     @Override
     public int insert(Category obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

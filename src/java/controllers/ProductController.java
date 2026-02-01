@@ -14,10 +14,14 @@ import service.ProductService;
 @WebServlet(name = "ProductController", urlPatterns = {"/product"})
 public class ProductController extends HttpServlet {
     
+    private ProductService productService = new ProductService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        List<Product> list = productService.getAll();
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("/views/products/list.jsp").forward(request, response);
     }
 
     @Override

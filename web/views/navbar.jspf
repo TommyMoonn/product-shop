@@ -1,0 +1,69 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+<!-- Grey with black text -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+
+        <ul class="navbar-nav w-100">
+            <li class="nav-item">
+                <span class="nav-link navbar-brand">
+                    <c:choose>
+                        <c:when test="${empty sessionScope.user}">
+                            Welcome, Guest!
+                        </c:when>
+                        <c:when test="${sessionScope.user.roleInSystem == 1}">
+                            Welcome Admin, ${sessionScope.user.firstName}!
+                        </c:when>
+                        <c:otherwise>
+                            Welcome, ${sessionScope.user.firstName}!
+                        </c:otherwise>    
+                    </c:choose>
+                </span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}" role="button">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Accounts</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">List of accounts</a></li>
+                    <li><a class="dropdown-item" href="#">Register</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Products</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="product">List of products</a></li>
+                    <li><a class="dropdown-item" href="#">Add new product</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">List of categories</a></li>
+                    <li><a class="dropdown-item" href="#">Add new category</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown ms-auto">
+                <a class="navbar-brand" href="#" role="button" data-bs-toggle="dropdown">
+                    <img src="images/avatar_placeholder.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                </a> 
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <c:choose>
+                        <c:when test="${empty sessionScope.user}">
+                            <li>
+                                <a class="dropdown-item" href="views/login.jsp">Login</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a class="dropdown-item" href="views/login.jsp">Logout</a>
+                            </li>
+                        </c:otherwise>    
+                    </c:choose>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -8,15 +8,23 @@ import models.entity.Account;
 import utilities.DBConnection;
 
 public class AccountDAO implements Accessible<Account> {
+    private ServletContext sc;
+    private Connection connection;
 
     public AccountDAO() {
     }
 
-    private Connection getConnection()
+    public AccountDAO(ServletContext sc)
             throws ClassNotFoundException, SQLException {
-        return new DBConnection().getConnection();
+        this.sc = sc;
     }
     
+    private Connection getConnection(ServletContext sc) 
+            throws ClassNotFoundException, SQLException {
+        this.connection = new DBConnection().getConnection();
+        return this.connection;
+    }
+
     @Override
     public int insert(Account obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
