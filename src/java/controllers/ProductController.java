@@ -29,7 +29,7 @@ public class ProductController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         List<Product> list = productService.getAll();
         request.setAttribute("list", list);
-        request.getRequestDispatcher("/views/products/list.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/product/product-list.jsp").forward(request, response);
     } 
 
     @Override

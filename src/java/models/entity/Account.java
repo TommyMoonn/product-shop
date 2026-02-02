@@ -8,10 +8,10 @@ public class Account {
     private String lastName;
     private String firstName;
     private Date birthday;
-    private boolean gender;
+    private boolean gender; // 1: male, 0: female
     private String phone;
-    private boolean isUse;
-    private int roleInSystem;
+    private boolean isUse; // 1: is active, 0: is prevented
+    private int roleInSystem; // 1: admin, other: staff
 
     public Account() {
     }

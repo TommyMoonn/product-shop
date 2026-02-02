@@ -1,5 +1,3 @@
-
-
 package controllers;
 
 import java.io.IOException;
@@ -9,17 +7,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.entity.Account;
-import service.AccountService;
+import models.entity.Category;
+import service.CategoryService;
 
-@WebServlet(name="AccountController", urlPatterns={"/account"})
-public class AccountController extends HttpServlet {
-    private AccountService accountService = new AccountService(); 
+@WebServlet(name="CategoryController", urlPatterns={"/category"})
+public class CategoryController extends HttpServlet {
 
+    private CategoryService categoryService = new CategoryService();
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        showList(request, response);
+        showList(request,response);
     } 
 
     @Override
@@ -27,15 +26,17 @@ public class AccountController extends HttpServlet {
     throws ServletException, IOException {
     }
 
+    
+    public void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        List<Category> list = categoryService.getAll();
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("/views/category/category-list.jsp").forward(request, response);
+    } 
+    
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
     
-    public void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        List<Account> list = accountService.getAll();
-        request.setAttribute("list", list);
-        request.getRequestDispatcher("/views/account/account-list.jsp").forward(request, response);
-    } 
 }

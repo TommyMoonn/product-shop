@@ -4,7 +4,7 @@
     Author     : Tommy's Laptop
 --%>
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,6 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body class="darkmode">
+        <c:set var="activePage" value="home" />
         <%@include file="navbar.jspf"%>
     </body>
 </html>

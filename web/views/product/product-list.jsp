@@ -15,6 +15,7 @@
     </head>
 
     <body class="darkmode">
+        <c:set var="activePage" value="products" />
         <%@include file="../navbar.jspf"%>
 
         <div class="container mt-4">
@@ -28,7 +29,7 @@
                         <th>Category</th>
                         <th>Price</th>
                         <th>Discount</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
 

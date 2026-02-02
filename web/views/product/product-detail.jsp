@@ -15,6 +15,7 @@
     </head>
 
     <body class="darkmode">
+        <c:set var="activePage" value="products" />
         <%@include file="../navbar.jspf"%>
         <div class="container mt-5">
             <div class="card bg-dark text-light shadow-lg">
