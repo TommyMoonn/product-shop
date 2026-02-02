@@ -19,6 +19,10 @@ public class ProductService {
     public void delete(String id) {
         productDAO.delete(id);
     }
+    
+    public Product getById(String id) {
+        return productDAO.getById(id);
+    }
 
     public List<Product> getAll() {
         return productDAO.getAll();

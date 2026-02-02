@@ -4,12 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.entity.Account;
 import models.entity.Category;
-import models.entity.Product;
 import utilities.DBConnection;
 
 public class CategoryDAO implements Accessible<Category> {
@@ -24,17 +23,56 @@ public class CategoryDAO implements Accessible<Category> {
 
     @Override
     public int insert(Category obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int result = 0;
+        String sql = "INSERT INTO categories(typeId, categoryName, memo)"
+                + " VALUES(?,?,?)";
+        try ( Connection cn = getConnection()) {
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, obj.getTypeId());
+            ps.setString(2, obj.getCategoryName());
+            ps.setString(3, obj.getMemo());
+
+            result = ps.executeUpdate();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 
     @Override
     public int update(Category obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int result = 0;
+        String sql = "UPDATE categories SET categoryName = ?, memo= ?"
+                + " WHERE typeId = ?";
+        try ( Connection cn = getConnection()) {
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, obj.getCategoryName());
+            ps.setString(2, obj.getMemo());
+            ps.setInt(3, obj.getTypeId());
+
+            result = ps.executeUpdate();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 
     @Override
     public int delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int result = 0;
+        String sql = "DELETE FROM categories WHERE typeId = ?";
+        try ( Connection cn = getConnection()) {
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, id);
+
+            result = ps.executeUpdate();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 
     @Override
@@ -59,7 +97,26 @@ public class CategoryDAO implements Accessible<Category> {
 
     @Override
     public List<Category> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Category> list = new ArrayList<>();
+        String sql = "SELECT typeId, categoryName, memo FROM categories";
+        try ( Connection cn = getConnection()) {
+            PreparedStatement ps = cn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Category category = new Category();
+
+                category.setTypeId(rs.getInt(1));
+                category.setCategoryName(rs.getString(2));
+                category.setMemo(rs.getString(3));
+
+                list.add(category);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
-    
+
 }

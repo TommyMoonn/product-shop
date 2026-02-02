@@ -149,7 +149,7 @@ insert into products (productId, productName, productImage, brief, account, pric
 					 'manager', 315000,0,4, N'Bộ');
 go
 insert into products (productId, productName, productImage, brief, account, price, discount, typeId, unit)  
-              values('6075086733', N'Áo thể thao Fitme Body Compression', '/images/sanPham/aoTheThaoFitness.pnj',
+              values('6075086733', N'Áo thể thao Fitme Body Compression', '/images/sanPham/aoTheThaoFitness.png',
 			          N'Áo thể thao Body Compression Fitme cao cấp chuyên nghiệp dành cho những ai có nhu cầu luyện tập với cường độ cao
 						Phù hợp cho các môn thể thao tập gym, bóng rổ, bóng đá, bóng chuyền, giữ nhiệt. 
 						Quần chất co dãn cao, fit cơ thể, tôn dáng người', 

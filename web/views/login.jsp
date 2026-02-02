@@ -32,20 +32,23 @@
 
                                     <div data-mdb-input-init class="form-outline form-white mb-4">
                                         <label class="form-label" for="typeEmailX">Name</label>
-                                        <input type="text" name="account" class="form-control form-control-lg" placeholder="Enter your account name"/>
+                                        <input type="text" name="account" class="form-control form-control-md" placeholder="Enter your account name"/>
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline form-white mb-4">
                                         <label class="form-label" for="typePasswordX">Password</label>
-                                        <input type="password" name="password" class="form-control form-control-lg" placeholder="Enter you password"/>
+                                        <input type="password" name="password" class="form-control form-control-md" placeholder="Enter you password"/>
                                     </div>
 
 
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-md px-5" type="submit">Login</button>
 
                                 </div>
-                                <a href="${pageContext.request.contextPath}" class="text-white-50 fw-bold">Main page</a>
-s                            </div>
+                                <a href="${pageContext.request.contextPath}"
+                                   class="btn btn-outline-light">
+                                    ← Back to Home
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

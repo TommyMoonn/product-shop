@@ -149,7 +149,7 @@ public class AccountDAO implements Accessible<Account> {
     public int updateIsUsed(String acc, boolean isUsed) {
         int result = 0;
         String sql = "UPDATE accounts"
-                + " SET isUsed = ?"
+                + " SET isUse = ?"
                 + " WHERE account = ?";
         try ( Connection cn = getConnection()) {
             PreparedStatement ps = cn.prepareStatement(sql);
