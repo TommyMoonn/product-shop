@@ -63,8 +63,8 @@ public class ProductDAO implements Accessible<Product> {
             ps.setString(2, obj.getProductImage());
             ps.setString(3, obj.getBrief());
             ps.setDate(4, obj.getPostedDate());
-            ps.setObject(5, obj.getType());
-            ps.setObject(6, obj.getAccount());
+            ps.setInt(5, obj.getType().getTypeId());
+            ps.setString(6, obj.getAccount().getAccount());
             ps.setString(7, obj.getUnit());
             ps.setInt(8, obj.getPrice());
             ps.setInt(9, obj.getDiscount());
@@ -98,16 +98,39 @@ public class ProductDAO implements Accessible<Product> {
     @Override
     public Product getById(String id) {
         Product result = null;
-        String sql = "SELECT FROM products WHERE productId = ?";
+        String sql = "SELECT productId, productName, productImage, brief, postedDate,"
+                + " typeId, account, unit, price, discount"
+                + " FROM products WHERE productId = ?";
         try ( Connection cn = getConnection()) {
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(1, id);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next() && result == null) {
-                result = new Product(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getDate(5), (Category) rs.getObject(6),
-                        (Account) rs.getObject(7), rs.getString(8), rs.getInt(9), rs.getInt(9));
+                Product product = new Product();
+                
+                product.setProductId(rs.getString(1));
+                product.setProductName(rs.getString(2));
+                product.setProductImage(rs.getString(3));
+                product.setBrief(rs.getString(4));
+                product.setPostedDate(rs.getDate(5));
+                product.setUnit(rs.getString(8));
+                product.setPrice(rs.getInt(9));
+                product.setDiscount(rs.getInt(10));
+                
+                int typeId = rs.getInt(6);
+                String accountId = rs.getString(7);
+
+                CategoryDAO categoryDAO = new CategoryDAO();
+                Category c = categoryDAO.getById(String.valueOf(typeId));
+                
+                AccountDAO accountDAO = new AccountDAO();
+                Account a = accountDAO.getById(accountId);
+                
+                product.setType(c);
+                product.setAccount(a);
+                
+                result = product;
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
@@ -115,18 +138,42 @@ public class ProductDAO implements Accessible<Product> {
         }
         return result;
     }
-
-    // needs to implement join logic in sql 
+    
     public List<Product> listByCategory(int categoryId) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT productId, productName, productImage,"
                 + " brief, postedDate, typeId, account, unit, price, discount"
-                + " FROM products ";
+                + " FROM products"
+                + " WHERE typeId = ?";
         try ( Connection cn = getConnection()) {
             PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product product = new Product();
+                
+                product.setProductId(rs.getString(1));
+                product.setProductName(rs.getString(2));
+                product.setProductImage(rs.getString(3));
+                product.setBrief(rs.getString(4));
+                product.setPostedDate(rs.getDate(5));
+                product.setUnit(rs.getString(8));
+                product.setPrice(rs.getInt(9));
+                product.setDiscount(rs.getInt(10));
+
+                int typeId = rs.getInt(6);
+                String accountId = rs.getString(7);
+
+                CategoryDAO categoryDAO = new CategoryDAO();
+                Category c = categoryDAO.getById(String.valueOf(typeId));
+                
+                AccountDAO accountDAO = new AccountDAO();
+                Account a = accountDAO.getById(accountId);
+                
+                product.setType(c);
+                product.setAccount(a);
+                
                 list.add(product);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -138,7 +185,6 @@ public class ProductDAO implements Accessible<Product> {
 
     @Override
     public List<Product> getAll() {
-        
         List<Product> list = new ArrayList<>();
         String sql = "SELECT productId, productName, productImage,"
                 + " brief, postedDate, typeId, account, unit, price, discount"
@@ -148,10 +194,8 @@ public class ProductDAO implements Accessible<Product> {
             PreparedStatement ps = cn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                System.out.println("Connected DB OK");
-        System.out.println("FOUND PRODUCT: " + rs.getString(1));
                 Product product = new Product();
-
+                
                 product.setProductId(rs.getString(1));
                 product.setProductName(rs.getString(2));
                 product.setProductImage(rs.getString(3));
@@ -161,14 +205,15 @@ public class ProductDAO implements Accessible<Product> {
                 product.setPrice(rs.getInt(9));
                 product.setDiscount(rs.getInt(10));
 
-                // FK values
                 int typeId = rs.getInt(6);
                 String accountId = rs.getString(7);
 
-                // Load objects properly
-                Category c = null;
-                Account a = null;
-
+                CategoryDAO categoryDAO = new CategoryDAO();
+                Category c = categoryDAO.getById(String.valueOf(typeId));
+                
+                AccountDAO accountDAO = new AccountDAO();
+                Account a = accountDAO.getById(accountId);
+                
                 product.setType(c);
                 product.setAccount(a);
 

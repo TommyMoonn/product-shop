@@ -1,36 +1,31 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.dao.ProductDAO;
 import models.entity.Product;
-import service.ProductService;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/product"})
-public class ProductController extends HttpServlet {
-    
-    private ProductService productService = new ProductService();
+@WebServlet(name = "ProductDetailController", urlPatterns = {"/product/detail"})
+public class ProductDetailController extends HttpServlet {
+
+    private ProductDAO productDAO = new ProductDAO();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        showList(request,response);
+        String id = request.getParameter("id");
+        Product p = productDAO.getById(id);
+        request.setAttribute("product", p);
+        request.getRequestDispatcher("/views/products/detail.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-    
-    public void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        List<Product> list = productService.getAll();
-        request.setAttribute("list", list);
-        request.getRequestDispatcher("/views/products/list.jsp").forward(request, response);
-    } 
 
     @Override
     public String getServletInfo() {

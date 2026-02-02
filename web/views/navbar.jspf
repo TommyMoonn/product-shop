@@ -34,7 +34,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Products</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="product">List of products</a></li>
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/product">List of products</a></li>
                     <li><a class="dropdown-item" href="#">Add new product</a></li>
                 </ul>
             </li>
