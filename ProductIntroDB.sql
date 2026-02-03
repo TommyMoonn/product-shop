@@ -28,7 +28,7 @@ go
 create table categories(
 	typeId int primary key not null identity,
 	categoryName nvarchar(88) not null,
-	memo ntext default ''
+	memo nvarchar(max) default N''
 )
 go
 -- 3: Tạo Table [Products] chứa thông tin của sản phẩm cần giới thiệu --------------
