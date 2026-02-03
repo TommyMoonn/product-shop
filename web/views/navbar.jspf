@@ -28,13 +28,13 @@
                 <a class="nav-link dropdown-toggle ${activePage == 'accounts' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Accounts</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="${pageContext.request.contextPath}/account">List of accounts</a></li>
-                    <li><a class="dropdown-item" href="#">Register</a></li>
+                    <li><a class="dropdown-item" href="#">Register new account</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle ${activePage == 'products' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Products</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/product">List of products</a></li>
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/product">Product listings</a></li>
                     <li><a class="dropdown-item" href="#">Add new product</a></li>
                 </ul>
             </li>
@@ -42,7 +42,7 @@
                 <a class="nav-link dropdown-toggle ${activePage == 'categories' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="${pageContext.request.contextPath}/category?action=list">List of categories</a></li>
-                    <li><a class="dropdown-item" href="#">Add new category</a></li>
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/category?action=add">Add new category</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown ms-auto">

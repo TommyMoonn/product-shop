@@ -8,16 +8,16 @@ public class CategoryService {
 
     private CategoryDAO categoryDAO = new CategoryDAO();
 
-    public void add(Category category) {
-        categoryDAO.insert(category);
+    public boolean add(Category category) {
+        return categoryDAO.insert(category) > 0;
     }
 
-    public void update(Category category) {
-        categoryDAO.update(category);
+    public boolean update(Category category) {
+        return categoryDAO.update(category) > 0;
     }
 
-    public void delete(String id) {
-        categoryDAO.delete(id);
+    public boolean delete(String id) {
+        return categoryDAO.delete(id) > 0;
     }
     
     public Category getById(String id) {

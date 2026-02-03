@@ -24,13 +24,12 @@ public class CategoryDAO implements Accessible<Category> {
     @Override
     public int insert(Category obj) {
         int result = 0;
-        String sql = "INSERT INTO categories(typeId, categoryName, memo)"
-                + " VALUES(?,?,?)";
+        String sql = "INSERT INTO categories(categoryName, memo)"
+                + " VALUES(?,?)";
         try ( Connection cn = getConnection()) {
             PreparedStatement ps = cn.prepareStatement(sql);
-            ps.setInt(1, obj.getTypeId());
-            ps.setString(2, obj.getCategoryName());
-            ps.setString(3, obj.getMemo());
+            ps.setString(1, obj.getCategoryName());
+            ps.setString(2, obj.getMemo());
 
             result = ps.executeUpdate();
         } catch (ClassNotFoundException | SQLException ex) {

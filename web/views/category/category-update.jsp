@@ -24,17 +24,18 @@
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
                             <form action="category" method="post">
-                                <input type="hidden" name="action" value="add">
+                                <input type="hidden" name="action" value="update">
+                                <input type="hidden" name="typeId" value="${category.typeId}">
                                 <div class="mb-md-5 mt-md-3 pb-5">
 
-                                    <h2 class="fw-bold mb-4">Create a new category</h2>
+                                    <h2 class="fw-bold mb-4">Updating ${category.categoryName}</h2>
 
                                     <div data-mdb-input-init class="form-outline form-white mb-3">
                                         <label class="form-label" for="name">Category name</label>
                                         <input type="text" 
                                                id="name" 
                                                name="categoryName" 
-                                               required
+                                               value="${category.categoryName}" 
                                                class="form-control form-control-md" placeholder="Enter category name"/>
                                     </div>
 
@@ -43,10 +44,11 @@
                                         <input type="text" 
                                                id="memo" 
                                                name="memo" 
+                                               value="${category.memo}" 
                                                class="form-control form-control-md" placeholder="Enter a memo"/>
                                     </div>
 
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md px-6" type="submit">Create category</button>
+                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md px-6" type="submit">Update Category</button>
 
                                 </div>
                                 <a href="category"

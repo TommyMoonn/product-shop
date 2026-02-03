@@ -38,10 +38,10 @@
                             <td>${c.categoryName}</td>
                             <td>${c.memo}</td>
                             <td>       
-                                <a class="btn btn-success " href="#">
+                                <a class="btn btn-success " href="category?action=update&typeId=${c.typeId}">
                                     Edit
                                 </a>
-                                <a class="btn btn-danger" href="#">
+                                <a class="btn btn-danger" href="category?action=delete&typeId=${c.typeId}" onclick="return confirm('Delete this item?')">
                                     Delete
                                 </a>
                             </td> 
