@@ -1,5 +1,6 @@
 <%-- any content can be specified here e.g.: --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" %>
 <!-- Grey with black text -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -13,7 +14,7 @@
                             Welcome, Guest!
                         </c:when>
                         <c:when test="${sessionScope.user.roleInSystem == 1}">
-                            Welcome Admin, ${sessionScope.user.firstName}!
+                            Welcome <span style="color:red;">admin</span>, ${sessionScope.user.firstName}!
                         </c:when>
                         <c:otherwise>
                             Welcome, ${sessionScope.user.firstName}!
@@ -24,25 +25,39 @@
             <li class="nav-item">
                 <a class="nav-link  ${activePage == 'home' ? 'active' : ''}" href="${pageContext.request.contextPath}" role="button">Home</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle ${activePage == 'accounts' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Accounts</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/account">List of accounts</a></li>
-                    <li><a class="dropdown-item" href="#">Register new account</a></li>
-                </ul>
-            </li>
+            <%--<c:if test ="${sessionScope.user != null && sessionScope.user.roleInSystem == 1}">--%>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle ${activePage == 'accounts' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Accounts</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/account">List of accounts</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Register new account</a>
+                        </li>
+                    </ul>
+                </li>
+            <%--</c:if>--%>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle ${activePage == 'products' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Products</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/product">Product listings</a></li>
-                    <li><a class="dropdown-item" href="#">Add new product</a></li>
+                    <li>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/product">Product listings</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#">Add new product</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle ${activePage == 'categories' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/category?action=list">List of categories</a></li>
-                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/category?action=add">Add new category</a></li>
+                    <li>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/category?action=list">List of categories</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/category?action=add">Add new category</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item dropdown ms-auto">
@@ -53,12 +68,12 @@
                     <c:choose>
                         <c:when test="${empty sessionScope.user}">
                             <li>
-                                <a class="dropdown-item" href="views/login.jsp">Login</a>
+                                <a class="dropdown-item" href="login">Login</a>
                             </li>
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a class="dropdown-item" href="views/login.jsp">Logout</a>
+                                <a class="dropdown-item" href="logout">Logout</a>
                             </li>
                         </c:otherwise>    
                     </c:choose>

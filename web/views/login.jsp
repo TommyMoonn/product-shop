@@ -1,9 +1,4 @@
-<%-- 
-    Document   : login
-    Created on : 31-Jan-2026, 08:23:09
-    Author     : Tommy's Laptop
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,22 +22,35 @@
 
                                 <div class="mb-md-5 mt-md-4 pb-5">
 
-                                    <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                                    <p class="text-white-50 mb-5">Please enter your login and password!</p>
+                                    <h2 class="fw-bold mb-3">
+                                        <img src="${pageContext.request.contextPath}/images/img_avatar1.png" alt="placeholder" style="width:300px;" class="rounded-pill">
+                                    </h2>
+                                    <!--<p class="text-white-50 mb-5">Please enter your login and password!</p>-->
+                                    <form action="login" method="POST">
+                                        <div data-mdb-input-init class="form-outline form-white mb-4">
+                                            <label class="form-label" for="account">Name</label>
+                                            <input type="text"
+                                                   id="account"
+                                                   name="account"
+                                                   class="form-control form-control-md" 
+                                                   placeholder="Enter your account name" autocomplete="off"/>
+                                        </div>
 
-                                    <div data-mdb-input-init class="form-outline form-white mb-4">
-                                        <label class="form-label" for="typeEmailX">Name</label>
-                                        <input type="text" name="account" class="form-control form-control-md" placeholder="Enter your account name"/>
-                                    </div>
-
-                                    <div data-mdb-input-init class="form-outline form-white mb-4">
-                                        <label class="form-label" for="typePasswordX">Password</label>
-                                        <input type="password" name="password" class="form-control form-control-md" placeholder="Enter you password"/>
-                                    </div>
-
-
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-md px-5" type="submit">Login</button>
-
+                                        <div data-mdb-input-init class="form-outline form-white mb-4">
+                                            <label class="form-label" for="password">Password</label>
+                                            <input type="password"
+                                                   id="password"
+                                                   name="pass"
+                                                   class="form-control form-control-md" 
+                                                   placeholder="Enter you password" autocomplete="off"/>
+                                        </div>
+                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-md px-5 mb-4" type="submit">Login</button>
+                                    </form>
+                                    <c:if test="${not empty error}">
+                                        <div class="alert alert-danger">
+                                            ${error}
+                                        </div>
+                                    </c:if>
                                 </div>
                                 <a href="${pageContext.request.contextPath}"
                                    class="btn btn-outline-light">
