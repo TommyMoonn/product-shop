@@ -1,6 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,7 +29,7 @@
 
                                     <h2 class="fw-bold mb-4">Updating ${category.categoryName}</h2>
 
-                                    <div data-mdb-input-init class="form-outline form-white mb-3">
+                                    <div class="form-outline form-white mb-3">
                                         <label class="form-label" for="name">Category name</label>
                                         <input type="text" 
                                                id="name" 
@@ -39,7 +38,7 @@
                                                class="form-control form-control-md" placeholder="Enter category name"/>
                                     </div>
 
-                                    <div data-mdb-input-init class="form-outline form-white mb-3">
+                                    <div class="form-outline form-white mb-3">
                                         <label class="form-label" for="memo">Memo</label>
                                         <input type="text" 
                                                id="memo" 
@@ -48,7 +47,7 @@
                                                class="form-control form-control-md" placeholder="Enter a memo"/>
                                     </div>
 
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md px-6" type="submit">Update Category</button>
+                                    <button class="btn btn-primary btn-md px-6" type="submit">Update Category</button>
 
                                 </div>
                                 <a href="category"

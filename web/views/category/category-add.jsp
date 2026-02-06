@@ -1,6 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,13 +22,13 @@
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
-                            <form action="category" method="post">
+                            <form action="category" method="post" accept-charset="UTF-8">
                                 <input type="hidden" name="action" value="add">
                                 <div class="mb-md-5 mt-md-3 pb-5">
 
                                     <h2 class="fw-bold mb-4">Create a new category</h2>
 
-                                    <div data-mdb-input-init class="form-outline form-white mb-3">
+                                    <div class="form-outline form-white mb-3">
                                         <label class="form-label" for="name">Category name</label>
                                         <input type="text" 
                                                id="name" 
@@ -38,7 +37,7 @@
                                                class="form-control form-control-md" placeholder="Enter category name"/>
                                     </div>
 
-                                    <div data-mdb-input-init class="form-outline form-white mb-3">
+                                    <div class="form-outline form-white mb-3">
                                         <label class="form-label" for="memo">Memo</label>
                                         <input type="text" 
                                                id="memo" 
@@ -46,10 +45,10 @@
                                                class="form-control form-control-md" placeholder="Enter a memo"/>
                                     </div>
 
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md px-6" type="submit">Create category</button>
+                                    <button class="btn btn-primary btn-md px-6" type="submit">Create category</button>
 
                                 </div>
-                                <a href="category"
+                                <a href="${pageContext.request.contextPath}/category"
                                    class="btn btn-outline-light">
                                     ← Back
                                 </a>

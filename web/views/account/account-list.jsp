@@ -22,10 +22,10 @@
             <h1>List of Accounts</h1>
 
             <table class="table table-dark table-striped table-bordered mt-3">
-                <thead>
+                <thead>     
                     <tr>
                         <th>Account</th>
-                        <th>Full Name</th>
+                        <th>Full Name</th>  
                         <th>Birthday</th>
                         <th>Gender</th>
                         <th>Phone</th>
@@ -38,7 +38,7 @@
                     <c:forEach var="a" items="${requestScope.list}">
                         <tr>
                             <td>${a.account}</td>
-                            <td>${a.firstName} ${a.lastName}</td>
+                            <td>${a.lastName} ${a.firstName}</td>
                             <td>${a.birthday}</td>
                             <td>${a.gender}</td>
                             <td>${a.phone}</td>

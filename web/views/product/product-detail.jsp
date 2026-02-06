@@ -1,11 +1,10 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Product List</title>
+        <title>${product.productName}</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -21,14 +20,12 @@
             <div class="card bg-dark text-light shadow-lg">
                 <div class="row g-0">
 
-                    <!-- Image -->
                     <div class="col-md-4 text-center p-4">
                         <img src="${pageContext.request.contextPath}${product.productImage}"
                              class="img-fluid rounded"
                              alt="${product.productName}">
                     </div>
 
-                    <!-- Details -->
                     <div class="col-md-8">
                         <div class="card-body">
                             <h2 class="card-title">
@@ -47,9 +44,6 @@
                                 </li>
                                 <li class="list-group-item bg-dark text-light">
                                     <strong>Category:</strong> ${product.type.categoryName}
-                                </li>
-                                <li class="list-group-item bg-dark text-light">
-                                    <strong>Account:</strong> ${product.account.account}
                                 </li>
                                 <li class="list-group-item bg-dark text-light">
                                     <strong>Unit:</strong> ${product.unit}
