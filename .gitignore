@@ -1,17 +1,24 @@
-# Logs 
+# Logs
 *.log
 
-# Compiled files
+# Compiled Java files
 *.class
 
-# Netbeans' files
-/nbproject/private
-dist/
+# NetBeans build output
 build/
+dist/
 
-# Enviroment
+# NetBeans private files
+/nbproject/private
+/nbproject/genfiles.properties
+
+# IntelliJ / IDE files
+.idea/
+*.iml
+
+# Environment
 .env
 
-# Temp files
+# Temp / swap files
 *.temp
 *.swp
