@@ -16,7 +16,7 @@ public class ProductDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
+        String id = request.getParameter("productId");
         Product p = productDAO.getById(id);
         request.setAttribute("product", p);
         request.getRequestDispatcher("/views/product/product-detail.jsp").forward(request, response);
