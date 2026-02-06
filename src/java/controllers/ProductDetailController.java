@@ -19,7 +19,7 @@ public class ProductDetailController extends HttpServlet {
         String id = request.getParameter("id");
         Product p = productDAO.getById(id);
         request.setAttribute("product", p);
-        request.getRequestDispatcher("/views/products/detail.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/product/product-detail.jsp").forward(request, response);
     }
 
     @Override

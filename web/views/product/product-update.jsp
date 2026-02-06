@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>New Product</title>
+        <title>Product Edit</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -23,25 +23,21 @@
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
                             <form action="product" method="post" accept-charset="UTF-8">
-                                <input type="hidden" name="action" value="add">
+                                <input type="hidden" name="action" value="update">
+                                <input type="hidden" name="productId" value="${product.productId}">
+                                
                                 <div class="mb-md-5 mt-md-3 pb-5">
-
-                                    <h2 class="fw-bold mb-4">Create a new product</h2>
-
-                                    <div class="form-outline form-white mb-3">
-                                        <label class="form-label" for="proId">Product ID</label>
-                                        <input type="text" 
-                                               id="proId" 
-                                               name="productId" 
-                                               required
-                                               class="form-control form-control-md" placeholder="Enter product id"/>
-                                    </div>
-
-                                    <div class="form-outline form-white mb-3">
+                                    <h2 class="fw-bold mb-4">Updating: ${product.productName}
+                                        <small class='fs-6'> 
+                                            #${product.productId}
+                                        </small></h2>
+                                
+                                        <div class="form-outline form-white mb-3">
                                         <label class="form-label" for="proName">Product name</label>
                                         <input type="text" 
                                                id="proName" 
-                                               name="productName" 
+                                               name="productName"
+                                               value='${product.productName}'
                                                required
                                                class="form-control form-control-md" placeholder="Enter product name"/>
                                     </div>
@@ -50,7 +46,8 @@
                                         <label class="form-label" for="brief">Brief</label>
                                         <input type="text" 
                                                id="brief" 
-                                               name="brief" 
+                                               name="brief"
+                                               value='${product.brief}'
                                                class="form-control form-control-md" placeholder="Enter a brief for the product"/>
                                     </div>
 
@@ -63,7 +60,7 @@
                                             class="form-select form-select-md">
                                             <option value="" disabled selected>Choose category</option>
                                             <c:forEach var="c" items="${categories}">
-                                                <option value="${c.typeId}">
+                                                <option value="${c.typeId}" selected>
                                                     ${c.categoryName}
                                                 </option>
                                             </c:forEach>
@@ -74,7 +71,8 @@
                                         <label class="form-label" for="unit">Unit</label>
                                         <input type="text" 
                                                id="unit" 
-                                               name="unit" 
+                                               name="unit"
+                                               value='${product.unit}'
                                                required
                                                class="form-control form-control-md" placeholder="Enter unit"/>
                                     </div>
@@ -83,7 +81,8 @@
                                         <label class="form-label" for="price">Price</label>
                                         <input type="number" 
                                                id="price" 
-                                               name="price" 
+                                               name="price"
+                                               value='${product.price}'
                                                required
                                                class="form-control form-control-md" placeholder="Enter product price"/>
                                     </div>
@@ -92,7 +91,8 @@
                                         <label class="form-label" for="discount">Discount</label>
                                         <input type="number" 
                                                id="discount" 
-                                               name="discount" 
+                                               name="discount"
+                                               value='${product.discount}'
                                                required
                                                class="form-control form-control-md" placeholder="Enter product discount"/>
                                     </div>

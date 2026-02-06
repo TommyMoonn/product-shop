@@ -16,10 +16,32 @@
     <body class="darkmode">
         <c:set var="activePage" value="products" />
         <%@include file="../navbar.jspf"%>
-
         <div class="container mt-4">
-            <h1>List of Products</h1>
+            <h1 class="text-center">List of Products</h1>
+            <div data-bs-theme="dark">
+                <form action="${pageContext.request.contextPath}/product" method="get"
+                      class="d-flex align-items-center gap-2 mb-3">
+                    <input type="hidden" name="action" value="list" />
+                    <select 
+                        id="typeId"
+                        name="typeId"
+                        class="form-select form-select-md w-auto">
+                        <option value="">All categories</option>
+                        <c:forEach var="c" items="${requestScope.categories}">
+                            <option value="${c.typeId}"
+                                    <c:if test="${param.typeId == c.typeId}">
+                                        selected
+                                    </c:if>>
+                                ${c.categoryName}
+                            </option>
+                        </c:forEach>
+                    </select>
 
+                    <button type="submit" class="btn btn-primary btn-md">
+                        Filter
+                    </button>
+                </form>
+            </div>
             <table class="table table-dark table-striped table-bordered mt-3">
                 <thead>
                     <tr>
@@ -44,8 +66,17 @@
                             <td>${p.discount}%</td>
                             <td class="align-middle text-center">
                                 <a class="btn btn-primary"
-                                   href="${pageContext.request.contextPath}/product/detail?id=${p.productId}">
+                                   href="${pageContext.request.contextPath}/product/detail?productId=${p.productId}">
                                     Details
+                                </a>
+                                <a class="btn btn-success"
+                                   href="${pageContext.request.contextPath}/product?action=update&productId=${p.productId}">
+                                    Update
+                                </a>
+                                <a class="btn btn-danger"
+                                   href="${pageContext.request.contextPath}/product?action=delete&productId=${p.productId}"
+                                   onclick="return confirm('Delete this product?')">
+                                    Delete
                                 </a>
                             </td>
                         </tr>

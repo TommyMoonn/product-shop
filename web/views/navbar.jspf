@@ -30,10 +30,10 @@
                     <a class="nav-link dropdown-toggle ${activePage == 'accounts' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Accounts</a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/account">List of accounts</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/account?action=list">List of accounts</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">Register new account</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/account?action=add">Register new account</a>
                         </li>
                     </ul>
                 </li>
@@ -42,10 +42,10 @@
                 <a class="nav-link dropdown-toggle ${activePage == 'products' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Products</a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/product">Product listings</a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/product?action=list">Product listings</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">Add new product</a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/product?action=add">Add new product</a>
                     </li>
                 </ul>
             </li>
@@ -62,18 +62,18 @@
             </li>
             <li class="nav-item dropdown ms-auto">
                 <a class="navbar-brand" href="#" role="button" data-bs-toggle="dropdown">
-                    <img src="images/avatar_placeholder.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                    <img src="${pageContext.request.contextPath}/images/avatar_placeholder.png" alt="Logo" style="width:40px;" class="rounded-pill">
                 </a> 
                 <ul class="dropdown-menu dropdown-menu-end">
                     <c:choose>
                         <c:when test="${empty sessionScope.user}">
                             <li>
-                                <a class="dropdown-item" href="login">Login</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Login</a>
                             </li>
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a class="dropdown-item" href="logout">Logout</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
                             </li>
                         </c:otherwise>    
                     </c:choose>
