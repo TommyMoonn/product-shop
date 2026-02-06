@@ -27,20 +27,19 @@ public class ProductDAO implements Accessible<Product> {
     public int insert(Product obj) {
         int result = 0;
         String sql = "INSERT INTO products(productId, productName, productImage,"
-                + " brief, postedDate, typeId, account, unit, price, discount)"
-                + " VALUES(?,?,?,?,?,?,?,?,?,?)";
+                + " brief, typeId, account, unit, price, discount)"
+                + " VALUES(?,?,?,?,?,?,?,?,?)";
         try ( Connection cn = getConnection()) {
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(1, obj.getProductId());
             ps.setString(2, obj.getProductName());
             ps.setString(3, obj.getProductImage());
             ps.setString(4, obj.getBrief());
-            ps.setDate(5, obj.getPostedDate());
-            ps.setInt(6, obj.getType().getTypeId());
-            ps.setString(7, obj.getAccount().getAccount());
-            ps.setString(8, obj.getUnit());
-            ps.setInt(9, obj.getPrice());
-            ps.setInt(10, obj.getDiscount());
+            ps.setInt(5, obj.getType().getTypeId());
+            ps.setString(6, obj.getAccount().getAccount());
+            ps.setString(7, obj.getUnit());
+            ps.setInt(8, obj.getPrice());
+            ps.setInt(9, obj.getDiscount());
 
             result = ps.executeUpdate();
         } catch (ClassNotFoundException | SQLException ex) {

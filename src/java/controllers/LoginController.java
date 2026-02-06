@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.entity.Account;
-import service.AccountService;
+import models.dao.AccountDAO;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
@@ -27,8 +26,8 @@ public class LoginController extends HttpServlet {
         String account = request.getParameter("account");
         String pass = request.getParameter("pass");
 
-        AccountService accountService = new AccountService();
-        Account a = accountService.auth(account, pass);
+        AccountDAO accountDAO = new AccountDAO();
+        Account a = accountDAO.authenticate(account, pass);
 
         if (a == null) {
             request.setAttribute("error", "Invalid account or password");
@@ -38,13 +37,14 @@ public class LoginController extends HttpServlet {
 
         //get the current active session
         //if it exists -> invalidate it
+        //the false parameter passed in: if there is an active session then return it else return null
         HttpSession oldSession = request.getSession(false);
         if (oldSession != null) {
             oldSession.invalidate();
         }
         //create a new session
         HttpSession newSession = request.getSession();
-        newSession.setAttribute("user", a);
+        newSession.setAttribute("user", a); 
 
         response.sendRedirect(request.getContextPath());
     }

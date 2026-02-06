@@ -8,16 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.entity.Category;
-import service.CategoryService;
+import models.dao.CategoryDAO;
 
 @WebServlet(name = "CategoryController", urlPatterns = {"/category"})
 public class CategoryController extends HttpServlet {
 
-    private CategoryService categoryService = new CategoryService();
+    private final CategoryDAO categoryDAO = new CategoryDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
 
         if (action == null) {
@@ -29,22 +31,24 @@ public class CategoryController extends HttpServlet {
                 showCategoryList(request, response);
                 break;
             case "add":
-                showAddForm(request, response);
+                showCategoryAddForm(request, response);
                 break;
             case "update":
-                showUpdateForm(request, response);
+                showCategoryUpdateForm(request, response);
                 break;
             case "delete":
                 deleteCategory(request, response);
                 break;
             default:
-                response.sendRedirect("category");
+                response.sendRedirect(request.getContextPath() + "category");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
 
         if (action == null) {
@@ -59,20 +63,18 @@ public class CategoryController extends HttpServlet {
                 updateCategory(request, response);
                 break;
             default:
-                response.sendRedirect("category");
+                response.sendRedirect(request.getContextPath() + "category");
         }
     }
 
     public void showCategoryList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        List<Category> list = categoryService.getAll();
+        List<Category> list = categoryDAO.getAll();
         request.setAttribute("list", list);
         request.getRequestDispatcher("/views/category/category-list.jsp").forward(request, response);
     }
 
     //redirect to add form jsp
-    public void showAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    public void showCategoryAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/views/category/category-add.jsp").forward(request, response);
     }
 
@@ -81,10 +83,10 @@ public class CategoryController extends HttpServlet {
         Category c = new Category();
         c.setCategoryName(request.getParameter("categoryName"));
         c.setMemo(request.getParameter("memo"));
-        boolean success = categoryService.add(c);
+        int success = categoryDAO.insert(c);
 
-        if (success) {
-            response.sendRedirect("category");
+        if (success > 0) {
+            response.sendRedirect(request.getContextPath() + "/category");
         } else {
             request.setAttribute("error", "Failed to add category"); //sends error 
             request.getRequestDispatcher("/views/category/category-add.jsp").forward(request, response); //goes back to add form to retry
@@ -92,9 +94,9 @@ public class CategoryController extends HttpServlet {
     }
 
     //redirect to update form jsp
-    public void showUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void showCategoryUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("typeId");
-        Category c = categoryService.getById(id);
+        Category c = categoryDAO.getById(id);
         request.setAttribute("category",c);
         request.getRequestDispatcher("/views/category/category-update.jsp").forward(request,response);
     }
@@ -106,12 +108,12 @@ public class CategoryController extends HttpServlet {
         c.setCategoryName(request.getParameter("categoryName"));
         c.setMemo(request.getParameter("memo"));
         
-        boolean success = categoryService.update(c);
+        int success = categoryDAO.update(c);
 
-        if (success) {
-            response.sendRedirect("category");
+        if (success > 0) {
+            response.sendRedirect(request.getContextPath() + "category");
         } else {
-            request.setAttribute("error", "Failed to update category"); //sends error 
+            request.setAttribute("error", "Failed to update category"); //sets error message
             request.getRequestDispatcher("/views/category/category-update.jsp").forward(request, response); //goes back to update form to retry
         }
     }
@@ -119,10 +121,10 @@ public class CategoryController extends HttpServlet {
     //call service to do delete operation
     public void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String typeId = request.getParameter("typeId");
-        boolean success = categoryService.delete(typeId);
+        int success = categoryDAO.delete(typeId);
 
-        if (success) {
-            response.sendRedirect("category");
+        if (success > 0) {
+            response.sendRedirect(request.getContextPath() + "/category");
         } else {
             request.setAttribute("error", "Failed to delete category");
             request.getRequestDispatcher("category").forward(request, response);

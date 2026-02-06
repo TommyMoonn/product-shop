@@ -164,13 +164,13 @@ public class AccountDAO implements Accessible<Account> {
         return result;
     }
 
-    public Account authenticate(String acc, String pass) {
-        Account account = getById(acc);
-        if (account == null) {
+    public Account authenticate(String account, String pass) {
+        Account a = getById(account);
+        if (a == null) {
             return null;
         }
-        if (account.getPass().equals(pass)) {
-            return account;
+        if (a.getPass().equals(pass)) {
+            return a;
         }
         return null;
     }
