@@ -9,8 +9,7 @@ build/
 dist/
 
 # NetBeans private files
-/nbproject/private
-/nbproject/genfiles.properties
+/nbproject/
 
 # IntelliJ / IDE files
 .idea/
