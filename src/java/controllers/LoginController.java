@@ -23,14 +23,22 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String account = request.getParameter("account");
-        String pass = request.getParameter("pass");
-
+        String account = request.getParameter("account").trim();
+        String pass = request.getParameter("pass").trim();
+        
         AccountService accountDAO = new AccountService();
         Account a = accountDAO.authenticate(account, pass);
 
         if (a == null) {
             request.setAttribute("error", "Invalid account or password");
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
+            return;
+        }
+        
+        //check if the account is deactivated
+        if (!a.getActive()) {
+            request.setAttribute("error",
+                    "Account is deactivated. Please contact the administrator for more information.");
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
