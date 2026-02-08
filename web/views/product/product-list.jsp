@@ -5,15 +5,15 @@
     <head>
         <meta charset="UTF-8">
         <title>Products</title>
-
+        <!--CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
         <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
-
+        <!--JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body class="darkmode">
+        
         <c:set var="activePage" value="products" />
         <%@include file="../navbar.jspf"%>
         <div class="container mt-4">
@@ -42,7 +42,7 @@
                     </button>
                 </form>
             </div>
-            <table class="table table-dark table-striped table-bordered mt-3">
+            <table class="table table-dark table-striped table-bordered table-hover mt-3">
                 <thead>
                     <tr>
                         <th>Name</th>

@@ -5,11 +5,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
-        <link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet" type="text/css"/>
-        <!-- Latest compiled and minified CSS -->
+        <!--CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Latest compiled JavaScript -->
+        <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+        <!--JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body style="background-color: #121212">
@@ -54,7 +53,7 @@
                                     </form>
                                     <c:if test="${not empty error}">
                                         <div class="alert alert-danger">
-                                            ${error}
+                                            <strong>Failed!</strong> ${error}
                                         </div>
                                     </c:if>
                                 </div>

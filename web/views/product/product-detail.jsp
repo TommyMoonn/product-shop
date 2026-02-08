@@ -5,11 +5,10 @@
     <head>
         <meta charset="UTF-8">
         <title>${product.productName}</title>
-
+        <!--CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
         <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
-
+        <!--JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
