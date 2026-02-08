@@ -1,8 +1,9 @@
-
-
 package controllers;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,42 +13,67 @@ import javax.servlet.http.HttpServletResponse;
 import models.entities.Account;
 import models.services.AccountService;
 
-@WebServlet(name="AccountController", urlPatterns={"/account"})
+@WebServlet(name = "AccountController", urlPatterns = {"/account"})
 public class AccountController extends HttpServlet {
-    private AccountService accountService = new AccountService(); 
+
+    private AccountService accountService = new AccountService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-       request.setCharacterEncoding("UTF-8");
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
-        
+
         if (action == null) {
             action = "list";
         }
-        
+
         switch (action) {
             case "list":
-                showAccountList(request,response);
+                showAccountList(request, response);
                 break;
             case "add":
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+                showAccountAddForm(request, response);
                 break;
             case "update":
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+                showAccountUpdateForm(request, response);
                 break;
             case "delete":
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+                deleteAccount(request,response);
                 break;
-            default: 
+            case "activate":
+                updateAccountStatus(request, response, true);
+                break;
+            case "deactivate":
+                updateAccountStatus(request, response, false);
+                break;
+            default:
                 response.sendRedirect(request.getContextPath() + "product");
         }
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        String action = request.getParameter("action");
+
+        if (action == null) {
+            action = "list";
+        }
+
+        switch (action) {
+            case "add":
+                addAccount(request, response);
+                break;
+            case "update":
+                updateAccount(request, response);
+                break;
+            default:
+                response.sendRedirect(request.getContextPath() + "product");
+        }
     }
 
     public void showAccountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,31 +82,79 @@ public class AccountController extends HttpServlet {
         request.setAttribute("list", list);
         request.getRequestDispatcher("/views/account/account-list.jsp").forward(request, response);
     }
-    
+
     public void showAccountAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        request.getRequestDispatcher("views/account/account-add.jsp").forward(request, response);
     }
-    
+
     public void addAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        Account a = new Account();
+
+        a.setAccount(request.getParameter("account"));
+        a.setPass(request.getParameter("pass"));
+        a.setFirstName(request.getParameter("firstName"));
+        a.setLastName(request.getParameter("lastName"));
+        Date birthday;
+        try {
+            //parse birthday string receieved from request
+            birthday = new SimpleDateFormat("yyyy-MM-dd")
+                    .parse(request.getParameter("birthday"));
+            a.setBirthday(birthday);
+        } catch (ParseException ex) {
+            throw new ServletException("Invalid birthday format", ex);
+        }
+        a.setGender(Boolean.valueOf(request.getParameter("gender")));
+        a.setPhone(request.getParameter("phone"));
+        a.setActive(true); //active by default
+        a.setRoleInSystem(Integer.parseInt(request.getParameter("role")));
+
+        accountService.create(a);
+        response.sendRedirect(request.getContextPath() + "/account");
     }
-    
+
     public void showAccountUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        String account = request.getParameter("account");
+        Account a = accountService.findById(account);
+        request.setAttribute("account", a);
+        request.getRequestDispatcher("/views/account/account-update.jsp").forward(request, response);
     }
-    
+
     public void updateAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String account = request.getParameter("account");
+        Account a = accountService.findById(account);
         
-    }
-    
-    public void updateIsUse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        a.setPass(request.getParameter("pass"));
+        a.setFirstName(request.getParameter("firstName"));
+        a.setLastName(request.getParameter("lastName"));
+        Date birthday;
+        try {
+            birthday = new SimpleDateFormat("yyyy-MM-dd")
+                    .parse(request.getParameter("birthday"));
+            a.setBirthday(birthday);
+        } catch (ParseException ex) {
+            throw new ServletException("Invalid birthday format", ex);
+        }
+        a.setGender(Boolean.valueOf(request.getParameter("gender")));
+        a.setPhone(request.getParameter("phone"));
+        a.setActive(true); //active by default
+        a.setRoleInSystem(Integer.parseInt(request.getParameter("role")));
         
+        accountService.update(a);
+        response.sendRedirect(request.getContextPath() + "/account");
     }
-    
+
+    public void updateAccountStatus(HttpServletRequest request, HttpServletResponse response, boolean status) throws ServletException, IOException {
+        String account = request.getParameter("account");
+        accountService.updateIsUsed(account, status);
+        response.sendRedirect(request.getContextPath() + "/account");
+    }
+
     public void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        String account = request.getParameter("account");
+        accountService.delete(account);
+        response.sendRedirect(request.getContextPath() + "/account");
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -53,22 +53,29 @@
                             <td>${a.phone}</td>
                             <td>${a.roleInSystem}</td>
                             <td class="align-middle text-center">
-                                <a class="btn btn-success" href="${pageContext.request.contextPath}/account?action=update&id=a.account">
+                                <a class="btn btn-success" 
+                                   href="${pageContext.request.contextPath}/account?action=update&account=${a.account}">
                                     Edit
                                 </a>
                                 <c:choose>
                                     <c:when test="${a.active}">
-                                        <a class="btn btn-primary" href="#">
+                                        <a class="btn btn-primary" 
+                                           href="${pageContext.request.contextPath}/account?action=deactivate&account=${a.account}"
+                                           onclick="return confirm('Deactivate this account?')">
                                             Active
                                         </a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a class="btn btn-secondary" href="#">
+                                        <a class="btn btn-secondary" 
+                                           href="${pageContext.request.contextPath}/account?action=activate&account=${a.account}"
+                                           onclick="return confirm('Activate this account?')">
                                             Unactive
                                         </a>
                                     </c:otherwise>
                                 </c:choose>
-                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/account?action=delete&id=a.account">
+                                <a class="btn btn-danger" 
+                                   href="${pageContext.request.contextPath}/account?action=delete&account=${a.account}"
+                                   onclick="return confirm('Delete this account?')">
                                     Delete
                                 </a>
                             </td>
