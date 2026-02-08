@@ -26,49 +26,47 @@
                 </p>
             </div>
 
-            <div class='container'>
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <a href="${pageContext.request.contextPath}/product?action=list"
-                           class="text-decoration-none text-white">
-                            <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Products</h5>
-                                    <p class="card-text">
-                                        View, add, update, and manage products
-                                    </p>
-                                </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <a href="${pageContext.request.contextPath}/auth?type=product&action=list"
+                       class="text-decoration-none text-white">
+                        <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Products</h5>
+                                <p class="card-text">
+                                    View, add, update, and manage products
+                                </p>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
+                </div>
 
-                    <div class="col-md-4">
-                        <a href="${pageContext.request.contextPath}/category?action=list"
-                           class="text-decoration-none text-white">
-                            <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Categories</h5>
-                                    <p class="card-text">
-                                        View, add, update, and manage categories
-                                    </p>
-                                </div>
+                <div class="col-md-4">
+                    <a href="${pageContext.request.contextPath}/auth?type=category&action=list"
+                       class="text-decoration-none text-white">
+                        <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Categories</h5>
+                                <p class="card-text">
+                                    View, add, update, and manage categories
+                                </p>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
+                </div>
 
-                    <div class="col-md-4">
-                        <a href="${pageContext.request.contextPath}/account?action=list"
-                           class="text-decoration-none text-white">
-                            <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Accounts</h5>
-                                    <p class="card-text">
-                                        Manage user accounts and roles
-                                    </p>
-                                </div>
+                <div class="col-md-4">
+                    <a href="${pageContext.request.contextPath}/auth?type=account&action=list"
+                       class="text-decoration-none text-white">
+                        <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Accounts</h5>
+                                <p class="card-text">
+                                    Manage user accounts and roles
+                                </p>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class='text-center mt-4'>
