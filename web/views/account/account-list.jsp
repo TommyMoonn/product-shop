@@ -50,7 +50,19 @@
                                 </c:choose>
                             </td>
                             <td>${a.phone}</td>
-                            <td>${a.roleInSystem}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${a.roleInSystem == 1}">
+                                        Admin
+                                    </c:when>
+                                    <c:when test="${a.roleInSystem == 2}">
+                                        Manager
+                                    </c:when>
+                                    <c:otherwise>
+                                        Staff
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
                             <td class="align-middle text-center">
                                 <a class="btn btn-success" 
                                    href="${pageContext.request.contextPath}/account?action=update&account=${a.account}">

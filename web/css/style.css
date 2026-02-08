@@ -1,12 +1,32 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : 01-Feb-2026, 15:39:34
-    Author     : Tommy's Laptop
-*/
 .darkmode {
     background-color: #121212;
-    color: #E0E0E0;   
+    color: #E0E0E0;
+}
+
+.product-link {
+    text-decoration: none;
+}
+
+.product-link:hover {
+    text-decoration: underline;
+    font-weight: bold;
+    color: #66b2ff;
+}
+
+.btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
