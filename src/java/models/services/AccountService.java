@@ -49,12 +49,12 @@ public class AccountService implements Accessible<Account> {
         return em.createQuery("SELECT a FROM Account a", Account.class).getResultList();
     }
 
-    public Account updateIsUsed(String account, boolean active) {
+    public Account updateIsUsed(String account, boolean status) {
         Account a = findById(account);
         if (a == null) return null;
         
         em.getTransaction().begin();
-        a.setActive(active);
+        a.setActive(status);
         a = em.merge(a);
         em.getTransaction().commit();
         return a;
