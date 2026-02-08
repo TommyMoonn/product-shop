@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>New Category</title>
+        <title>Product Details</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
                                                class="form-control form-control-md" placeholder="Enter a memo"/>
                                     </div>
 
-                                    <button class="btn btn-primary btn-md px-6" type="submit">Update Category</button>
+                                    <button class="btn btn-primary btn-md mt-3 px-6" type="submit">Update Category</button>
 
                                 </div>
                                 <a href="category"

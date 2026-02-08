@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.entity.Account;
-import models.dao.AccountDAO;
+import models.entities.Account;
+import models.services.AccountService;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
@@ -26,7 +26,7 @@ public class LoginController extends HttpServlet {
         String account = request.getParameter("account");
         String pass = request.getParameter("pass");
 
-        AccountDAO accountDAO = new AccountDAO();
+        AccountService accountDAO = new AccountService();
         Account a = accountDAO.authenticate(account, pass);
 
         if (a == null) {

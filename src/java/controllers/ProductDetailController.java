@@ -6,18 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.dao.ProductDAO;
-import models.entity.Product;
+import models.services.ProductService;
+import models.entities.Product;
 
 @WebServlet(name = "ProductDetailController", urlPatterns = {"/product/detail"})
 public class ProductDetailController extends HttpServlet {
 
-    private ProductDAO productDAO = new ProductDAO();
+    private ProductService productService = new ProductService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("productId");
-        Product p = productDAO.getById(id);
+        Product p = productService.findById(id);
         request.setAttribute("product", p);
         request.getRequestDispatcher("/views/product/product-detail.jsp").forward(request, response);
     }

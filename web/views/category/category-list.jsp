@@ -18,7 +18,7 @@
         <%@include file="../navbar.jspf"%>
 
         <div class="container mt-4">
-            <h1>List of Categories</h1>
+            <h1 class="text-center">List of Categories</h1>
 
             <table class="table table-dark table-striped table-bordered mt-3">
                 <thead>
@@ -40,7 +40,8 @@
                                 <a class="btn btn-success " href="category?action=update&typeId=${c.typeId}">
                                     Edit
                                 </a>
-                                <a class="btn btn-danger" href="category?action=delete&typeId=${c.typeId}" onclick="return confirm('Delete this item?')">
+                                <a class="btn btn-danger" href="category?action=delete&typeId=${c.typeId}"
+                                   onclick="return confirm('Delete this category?')">
                                     Delete
                                 </a>
                             </td> 

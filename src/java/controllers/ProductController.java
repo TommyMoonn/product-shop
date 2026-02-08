@@ -7,17 +7,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.entity.Account;
-import models.entity.Category;
-import models.entity.Product;
-import models.dao.CategoryDAO;
-import models.dao.ProductDAO;
+import models.entities.Account;
+import models.entities.Category;
+import models.entities.Product;
+import models.services.CategoryService;
+import models.services.ProductService;
 
 @WebServlet(name = "ProductController", urlPatterns = {"/product"})
 public class ProductController extends HttpServlet {
 
-    private final ProductDAO productDAO = new ProductDAO();
-    private final CategoryDAO categoryDAO = new CategoryDAO();
+    private final ProductService productService = new ProductService();
+    private final CategoryService categoryService = new CategoryService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -80,19 +80,19 @@ public class ProductController extends HttpServlet {
         if (typeId != null && !typeId.isEmpty()) {
             //filter is used -> get list filtered by category
             int id = Integer.parseInt(typeId);
-            list = productDAO.listByCategory(id);
+            list = productService.findByCategory(id);
         } else {
             //filter is not used -> normal list
-            list = productDAO.getAll();
+            list = productService.findAll();
         }
 
         request.setAttribute("list", list);
-        request.setAttribute("categories", categoryDAO.getAll());
+        request.setAttribute("categories", categoryService.findAll());
         request.getRequestDispatcher("/views/product/product-list.jsp").forward(request, response);
     }
 
     public void showProductAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("categories", categoryDAO.getAll());
+        request.setAttribute("categories", categoryService.findAll());
         request.getRequestDispatcher("/views/product/product-add.jsp").forward(request, response);
     }
 
@@ -117,27 +117,21 @@ public class ProductController extends HttpServlet {
         p.setType(c);
         p.setAccount(a);
 
-        int success = productDAO.insert(p);
-
-        if (success > 0) {
-            response.sendRedirect(request.getContextPath() + "/product");
-        } else {
-            request.setAttribute("error", "Failed to add product"); //sets error message
-            request.getRequestDispatcher(request.getContextPath() + "product?action=add").forward(request, response);
-        }
+        productService.create(p);
+        response.sendRedirect(request.getContextPath() + "/product");
     }
 
     public void showProductUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Product p = productDAO.getById(request.getParameter("productId"));
+        Product p = productService.findById(request.getParameter("productId"));
 
         request.setAttribute("product", p);
-        request.setAttribute("categories", categoryDAO.getAll());
+        request.setAttribute("categories", categoryService.findAll());
         request.getRequestDispatcher("/views/product/product-update.jsp").forward(request, response);
     }
 
     public void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("productId");
-        Product p = productDAO.getById(id);
+        Product p = productService.findById(id);
 
         //update old fields
         //keep: id, posted date, image, and account
@@ -147,26 +141,14 @@ public class ProductController extends HttpServlet {
         p.setPrice(Integer.parseInt(request.getParameter("price")));
         p.setDiscount(Integer.parseInt(request.getParameter("discount")));
 
-        int success = productDAO.update(p);
-
-        if (success > 0) {
-            response.sendRedirect(request.getContextPath() + "/product");
-        } else {
-            request.setAttribute("error", "Failed to update product"); //sets error message
-            request.getRequestDispatcher(request.getContextPath() + "product?action=update").forward(request, response);
-        }
+        productService.update(p);
+        response.sendRedirect(request.getContextPath() + "/product");
     }
 
     public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("productId");
-        int success = productDAO.delete(id);
-
-        if (success > 0) {
-            response.sendRedirect(request.getContextPath() + "/product");
-        } else {
-            request.setAttribute("error", "Failed to delete product"); //sets error message
-            request.getRequestDispatcher(request.getContextPath() + "product?action=list").forward(request, response);
-        }
+        productService.delete(id);
+        response.sendRedirect(request.getContextPath() + "/product");
     }
 
     @Override

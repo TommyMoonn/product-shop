@@ -19,7 +19,7 @@
         <%@include file="../navbar.jspf"%>
 
         <div class="container mt-4">
-            <h1>List of Accounts</h1>
+            <h1 class="text-center">List of Accounts</h1>
 
             <table class="table table-dark table-striped table-bordered mt-3">
                 <thead>     
@@ -40,15 +40,24 @@
                             <td>${a.account}</td>
                             <td>${a.lastName} ${a.firstName}</td>
                             <td>${a.birthday}</td>
-                            <td>${a.gender}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${a.gender}">
+                                        Male
+                                    </c:when>
+                                    <c:otherwise>
+                                        Female
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
                             <td>${a.phone}</td>
                             <td>${a.roleInSystem}</td>
                             <td class="align-middle text-center">
-                                <a class="btn btn-success" href="#">
+                                <a class="btn btn-success" href="${pageContext.request.contextPath}/account?action=update&id=a.account">
                                     Edit
                                 </a>
                                 <c:choose>
-                                    <c:when test="${a.isUse}">
+                                    <c:when test="${a.active}">
                                         <a class="btn btn-primary" href="#">
                                             Active
                                         </a>
@@ -59,7 +68,7 @@
                                         </a>
                                     </c:otherwise>
                                 </c:choose>
-                                <a class="btn btn-danger" href="#">
+                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/account?action=delete&id=a.account">
                                     Delete
                                 </a>
                             </td>

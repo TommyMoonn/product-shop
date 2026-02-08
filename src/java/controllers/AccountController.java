@@ -9,12 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.entity.Account;
-import models.dao.AccountDAO;
+import models.entities.Account;
+import models.services.AccountService;
 
 @WebServlet(name="AccountController", urlPatterns={"/account"})
 public class AccountController extends HttpServlet {
-    private AccountDAO accountDAO = new AccountDAO(); 
+    private AccountService accountService = new AccountService(); 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +52,7 @@ public class AccountController extends HttpServlet {
 
     public void showAccountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<Account> list = accountDAO.getAll();
+        List<Account> list = accountService.findAll();
         request.setAttribute("list", list);
         request.getRequestDispatcher("/views/account/account-list.jsp").forward(request, response);
     }

@@ -26,17 +26,17 @@
                 <a class="nav-link  ${activePage == 'home' ? 'active' : ''}" href="${pageContext.request.contextPath}" role="button">Home</a>
             </li>
             <%--<c:if test ="${sessionScope.user != null && sessionScope.user.roleInSystem == 1}">--%>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle ${activePage == 'accounts' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Accounts</a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/account?action=list">List of accounts</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/account?action=add">Register new account</a>
-                        </li>
-                    </ul>
-                </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle ${activePage == 'accounts' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Accounts</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/account?action=list">List of accounts</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/account?action=add">Register new account</a>
+                    </li>
+                </ul>
+            </li>
             <%--</c:if>--%>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle ${activePage == 'products' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Products</a>
@@ -62,7 +62,14 @@
             </li>
             <li class="nav-item dropdown ms-auto">
                 <a class="navbar-brand" href="#" role="button" data-bs-toggle="dropdown">
-                    <img src="${pageContext.request.contextPath}/images/avatar_placeholder.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                    <c:choose>
+                        <c:when test="${empty sessionScope.user}">
+                            <img src="${pageContext.request.contextPath}/images/avatar_placeholder.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${pageContext.request.contextPath}/images/img_avatar1.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                        </c:otherwise>
+                    </c:choose>
                 </a> 
                 <ul class="dropdown-menu dropdown-menu-end">
                     <c:choose>

@@ -57,7 +57,12 @@
                 <tbody>
                     <c:forEach var="p" items="${requestScope.list}">
                         <tr>
-                            <td>${p.productName}</td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/product/detail?productId=${p.productId}"
+                                   class="text-white">
+                                    ${p.productName}
+                                </a>
+                            </td>
                             <td>
                                 <img src="${pageContext.request.contextPath}${p.productImage}" width="80">
                             </td>
@@ -65,10 +70,6 @@
                             <td>${p.price}</td>
                             <td>${p.discount}%</td>
                             <td class="align-middle text-center">
-                                <a class="btn btn-primary"
-                                   href="${pageContext.request.contextPath}/product/detail?productId=${p.productId}">
-                                    Details
-                                </a>
                                 <a class="btn btn-success"
                                    href="${pageContext.request.contextPath}/product?action=update&productId=${p.productId}">
                                     Update

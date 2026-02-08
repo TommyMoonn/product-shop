@@ -45,7 +45,7 @@
                                                class="form-control form-control-md" placeholder="Enter a memo"/>
                                     </div>
 
-                                    <button class="btn btn-primary btn-md px-6" type="submit">Create category</button>
+                                    <button class="btn btn-primary btn-md mt-3 px-6" type="submit">Create category</button>
 
                                 </div>
                                 <a href="${pageContext.request.contextPath}/category"
