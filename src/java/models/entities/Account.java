@@ -3,7 +3,6 @@ package models.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,7 +37,7 @@ public class Account implements Serializable {
     private Boolean active;
     @Column(name = "roleInSystem")
     private Integer roleInSystem;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    @OneToMany(mappedBy = "account")
     private Collection<Product> productsCollection;
 
     public Account() {

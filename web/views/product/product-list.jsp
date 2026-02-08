@@ -50,7 +50,9 @@
                         <th>Category</th>
                         <th>Price</th>
                         <th>Discount</th>
-                        <th>Actions</th>
+                            <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
+                            <th>Actions</th>
+                            </c:if>
                     </tr>
                 </thead>
 
@@ -58,8 +60,8 @@
                     <c:forEach var="p" items="${requestScope.list}">
                         <tr>
                             <td>
-                                <a href="${pageContext.request.contextPath}/product/detail?productId=${p.productId}"
-                                   class="text-white">
+                                <a class='text-white product-link'
+                                   href="${pageContext.request.contextPath}/product/detail?productId=${p.productId}">
                                     ${p.productName}
                                 </a>
                             </td>
@@ -69,17 +71,19 @@
                             <td>${p.type.categoryName}</td>
                             <td>${p.price}</td>
                             <td>${p.discount}%</td>
-                            <td class="align-middle text-center">
-                                <a class="btn btn-success"
-                                   href="${pageContext.request.contextPath}/product?action=update&productId=${p.productId}">
-                                    Update
-                                </a>
-                                <a class="btn btn-danger"
-                                   href="${pageContext.request.contextPath}/product?action=delete&productId=${p.productId}"
-                                   onclick="return confirm('Delete this product?')">
-                                    Delete
-                                </a>
-                            </td>
+                            <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
+                                <td class="align-middle text-center">
+                                    <a class="btn btn-success"
+                                       href="${pageContext.request.contextPath}/product?action=update&productId=${p.productId}">
+                                        Update
+                                    </a>
+                                    <a class="btn btn-danger"
+                                       href="${pageContext.request.contextPath}/product?action=delete&productId=${p.productId}"
+                                       onclick="return confirm('Delete this product?')">
+                                        Delete
+                                    </a>
+                                </td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </tbody>

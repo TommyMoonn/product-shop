@@ -14,7 +14,7 @@
     </head>
 
     <body class="darkmode">
-        <c:set var="activePage" value="categories" />
+        <c:set var="activePage" value="products" />
         <%@include file="../navbar.jspf"%>
 
         <div class="container py-5">

@@ -26,7 +26,9 @@
                         <th>Type ID</th>
                         <th>Category Name</th>
                         <th>Memo</th>
-                        <th>Actions</th>
+                            <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
+                            <th>Actions</th>
+                            </c:if>
                     </tr>
                 </thead>
 
@@ -36,15 +38,17 @@
                             <td>${c.typeId}</td>
                             <td>${c.categoryName}</td>
                             <td>${c.memo}</td>
-                            <td>       
-                                <a class="btn btn-success " href="category?action=update&typeId=${c.typeId}">
-                                    Edit
-                                </a>
-                                <a class="btn btn-danger" href="category?action=delete&typeId=${c.typeId}"
-                                   onclick="return confirm('Delete this category?')">
-                                    Delete
-                                </a>
-                            </td> 
+                            <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
+                                <td>
+                                    <a class="btn btn-success " href="category?action=update&typeId=${c.typeId}">
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-danger" href="category?action=delete&typeId=${c.typeId}"
+                                       onclick="return confirm('Delete this category?')">
+                                        Delete
+                                    </a>
+                                </td> 
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </tbody>
