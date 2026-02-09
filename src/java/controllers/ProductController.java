@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.ValidationException;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -111,28 +112,33 @@ public class ProductController extends HttpServlet {
 
         //set fields recieved from the request
         p.setProductId(request.getParameter("productId"));
-        p.setProductName(request.getParameter("productName"));
+        p.setProductName(request.getParameter("productName").trim());
         p.setProductImage("");
         p.setBrief(request.getParameter("brief"));
-        p.setUnit(request.getParameter("unit"));
-        p.setPrice(Integer.parseInt(request.getParameter("price")));
-        p.setDiscount(Integer.parseInt(request.getParameter("discount")));
+        p.setUnit(request.getParameter("unit").trim());
+        p.setPrice(Integer.parseInt(request.getParameter("price").trim()));
+        p.setDiscount(Integer.parseInt(request.getParameter("discount").trim()));
 
         //get the current user
         Account a = (Account) request.getSession().getAttribute("user");
 
-        int typeId = Integer.parseInt(request.getParameter("typeId"));
-        Category c = categoryService.findById(String.valueOf(typeId)); // managed entity
+        //get the category
+        int typeId = Integer.parseInt(request.getParameter("typeId").trim());
+        Category c = categoryService.findById(String.valueOf(typeId));
 
         p.setType(c);
         p.setAccount(a);
-
-        productService.create(p);
-        response.sendRedirect(request.getContextPath() + "/product/list");
+        try {
+            productService.create(p);
+            response.sendRedirect(request.getContextPath() + "/product/list");
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/views/product/product-add.jsp").forward(request, response);
+        }
     }
 
     public void showProductUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Product p = productService.findById(request.getParameter("productId"));
+        Product p = productService.findById(request.getParameter("productId").trim());
 
         request.setAttribute("product", p);
         request.setAttribute("categories", categoryService.findAll());
@@ -145,19 +151,24 @@ public class ProductController extends HttpServlet {
 
         //update old fields
         //keep: id, posted date, image, and account
-        p.setProductName(request.getParameter("productName"));
+        p.setProductName(request.getParameter("productName").trim());
         p.setBrief(request.getParameter("brief"));
-        p.setUnit(request.getParameter("unit"));
-        p.setPrice(Integer.parseInt(request.getParameter("price")));
-        p.setDiscount(Integer.parseInt(request.getParameter("discount")));
+        p.setUnit(request.getParameter("unit").trim());
+        p.setPrice(Integer.parseInt(request.getParameter("price").trim()));
+        p.setDiscount(Integer.parseInt(request.getParameter("discount").trim()));
 
-        int typeId = Integer.parseInt(request.getParameter("typeId"));
+        int typeId = Integer.parseInt(request.getParameter("typeId").trim());
         Category c = categoryService.findById(String.valueOf(typeId));
-        
+
         p.setType(c);
 
-        productService.update(p);
-        response.sendRedirect(request.getContextPath() + "/product/list");
+        try {
+            productService.update(p);
+            response.sendRedirect(request.getContextPath() + "/product/list");
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/views/product/product-update.jsp").forward(request, response);
+        }
     }
 
     public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

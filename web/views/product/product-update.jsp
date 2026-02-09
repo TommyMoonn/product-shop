@@ -24,20 +24,22 @@
                             <form action="${pageContext.request.contextPath}/product/update" method="post" accept-charset="UTF-8">
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="productId" value="${product.productId}">
-                                
+
                                 <div class="mb-md-5 mt-md-3 pb-5">
                                     <h2 class="fw-bold mb-4">Updating: ${product.productName}
                                         <small class='fs-6'> 
                                             #${product.productId}
                                         </small></h2>
-                                
-                                        <div class="form-outline form-white mb-3">
+
+                                    <div class="form-outline form-white mb-3">
                                         <label class="form-label" for="proName">Product name</label>
                                         <input type="text" 
                                                id="proName" 
                                                name="productName"
                                                value='${product.productName}'
                                                required
+                                               minlength="2"
+                                               maxlength="100"
                                                class="form-control form-control-md" placeholder="Enter product name"/>
                                     </div>
 
@@ -47,6 +49,9 @@
                                                id="brief" 
                                                name="brief"
                                                value='${product.brief}'
+                                               name="brief" 
+                                               maxlength="255"
+                                               title="Brief introduction for the product"
                                                class="form-control form-control-md" placeholder="Enter a brief for the product"/>
                                     </div>
 
@@ -73,6 +78,9 @@
                                                name="unit"
                                                value='${product.unit}'
                                                required
+                                               pattern="[\p{L} ]+"
+                                               maxlength="20"
+                                               title="Only letters and spaces"
                                                class="form-control form-control-md" placeholder="Enter unit"/>
                                     </div>
 
@@ -83,6 +91,8 @@
                                                name="price"
                                                value='${product.price}'
                                                required
+                                               min="0"
+                                               step="0.1"
                                                class="form-control form-control-md" placeholder="Enter product price"/>
                                     </div>
 
@@ -93,21 +103,29 @@
                                                name="discount"
                                                value='${product.discount}'
                                                required
-                                               class="form-control form-control-md" placeholder="Enter product discount"/>
+                                               min="0"
+                                               max="100"
+                                               step="1"
+                                               class="form-control form-control-md" placeholder="Enter discount percentage"/>
                                     </div>
 
                                     <button class="btn btn-primary btn-md mt-3 px-3"
                                             type="submit" onclick="return confirm('Save new changes?')">
-                                        Create product
+                                        Update Product
                                     </button>
 
                                 </div>
-                                <a href="${pageContext.request.contextPath}/product/list"
-                                   class="btn btn-outline-light"
-                                   >
-                                    ← Back
-                                </a>
                             </form>
+                            <c:if test="${not empty error}">
+                                <div class="alert alert-danger">
+                                    <strong>Failed!</strong> ${error}
+                                </div>
+                            </c:if>
+                            <a href="${pageContext.request.contextPath}/product/list"
+                               class="btn btn-outline-light"
+                               >
+                                ← Back
+                            </a>
                         </div>
                     </div>
                 </div>

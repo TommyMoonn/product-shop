@@ -19,9 +19,8 @@
         <div class="container mt-4">
             <h1 class="text-center">List of Products</h1>
             <div data-bs-theme="dark">
-                <form action="${pageContext.request.contextPath}/product" method="get"
+                <form action="${pageContext.request.contextPath}/product/list" method="get"
                       class="d-flex align-items-center gap-2 mb-3">
-                    <input type="hidden" name="action" value="list" />
                     <select 
                         id="typeId"
                         name="typeId"

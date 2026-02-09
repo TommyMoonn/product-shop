@@ -32,6 +32,8 @@
                                                id="proId" 
                                                name="productId" 
                                                required
+                                               pattern="[A-Z0-9_-]{3,20}"
+                                               title="3–20 characters, uppercase letters, numbers, _ or -"
                                                class="form-control form-control-md" placeholder="Enter product id"/>
                                     </div>
 
@@ -41,6 +43,8 @@
                                                id="proName" 
                                                name="productName" 
                                                required
+                                               minlength="2"
+                                               maxlength="100"
                                                class="form-control form-control-md" placeholder="Enter product name"/>
                                     </div>
 
@@ -49,6 +53,7 @@
                                         <input type="text" 
                                                id="brief" 
                                                name="brief" 
+                                               maxlength="255"
                                                class="form-control form-control-md" placeholder="Enter a brief for the product"/>
                                     </div>
 
@@ -74,6 +79,9 @@
                                                id="unit" 
                                                name="unit" 
                                                required
+                                               pattern="[\p{L} ]+"
+                                               maxlength="20"
+                                               title="Only letters and spaces"
                                                class="form-control form-control-md" placeholder="Enter unit"/>
                                     </div>
 
@@ -83,6 +91,8 @@
                                                id="price" 
                                                name="price" 
                                                required
+                                               min="0"
+                                               step="0.1"
                                                class="form-control form-control-md" placeholder="Enter product price"/>
                                     </div>
 
@@ -92,17 +102,24 @@
                                                id="discount" 
                                                name="discount" 
                                                required
-                                               class="form-control form-control-md" placeholder="Enter product discount"/>
+                                               min="0"
+                                               max="100"
+                                               step="1"
+                                               class="form-control form-control-md" placeholder="Enter discount percentage"/>
                                     </div>
 
                                     <button class="btn btn-primary btn-md mt-3 px-3" type="submit">Create product</button>
-
                                 </div>
-                                <a href="${pageContext.request.contextPath}/product/list"
-                                   class="btn btn-outline-light">
-                                    ← Back
-                                </a>
                             </form>
+                            <c:if test="${not empty error}">
+                                <div class="alert alert-danger">
+                                    <strong>Failed!</strong> ${error}
+                                </div>
+                            </c:if>
+                            <a href="${pageContext.request.contextPath}/product/list"
+                               class="btn btn-outline-light">
+                                ← Back
+                            </a>
                         </div>
                     </div>
                 </div>

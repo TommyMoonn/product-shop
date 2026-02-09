@@ -1,9 +1,11 @@
 package controllers;
 
+import exceptions.ValidationException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -84,6 +86,7 @@ public class AccountController extends HttpServlet {
     }
 
     public void showAccountAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("today", LocalDate.now());
         request.getRequestDispatcher("/views/account/account-add.jsp").forward(request, response);
     }
 
@@ -91,9 +94,9 @@ public class AccountController extends HttpServlet {
         Account a = new Account();
 
         a.setAccount(request.getParameter("account"));
-        a.setPass(request.getParameter("pass"));
-        a.setFirstName(request.getParameter("firstName"));
-        a.setLastName(request.getParameter("lastName"));
+        a.setPass(request.getParameter("pass").trim());
+        a.setFirstName(request.getParameter("firstName").trim());
+        a.setLastName(request.getParameter("lastName").trim());
         Date birthday;
         try {
             //parse birthday string receieved from request
@@ -104,28 +107,39 @@ public class AccountController extends HttpServlet {
             throw new ServletException("Invalid birthday format", ex);
         }
         a.setGender(Boolean.valueOf(request.getParameter("gender")));
-        a.setPhone(request.getParameter("phone"));
+        a.setPhone(request.getParameter("phone").trim());
         a.setActive(true); //active by default
         a.setRoleInSystem(Integer.parseInt(request.getParameter("role")));
 
-        accountService.create(a);
-        response.sendRedirect(request.getContextPath() + "/account/list");
+        try {
+            accountService.create(a);
+            response.sendRedirect(request.getContextPath() + "/account/list");
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            request.setAttribute("today", LocalDate.now());
+            request.getRequestDispatcher("/views/account/account-add.jsp").forward(request, response);
+        }
     }
 
     public void showAccountUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
         Account a = accountService.findById(account);
+
         request.setAttribute("account", a);
+        request.setAttribute("today", LocalDate.now());
         request.getRequestDispatcher("/views/account/account-update.jsp").forward(request, response);
     }
 
     public void updateAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
         Account a = accountService.findById(account);
-
-        a.setPass(request.getParameter("pass"));
-        a.setFirstName(request.getParameter("firstName"));
-        a.setLastName(request.getParameter("lastName"));
+        if (a == null) {
+            throw new ServletException("Account does not exist.");
+        }
+        
+        a.setPass(request.getParameter("pass").trim());
+        a.setFirstName(request.getParameter("firstName").trim());
+        a.setLastName(request.getParameter("lastName").trim());
         Date birthday;
         try {
             birthday = new SimpleDateFormat("yyyy-MM-dd")
@@ -135,12 +149,17 @@ public class AccountController extends HttpServlet {
             throw new ServletException("Invalid birthday format", ex);
         }
         a.setGender(Boolean.valueOf(request.getParameter("gender")));
-        a.setPhone(request.getParameter("phone"));
-        a.setActive(true); //active by default
+        a.setPhone(request.getParameter("phone").trim());
         a.setRoleInSystem(Integer.parseInt(request.getParameter("role")));
 
-        accountService.update(a);
-        response.sendRedirect(request.getContextPath() + "/account/list");
+        try {
+            accountService.update(a);
+            response.sendRedirect(request.getContextPath() + "/account/list");
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            request.setAttribute("today", LocalDate.now());
+            request.getRequestDispatcher("/views/account/account-update.jsp").forward(request, response);
+        }
     }
 
     public void updateAccountStatus(HttpServletRequest request, HttpServletResponse response, boolean status) throws ServletException, IOException {

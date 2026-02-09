@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.ValidationException;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -81,10 +82,15 @@ public class CategoryController extends HttpServlet {
     //call service to do add operation
     public void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category c = new Category();
-        c.setCategoryName(request.getParameter("categoryName"));
+        c.setCategoryName(request.getParameter("categoryName").trim());
         c.setMemo(request.getParameter("memo"));
-        categoryService.create(c);
-        response.sendRedirect(request.getContextPath() + "/category/list");
+        try {
+            categoryService.create(c);
+            response.sendRedirect(request.getContextPath() + "/category/list");
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/views/category/category-add.jsp").forward(request, response);
+        }
     }
 
     //redirect to update form jsp
@@ -99,11 +105,15 @@ public class CategoryController extends HttpServlet {
     public void updateCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category c = new Category();
         c.setTypeId(Integer.parseInt(request.getParameter("typeId")));
-        c.setCategoryName(request.getParameter("categoryName"));
+        c.setCategoryName(request.getParameter("categoryName").trim());
         c.setMemo(request.getParameter("memo"));
-
-        categoryService.update(c);
-        response.sendRedirect(request.getContextPath() + "/category/list");
+        try {
+            categoryService.update(c);
+            response.sendRedirect(request.getContextPath() + "/category/list");
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/views/category/category-update.jsp").forward(request, response);
+        }
     }
 
     //call service to do delete operation

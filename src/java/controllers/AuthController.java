@@ -58,10 +58,10 @@ public class AuthController extends HttpServlet {
         Account a = getUser(request);
 
         String url;
-        if (canManageProducts(a)) {
-            url = resolveUrl(type, action);
-        } else if (action.equals("list")) {
+        if (action.equals("list")) {
             url = resolveUrl(type, "list");
+        } else if (canManageProducts(a)) {
+            url = resolveUrl(type, action);
         } else {
             response.sendRedirect(request.getContextPath() + "/views/access-denied.jsp");
             return;
@@ -75,10 +75,10 @@ public class AuthController extends HttpServlet {
         Account a = getUser(request);
 
         String url;
-        if (canManageCategories(a)) {
-            url = resolveUrl(type, action);
-        } else if (action.equals("list")) {
+        if (action.equals("list")) {
             url = resolveUrl(type, "list");
+        } else if (canManageCategories(a)) {
+            url = resolveUrl(type, action);
         } else {
             response.sendRedirect(request.getContextPath() + "/views/access-denied.jsp");
             return;

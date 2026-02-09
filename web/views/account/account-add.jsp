@@ -32,6 +32,10 @@
                                                id="account" 
                                                name="account" 
                                                required
+                                               minlength="4"
+                                               maxlength="20"
+                                               pattern="[a-zA-Z0-9_]+"
+                                               title="4–20 characters, letters, numbers, underscore only"
                                                class="form-control form-control-md" placeholder="Enter account name"/>
                                     </div>
 
@@ -50,6 +54,9 @@
                                                id="firstName" 
                                                name="firstName"
                                                required
+                                               pattern="[\p{L} ]+"
+                                               maxlength="20"
+                                               title="Only letters and spaces"
                                                class="form-control form-control-md" placeholder="Enter first name"/>
                                     </div>
 
@@ -59,6 +66,9 @@
                                                id="lastName" 
                                                name="lastName"
                                                required
+                                               pattern="[\p{L} ]+"
+                                               maxlength="50"
+                                               title="Only letters and spaces"
                                                class="form-control form-control-md" placeholder="Enter last name"/>
                                     </div>
 
@@ -69,6 +79,7 @@
                                             id="birthday"
                                             name="birthday"
                                             required
+                                            max="${requestScope.today}"
                                             class="form-control form-control-md"/>
                                     </div>
 
@@ -91,6 +102,8 @@
                                                id="phone" 
                                                name="phone" 
                                                required
+                                               pattern="0[0-9]{9}"
+                                               title="Phone number must start with 0 and have 10 digits"
                                                class="form-control form-control-md" placeholder="Enter phone number"/>
                                     </div>
 
@@ -111,11 +124,16 @@
                                     <button class="btn btn-primary btn-md mt-3 px-3" type="submit">Register account</button>
 
                                 </div>
-                                <a href="${pageContext.request.contextPath}/account/list"
-                                   class="btn btn-outline-light">
-                                    ← Back
-                                </a>
                             </form>
+                            <c:if test="${not empty error}">
+                                <div class="alert alert-danger">
+                                    <strong>Failed!</strong> ${error}
+                                </div>
+                            </c:if>
+                            <a href="${pageContext.request.contextPath}/account/list"
+                               class="btn btn-outline-light">
+                                ← Back
+                            </a>
                         </div>
                     </div>
                 </div>

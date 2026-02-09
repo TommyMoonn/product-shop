@@ -19,7 +19,7 @@ public class LogoutController extends HttpServlet {
         if (session != null) {
             session.invalidate(); //stops and clear the session
         }
-        response.sendRedirect("login"); //sends user back to the login page
+        response.sendRedirect(request.getContextPath() + "/login"); //sends user back to the login page
     }
 
     @Override

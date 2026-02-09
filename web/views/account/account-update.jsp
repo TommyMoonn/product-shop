@@ -45,6 +45,8 @@
                                                name="firstName"
                                                value="${account.firstName}"
                                                required
+                                               pattern="[\p{L} ]+"
+                                               maxlength="20"
                                                class="form-control form-control-md" placeholder="Enter first name"/>
                                     </div>
 
@@ -55,6 +57,8 @@
                                                name="lastName"
                                                value="${account.lastName}"
                                                required
+                                               pattern="[\p{L} ]+"
+                                               maxlength="50"
                                                class="form-control form-control-md" placeholder="Enter last name"/>
                                     </div>
 
@@ -67,6 +71,7 @@
                                             <fmt:formatDate value="${account.birthday}" pattern="yyyy-MM-dd" var="birthdayFormatted"/>
                                             value="${birthdayFormatted}"
                                             required
+                                            max="${requestScope.today}"
                                             class="form-control form-control-md"/>
                                     </div>
 
@@ -89,6 +94,8 @@
                                                name="phone" 
                                                value="${account.phone}"
                                                required
+                                               pattern="0[0-9]{9}"
+                                               title="Phone number must start with 0 and have 10 digits"
                                                class="form-control form-control-md" placeholder="Enter phone number"/>
                                     </div>
 
@@ -107,15 +114,20 @@
 
                                     <button class="btn btn-primary btn-md mt-3 px-3" 
                                             type="submit" onclick="return confirm('Save new changes?')">
-                                        Update information
+                                        Update Account information
                                     </button>
 
                                 </div>
-                                <a href="${pageContext.request.contextPath}/account"
-                                   class="btn btn-outline-light">
-                                    ← Back
-                                </a>
                             </form>
+                            <c:if test="${not empty error}">
+                                <div class="alert alert-danger">
+                                    <strong>Failed!</strong> ${error}
+                                </div>
+                            </c:if>
+                            <a href="${pageContext.request.contextPath}/account"
+                               class="btn btn-outline-light">
+                                ← Back
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -33,7 +33,12 @@
                                         <input type="text" 
                                                id="name" 
                                                name="categoryName" 
-                                               value="${category.categoryName}" 
+                                               value="${category.categoryName}"
+                                               required
+                                               pattern="[\p{L} ]+"
+                                               minlength="2"
+                                               maxlength="100"
+                                               title="Only letters and spaces"
                                                class="form-control form-control-md" placeholder="Enter category name"/>
                                     </div>
 
@@ -43,20 +48,27 @@
                                                id="memo" 
                                                name="memo" 
                                                value="${category.memo}" 
+                                               maxlength="255"
+                                               title="Brief introduction for the category"
                                                class="form-control form-control-md" placeholder="Enter a memo"/>
                                     </div>
 
                                     <button class="btn btn-primary btn-md mt-3 px-6"
                                             type="submit" onclick="return confirm('Save new changes?')">
-                                        Update Category
+                                        Update Category 
                                     </button>
 
                                 </div>
-                                <a href="${pageContext.request.contextPath}/category/list"
-                                   class="btn btn-outline-light">
-                                    ← Back
-                                </a>
                             </form>
+                            <c:if test="${not empty error}">
+                                <div class="alert alert-danger">
+                                    <strong>Failed!</strong> ${error}
+                                </div>
+                            </c:if>
+                            <a href="${pageContext.request.contextPath}/category/list"
+                               class="btn btn-outline-light">
+                                ← Back
+                            </a>
                         </div>
                     </div>
                 </div>

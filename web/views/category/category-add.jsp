@@ -32,6 +32,10 @@
                                                id="name" 
                                                name="categoryName" 
                                                required
+                                               pattern="[\p{L} ]+"
+                                               minlength="2"
+                                               maxlength="100"
+                                               title="Only letters and spaces"
                                                class="form-control form-control-md" placeholder="Enter category name"/>
                                     </div>
 
@@ -40,17 +44,22 @@
                                         <input type="text" 
                                                id="memo" 
                                                name="memo" 
+                                               maxlength="255"
                                                class="form-control form-control-md" placeholder="Enter a memo"/>
                                     </div>
 
                                     <button class="btn btn-primary btn-md mt-3 px-6" type="submit">Create category</button>
-
                                 </div>
-                                <a href="${pageContext.request.contextPath}/category/list"
-                                   class="btn btn-outline-light">
-                                    ← Back
-                                </a>
                             </form>
+                            <c:if test="${not empty error}">
+                                <div class="alert alert-danger">
+                                    <strong>Failed!</strong> ${error}
+                                </div>
+                            </c:if>
+                            <a href="${pageContext.request.contextPath}/category/list"
+                               class="btn btn-outline-light">
+                                ← Back
+                            </a>
                         </div>
                     </div>
                 </div>

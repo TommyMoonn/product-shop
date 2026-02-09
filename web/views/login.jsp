@@ -51,12 +51,12 @@
                                         </div>
                                         <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-md px-5 mt-1 mb-4" type="submit">Login</button>
                                     </form>
-                                    <c:if test="${not empty error}">
-                                        <div class="alert alert-danger">
-                                            <strong>Failed!</strong> ${error}
-                                        </div>
-                                    </c:if>
                                 </div>
+                                <c:if test="${not empty error}">
+                                    <div class="alert alert-danger">
+                                        <strong>Failed!</strong> ${error}
+                                    </div>
+                                </c:if>
                                 <a href="${pageContext.request.contextPath}"
                                    class="btn btn-outline-light">
                                     ← Back to Home
