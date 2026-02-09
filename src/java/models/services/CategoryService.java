@@ -16,9 +16,6 @@ public class CategoryService implements Accessible<Category> {
 
     @Override
     public void create(Category entity) {
-        if (findById(String.valueOf(entity.getTypeId())) != null) {
-            throw new ValidationException("Category already exists.");
-        }
         validate(entity);
         
         em.getTransaction().begin();
@@ -28,9 +25,6 @@ public class CategoryService implements Accessible<Category> {
 
     @Override
     public Category update(Category entity) {
-        if (findById(String.valueOf(entity.getTypeId())) == null) {
-            throw new ValidationException("Category does not exist.");
-        }
         validate(entity);
         
         em.getTransaction().begin();
