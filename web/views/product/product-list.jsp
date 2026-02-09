@@ -13,7 +13,7 @@
     </head>
 
     <body class="darkmode">
-        
+
         <c:set var="activePage" value="products" />
         <%@include file="../navbar.jspf"%>
         <div class="container mt-4">
@@ -74,14 +74,17 @@
                             <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
                                 <td class="align-middle text-center">
                                     <a class="btn btn-success"
-                                       href="${pageContext.request.contextPath}/product?action=update&productId=${p.productId}">
+                                       href="${pageContext.request.contextPath}/product/update?productId=${p.productId}">
                                         Update
                                     </a>
-                                    <a class="btn btn-danger"
-                                       href="${pageContext.request.contextPath}/product?action=delete&productId=${p.productId}"
-                                       onclick="return confirm('Delete this product?')">
-                                        Delete
-                                    </a>
+                                    <form class="d-inline" 
+                                        action="${pageContext.request.contextPath}/product/delete" method="post">
+                                        <input hidden name="productId" value="${p.productId}">
+                                        <button class="btn btn-danger" type="submit"
+                                           onclick="return confirm('Delete this product?')">
+                                            Delete
+                                        </button>
+                                    </form>
                                 </td>
                             </c:if>
                         </tr>

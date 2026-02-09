@@ -21,8 +21,7 @@
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
-                            <form action="category" method="post" accept-charset="UTF-8">
-                                <input type="hidden" name="action" value="add">
+                            <form action="${pageContext.request.contextPath}/category/add" method="post" accept-charset="UTF-8">
                                 <div class="mb-md-5 mt-md-3 pb-5">
 
                                     <h2 class="fw-bold mb-4">Create a new category</h2>
@@ -47,7 +46,7 @@
                                     <button class="btn btn-primary btn-md mt-3 px-6" type="submit">Create category</button>
 
                                 </div>
-                                <a href="${pageContext.request.contextPath}/category"
+                                <a href="${pageContext.request.contextPath}/category/list"
                                    class="btn btn-outline-light">
                                     ← Back
                                 </a>

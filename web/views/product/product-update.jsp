@@ -21,7 +21,7 @@
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
-                            <form action="product" method="post" accept-charset="UTF-8">
+                            <form action="${pageContext.request.contextPath}/product/update" method="post" accept-charset="UTF-8">
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="productId" value="${product.productId}">
                                 
@@ -96,11 +96,15 @@
                                                class="form-control form-control-md" placeholder="Enter product discount"/>
                                     </div>
 
-                                    <button class="btn btn-primary btn-md mt-3 px-3" type="submit">Create product</button>
+                                    <button class="btn btn-primary btn-md mt-3 px-3"
+                                            type="submit" onclick="return confirm('Save new changes?')">
+                                        Create product
+                                    </button>
 
                                 </div>
-                                <a href="${pageContext.request.contextPath}/product"
-                                   class="btn btn-outline-light">
+                                <a href="${pageContext.request.contextPath}/product/list"
+                                   class="btn btn-outline-light"
+                                   >
                                     ← Back
                                 </a>
                             </form>

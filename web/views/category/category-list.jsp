@@ -39,13 +39,17 @@
                             <td>${c.memo}</td>
                             <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
                                 <td>
-                                    <a class="btn btn-success " href="category?action=update&typeId=${c.typeId}">
+                                    <a class="btn btn-success" href="${pageContext.request.contextPath}/category/update?typeId=${c.typeId}">
                                         Edit
                                     </a>
-                                    <a class="btn btn-danger" href="category?action=delete&typeId=${c.typeId}"
-                                       onclick="return confirm('Delete this category?')">
-                                        Delete
-                                    </a>
+                                    <form class="d-inline"
+                                          action="${pageContext.request.contextPath}/category/delete" method="post">
+                                        <input hidden name="typeId" value="${c.typeId}">
+                                        <button class="btn btn-danger" type="submit"
+                                           onclick="return confirm('Delete this category?')">
+                                            Delete
+                                        </button>
+                                    </form>
                                 </td> 
                             </c:if>
                         </tr>

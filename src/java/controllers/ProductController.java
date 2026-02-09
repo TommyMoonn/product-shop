@@ -13,7 +13,7 @@ import models.entities.Product;
 import models.services.CategoryService;
 import models.services.ProductService;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/product"})
+@WebServlet(name = "ProductController", urlPatterns = {"/product/*"})
 public class ProductController extends HttpServlet {
 
     private final ProductService productService = new ProductService();
@@ -24,27 +24,27 @@ public class ProductController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-
+        String action = request.getPathInfo();
+        
         if (action == null) {
-            action = "list";
+            action = "/list";
         }
 
         switch (action) {
-            case "list":
+            case "/list":
                 showProductList(request, response);
                 break;
-            case "add":
+            case "/add":
                 showProductAddForm(request, response);
                 break;
-            case "update":
+            case "/update":
                 showProductUpdateForm(request, response);
                 break;
-            case "delete":
-                deleteProduct(request, response);
+            case "/detail":
+                showProductDetail(request, response);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "product");
+                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
         }
     }
 
@@ -54,21 +54,24 @@ public class ProductController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
-        String action = request.getParameter("action");
+        String action = request.getPathInfo();
 
         if (action == null) {
-            action = "list";
+            action = "/list";
         }
 
         switch (action) {
-            case "add":
+            case "/add":
                 addProduct(request, response);
                 break;
-            case "update":
+            case "/update":
                 updateProduct(request, response);
                 break;
+            case "/delete":
+                deleteProduct(request, response);
+                break;
             default:
-                response.sendRedirect(request.getContextPath() + "/product");
+                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
         }
     }
 
@@ -89,6 +92,13 @@ public class ProductController extends HttpServlet {
         request.setAttribute("list", list);
         request.setAttribute("categories", categoryService.findAll());
         request.getRequestDispatcher("/views/product/product-list.jsp").forward(request, response);
+    }
+
+    public void showProductDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("productId");
+        Product p = productService.findById(id);
+        request.setAttribute("product", p);
+        request.getRequestDispatcher("/views/product/product-detail.jsp").forward(request, response);
     }
 
     public void showProductAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -118,7 +128,7 @@ public class ProductController extends HttpServlet {
         p.setAccount(a);
 
         productService.create(p);
-        response.sendRedirect(request.getContextPath() + "/product");
+        response.sendRedirect(request.getContextPath() + "/product/list");
     }
 
     public void showProductUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -142,13 +152,13 @@ public class ProductController extends HttpServlet {
         p.setDiscount(Integer.parseInt(request.getParameter("discount")));
 
         productService.update(p);
-        response.sendRedirect(request.getContextPath() + "/product");
+        response.sendRedirect(request.getContextPath() + "/product/list");
     }
 
     public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("productId");
         productService.delete(id);
-        response.sendRedirect(request.getContextPath() + "/product");
+        response.sendRedirect(request.getContextPath() + "/product/list");
     }
 
     @Override

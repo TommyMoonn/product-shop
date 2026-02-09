@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import models.entities.Account;
 import models.services.AccountService;
 
-@WebServlet(name = "AccountController", urlPatterns = {"/account"})
+@WebServlet(name = "AccountController", urlPatterns = {"/account/*"})
 public class AccountController extends HttpServlet {
 
     private AccountService accountService = new AccountService();
@@ -23,33 +23,30 @@ public class AccountController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
+        String action = request.getPathInfo();
 
         if (action == null) {
-            action = "list";
+            action = "/list";
         }
 
         switch (action) {
-            case "list":
+            case "/list":
                 showAccountList(request, response);
                 break;
-            case "add":
+            case "/add":
                 showAccountAddForm(request, response);
                 break;
-            case "update":
+            case "/update":
                 showAccountUpdateForm(request, response);
                 break;
-            case "delete":
-                deleteAccount(request,response);
-                break;
-            case "activate":
+            case "/activate":
                 updateAccountStatus(request, response, true);
                 break;
-            case "deactivate":
+            case "/deactivate":
                 updateAccountStatus(request, response, false);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "product");
+                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
         }
     }
 
@@ -58,21 +55,24 @@ public class AccountController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
+        String action = request.getPathInfo();
 
         if (action == null) {
-            action = "list";
+            action = "/list";
         }
 
         switch (action) {
-            case "add":
+            case "/add":
                 addAccount(request, response);
                 break;
-            case "update":
+            case "/update":
                 updateAccount(request, response);
                 break;
+            case "/delete":
+                deleteAccount(request, response);
+                break;
             default:
-                response.sendRedirect(request.getContextPath() + "product");
+                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
         }
     }
 
@@ -84,7 +84,7 @@ public class AccountController extends HttpServlet {
     }
 
     public void showAccountAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("views/account/account-add.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/account/account-add.jsp").forward(request, response);
     }
 
     public void addAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -109,7 +109,7 @@ public class AccountController extends HttpServlet {
         a.setRoleInSystem(Integer.parseInt(request.getParameter("role")));
 
         accountService.create(a);
-        response.sendRedirect(request.getContextPath() + "/account");
+        response.sendRedirect(request.getContextPath() + "/account/list");
     }
 
     public void showAccountUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -122,7 +122,7 @@ public class AccountController extends HttpServlet {
     public void updateAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
         Account a = accountService.findById(account);
-        
+
         a.setPass(request.getParameter("pass"));
         a.setFirstName(request.getParameter("firstName"));
         a.setLastName(request.getParameter("lastName"));
@@ -138,21 +138,21 @@ public class AccountController extends HttpServlet {
         a.setPhone(request.getParameter("phone"));
         a.setActive(true); //active by default
         a.setRoleInSystem(Integer.parseInt(request.getParameter("role")));
-        
+
         accountService.update(a);
-        response.sendRedirect(request.getContextPath() + "/account");
+        response.sendRedirect(request.getContextPath() + "/account/list");
     }
 
     public void updateAccountStatus(HttpServletRequest request, HttpServletResponse response, boolean status) throws ServletException, IOException {
         String account = request.getParameter("account");
         accountService.updateIsUsed(account, status);
-        response.sendRedirect(request.getContextPath() + "/account");
+        response.sendRedirect(request.getContextPath() + "/account/list");
     }
 
     public void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
         accountService.delete(account);
-        response.sendRedirect(request.getContextPath() + "/account");
+        response.sendRedirect(request.getContextPath() + "/account/list");
     }
 
     @Override

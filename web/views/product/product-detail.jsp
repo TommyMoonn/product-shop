@@ -55,7 +55,7 @@
                                 </li>
                             </ul>
 
-                            <a href="${pageContext.request.contextPath}/product"
+                            <a href="${pageContext.request.contextPath}/product/list"
                                class="btn btn-outline-light">
                                 ← Back to Products
                             </a>

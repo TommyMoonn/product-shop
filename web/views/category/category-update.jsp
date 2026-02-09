@@ -21,7 +21,7 @@
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
-                            <form action="category" method="post">
+                            <form action="${pageContext.request.contextPath}/category/update" method="post">
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="typeId" value="${category.typeId}">
                                 <div class="mb-md-5 mt-md-3 pb-5">
@@ -46,10 +46,13 @@
                                                class="form-control form-control-md" placeholder="Enter a memo"/>
                                     </div>
 
-                                    <button class="btn btn-primary btn-md mt-3 px-6" type="submit">Update Category</button>
+                                    <button class="btn btn-primary btn-md mt-3 px-6"
+                                            type="submit" onclick="return confirm('Save new changes?')">
+                                        Update Category
+                                    </button>
 
                                 </div>
-                                <a href="category"
+                                <a href="${pageContext.request.contextPath}/category/list"
                                    class="btn btn-outline-light">
                                     ← Back
                                 </a>

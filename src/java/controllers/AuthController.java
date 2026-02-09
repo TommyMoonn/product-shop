@@ -15,8 +15,6 @@ public class AuthController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Account a = getUser(request);
-
         if (!isLoggedIn(request)) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
@@ -69,7 +67,7 @@ public class AuthController extends HttpServlet {
             return;
         }
 
-        request.getRequestDispatcher("/" + url).forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/" + url);
     }
 
     public void handleCategory(HttpServletRequest request, HttpServletResponse response, String type, String action)
@@ -86,7 +84,7 @@ public class AuthController extends HttpServlet {
             return;
         }
 
-        request.getRequestDispatcher("/" + url).forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/" + url);
     }
 
     public void handleAccount(HttpServletRequest request, HttpServletResponse response, String type, String action)
@@ -101,29 +99,35 @@ public class AuthController extends HttpServlet {
             return;
         }
 
-        request.getRequestDispatcher("/" + url).forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/" + url);
     }
-
+    
+    //helper class to see whether the user is logged in
     private boolean isLoggedIn(HttpServletRequest request) {
         return request.getSession().getAttribute("user") != null;
     }
 
+    //helper class to get user 
     private Account getUser(HttpServletRequest request) {
         return (Account) request.getSession().getAttribute("user");
     }
 
+    //returns a string url "type/action"
     private String resolveUrl(String type, String action) {
-        return type + "?action=" + action;
+        return type + "/" + action;
     }
 
+    //check if the user can manage accounts
     private boolean canManageAccounts(Account a) {
         return Role.isAdmin(a.getRoleInSystem());
     }
 
+    //check if the user can manage products
     private boolean canManageProducts(Account a) {
         return Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem());
     }
 
+    //check if the user can manage categoriess
     private boolean canManageCategories(Account a) {
         return Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem());
     }

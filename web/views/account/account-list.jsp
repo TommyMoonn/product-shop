@@ -65,30 +65,33 @@
                             </td>
                             <td class="align-middle text-center">
                                 <a class="btn btn-success" 
-                                   href="${pageContext.request.contextPath}/account?action=update&account=${a.account}">
+                                   href="${pageContext.request.contextPath}/account/update?account=${a.account}">
                                     Edit
                                 </a>
                                 <c:choose>
                                     <c:when test="${a.active}">
                                         <a class="btn btn-primary" 
-                                           href="${pageContext.request.contextPath}/account?action=deactivate&account=${a.account}"
+                                           href="${pageContext.request.contextPath}/account/deactivate?account=${a.account}"
                                            onclick="return confirm('Deactivate this account?')">
                                             Active
                                         </a>
                                     </c:when>
                                     <c:otherwise>
                                         <a class="btn btn-secondary" 
-                                           href="${pageContext.request.contextPath}/account?action=activate&account=${a.account}"
+                                           href="${pageContext.request.contextPath}/account/activate?account=${a.account}"
                                            onclick="return confirm('Activate this account?')">
                                             Unactive
                                         </a>
                                     </c:otherwise>
                                 </c:choose>
-                                <a class="btn btn-danger" 
-                                   href="${pageContext.request.contextPath}/account?action=delete&account=${a.account}"
-                                   onclick="return confirm('Delete this account?')">
-                                    Delete
-                                </a>
+                                <form class="d-inline"
+                                      action="${pageContext.request.contextPath}/account/delete" method="post">
+                                    <input hidden name="account" value="${a.account}">
+                                    <button class="btn btn-danger" 
+                                       onclick="return confirm('Delete this account?')">
+                                        Delete
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
