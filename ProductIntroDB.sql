@@ -7,7 +7,7 @@ go
 drop database ProductIntro
 go
 -- Tạo database ProductIntro
-create database ProductIntro
+create database ProductIntro	
 go
 use ProductIntro
 go
@@ -28,7 +28,7 @@ go
 create table categories(
 	typeId int primary key not null identity,
 	categoryName nvarchar(88) not null,
-	memo nvarchar(max) default N''
+	memo ntext default N''
 )
 go
 -- 3: Tạo Table [Products] chứa thông tin của sản phẩm cần giới thiệu --------------
