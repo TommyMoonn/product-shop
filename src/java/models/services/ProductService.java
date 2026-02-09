@@ -1,6 +1,7 @@
 package models.services;
 
 import exceptions.ValidationException;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import models.entities.Product;
@@ -16,6 +17,7 @@ public class ProductService implements Accessible<Product> {
 
     @Override
     public void create(Product entity) {
+        entity.setPostedDate(new Date());
         //create operation specific check
         if (findById(entity.getProductId()) != null) {
             throw new ValidationException("Product already exists.");
