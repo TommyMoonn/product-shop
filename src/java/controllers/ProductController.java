@@ -25,7 +25,7 @@ public class ProductController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getPathInfo();
-        
+
         if (action == null) {
             action = "/list";
         }
@@ -121,8 +121,8 @@ public class ProductController extends HttpServlet {
         //get the current user
         Account a = (Account) request.getSession().getAttribute("user");
 
-        Category c = new Category();
-        c.setTypeId(Integer.parseInt(request.getParameter("typeId")));
+        int typeId = Integer.parseInt(request.getParameter("typeId"));
+        Category c = categoryService.findById(String.valueOf(typeId)); // managed entity
 
         p.setType(c);
         p.setAccount(a);
@@ -150,6 +150,11 @@ public class ProductController extends HttpServlet {
         p.setUnit(request.getParameter("unit"));
         p.setPrice(Integer.parseInt(request.getParameter("price")));
         p.setDiscount(Integer.parseInt(request.getParameter("discount")));
+
+        int typeId = Integer.parseInt(request.getParameter("typeId"));
+        Category c = categoryService.findById(String.valueOf(typeId));
+        
+        p.setType(c);
 
         productService.update(p);
         response.sendRedirect(request.getContextPath() + "/product/list");
