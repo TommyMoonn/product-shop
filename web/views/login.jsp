@@ -30,7 +30,7 @@
                                         <img src="${pageContext.request.contextPath}/images/img_avatar1.png" alt="placeholder" style="width:300px;" class="rounded-pill">
                                     </h2>
                                     <!--<p class="text-white-50 mb-5">Please enter your login and password!</p>-->
-                                    <form action="login" method="POST">
+                                    <form action="${pageContext.request.contextPath}/login" method="POST">
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <label class="form-label" for="account">Name</label>
                                             <input type="text"

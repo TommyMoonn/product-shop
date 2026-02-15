@@ -25,7 +25,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String account = request.getParameter("account").trim();
         String pass = request.getParameter("pass").trim();
-        
+
         AccountService accountDAO = new AccountService();
         Account a = accountDAO.authenticate(account, pass);
 
@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
-        
+
         //check if the account is deactivated
         if (!a.getActive()) {
             request.setAttribute("error",
@@ -52,7 +52,7 @@ public class LoginController extends HttpServlet {
         }
         //create a new session
         HttpSession newSession = request.getSession();
-        newSession.setAttribute("user", a); 
+        newSession.setAttribute("user", a);
 
         response.sendRedirect(request.getContextPath());
     }

@@ -15,11 +15,13 @@ public class AuthController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (!isLoggedIn(request)) {
+        
+        if (getUser(request) == null) {
+            //user is not logged in -> redirect to login page
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-
+        
         String type = request.getParameter("type");
         String action = request.getParameter("action");
 
@@ -35,13 +37,13 @@ public class AuthController extends HttpServlet {
 
         switch (type) {
             case "product":
-                handleProduct(request, response, type, action);
+                handleProduct(request, response);
                 break;
             case "category":
-                handleCategory(request, response, type, action);
+                handleCategory(request, response);
                 break;
             case "account":
-                handleAccount(request, response, type, action);
+                handleAccount(request, response);
                 break;
             default:
                 response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
@@ -53,14 +55,16 @@ public class AuthController extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    public void handleProduct(HttpServletRequest request, HttpServletResponse response, String type, String action)
+    public void handleProduct(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = getUser(request);
+        String type = request.getParameter("type");
+        String action = request.getParameter("action");
 
         String url;
         if (action.equals("list")) {
             url = resolveUrl(type, "list");
-        } else if (canManageProducts(a)) {
+        } else if (Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem())) {
             url = resolveUrl(type, action);
         } else {
             response.sendRedirect(request.getContextPath() + "/views/access-denied.jsp");
@@ -70,14 +74,16 @@ public class AuthController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/" + url);
     }
 
-    public void handleCategory(HttpServletRequest request, HttpServletResponse response, String type, String action)
+    public void handleCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = getUser(request);
+        String type = request.getParameter("type");
+        String action = request.getParameter("action");
 
         String url;
         if (action.equals("list")) {
             url = resolveUrl(type, "list");
-        } else if (canManageCategories(a)) {
+        } else if (Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem())) {
             url = resolveUrl(type, action);
         } else {
             response.sendRedirect(request.getContextPath() + "/views/access-denied.jsp");
@@ -87,12 +93,14 @@ public class AuthController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/" + url);
     }
 
-    public void handleAccount(HttpServletRequest request, HttpServletResponse response, String type, String action)
+    public void handleAccount(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = getUser(request);
-
+        String type = request.getParameter("type");
+        String action = request.getParameter("action");
+        
         String url;
-        if (canManageAccounts(a)) {
+        if (Role.isAdmin(a.getRoleInSystem())) {
             url = resolveUrl(type, action);
         } else {
             response.sendRedirect(request.getContextPath() + "/views/access-denied.jsp");
@@ -100,11 +108,6 @@ public class AuthController extends HttpServlet {
         }
 
         response.sendRedirect(request.getContextPath() + "/" + url);
-    }
-    
-    //helper class to see whether the user is logged in
-    private boolean isLoggedIn(HttpServletRequest request) {
-        return request.getSession().getAttribute("user") != null;
     }
 
     //helper class to get user 
@@ -115,21 +118,6 @@ public class AuthController extends HttpServlet {
     //returns a string url "type/action"
     private String resolveUrl(String type, String action) {
         return type + "/" + action;
-    }
-
-    //check if the user can manage accounts
-    private boolean canManageAccounts(Account a) {
-        return Role.isAdmin(a.getRoleInSystem());
-    }
-
-    //check if the user can manage products
-    private boolean canManageProducts(Account a) {
-        return Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem());
-    }
-
-    //check if the user can manage categoriess
-    private boolean canManageCategories(Account a) {
-        return Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem());
     }
 
     @Override

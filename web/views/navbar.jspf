@@ -22,7 +22,7 @@
                 </span>
             </li>
             <li class="nav-item">
-                <a class="nav-link  ${activePage == 'home' ? 'active' : ''}" href="${pageContext.request.contextPath}" role="button">Home</a>
+                <a class="nav-link  ${activePage == 'home' ? 'active' : ''}" href="${pageContext.request.contextPath}/" role="button">Home</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle ${activePage == 'accounts' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">Accounts</a>
