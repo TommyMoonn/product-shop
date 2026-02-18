@@ -12,16 +12,15 @@ import models.entities.Role;
 @WebServlet(name = "AuthController", urlPatterns = {"/auth"})
 public class AuthController extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         if (getUser(request) == null) {
             //user is not logged in -> redirect to login page
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        
+
         String type = request.getParameter("type");
         String action = request.getParameter("action");
 
@@ -51,8 +50,15 @@ public class AuthController extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     public void handleProduct(HttpServletRequest request, HttpServletResponse response)
@@ -71,7 +77,7 @@ public class AuthController extends HttpServlet {
             return;
         }
 
-        response.sendRedirect(request.getContextPath() + "/" + url);
+        request.getRequestDispatcher("/" + url).forward(request, response);
     }
 
     public void handleCategory(HttpServletRequest request, HttpServletResponse response)
@@ -90,7 +96,7 @@ public class AuthController extends HttpServlet {
             return;
         }
 
-        response.sendRedirect(request.getContextPath() + "/" + url);
+        request.getRequestDispatcher("/" + url).forward(request, response);
     }
 
     public void handleAccount(HttpServletRequest request, HttpServletResponse response)
@@ -98,7 +104,7 @@ public class AuthController extends HttpServlet {
         Account a = getUser(request);
         String type = request.getParameter("type");
         String action = request.getParameter("action");
-        
+
         String url;
         if (Role.isAdmin(a.getRoleInSystem())) {
             url = resolveUrl(type, action);
@@ -107,7 +113,7 @@ public class AuthController extends HttpServlet {
             return;
         }
 
-        response.sendRedirect(request.getContextPath() + "/" + url);
+        request.getRequestDispatcher("/" + url).forward(request, response);
     }
 
     //helper class to get user 

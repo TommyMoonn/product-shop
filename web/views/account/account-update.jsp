@@ -22,7 +22,9 @@
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
-                            <form action="${pageContext.request.contextPath}/account/update" method="post" accept-charset="UTF-8">
+                            <form action="${pageContext.request.contextPath}/auth" method="post" accept-charset="UTF-8">
+                                <input type="hidden" name="type" value="account">
+                                <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="account" value="${account.account}">
                                 <div class="mb-md-5 mt-md-3 pb-5">
 
