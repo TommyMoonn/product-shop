@@ -18,7 +18,11 @@
         <%@include file="../navbar.jspf"%>
 
         <div class="container mt-4">
-            <h1 class="text-center">List of Accounts</h1>
+            <h1 class="text-center">
+                Account Dashboard
+                <img src="${pageContext.request.contextPath}/images/icons/avatar-icon-2.png" alt="account"
+                     width="50" height="50" class="align-middle"/>
+            </h1>
 
             <table class="table table-dark table-striped table-bordered table-hover mt-3">
                 <thead>     
@@ -29,6 +33,7 @@
                         <th>Gender</th>
                         <th>Phone</th>
                         <th>Role</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -63,14 +68,10 @@
                                     </c:otherwise>
                                 </c:choose>
                             </td>
-                            <td class="align-middle text-center">
-                                <a class="btn btn-success" 
-                                   href="${pageContext.request.contextPath}/account/update?account=${a.account}">
-                                    Edit
-                                </a>
+                            <td class="text-center">
                                 <c:choose>
                                     <c:when test="${a.active}">
-                                        <a class="btn btn-primary" 
+                                        <a class="btn btn-success" 
                                            href="${pageContext.request.contextPath}/account/deactivate?account=${a.account}"
                                            onclick="return confirm('Deactivate this account?')">
                                             Active
@@ -84,11 +85,21 @@
                                         </a>
                                     </c:otherwise>
                                 </c:choose>
-                                <form class="d-inline"
+                            </td>
+                            <td class="d-flex gap-2 align-middle text-center">
+                                <a class="btn btn-primary w-50" 
+                                   href="${pageContext.request.contextPath}/account/update?account=${a.account}">
+                                    <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="edit"
+                                         width="20" height="20"/>
+                                    Edit
+                                </a>
+                                <form class="w-50"
                                       action="${pageContext.request.contextPath}/account/delete" method="post">
                                     <input hidden name="account" value="${a.account}">
-                                    <button class="btn btn-danger" 
-                                       onclick="return confirm('Delete this account?')">
+                                    <button class="btn btn-danger w-100" type="submit"
+                                            onclick="return confirm('Delete this account?')">
+                                        <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png" alt="delete"
+                                             style="width: 20px; height: auto"/>
                                         Delete
                                     </button>
                                 </form>

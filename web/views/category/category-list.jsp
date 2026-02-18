@@ -17,7 +17,11 @@
         <%@include file="../navbar.jspf"%>
 
         <div class="container mt-4">
-            <h1 class="text-center">List of Categories</h1>
+            <h1 class="text-center">
+                Category Dashboard
+                <img src="${pageContext.request.contextPath}/images/icons/category-icon.png" alt=""
+                     width="50" height="50" class="align-middle"/>
+            </h1>
 
             <table class="table table-dark table-striped table-bordered table-hover mt-3">
                 <thead>
@@ -38,15 +42,20 @@
                             <td>${c.categoryName}</td>
                             <td>${c.memo}</td>
                             <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
-                                <td>
-                                    <a class="btn btn-success" href="${pageContext.request.contextPath}/category/update?typeId=${c.typeId}">
+                                <td class="d-flex gap-2 align-middle text-center">
+                                    <a class="btn btn-primary w-50" 
+                                       href="${pageContext.request.contextPath}/category/update?typeId=${c.typeId}">
+                                        <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="update"
+                                             width="20" height="20"/>
                                         Edit
                                     </a>
-                                    <form class="d-inline"
+                                    <form class="w-50"
                                           action="${pageContext.request.contextPath}/category/delete" method="post">
                                         <input hidden name="typeId" value="${c.typeId}">
-                                        <button class="btn btn-danger" type="submit"
-                                           onclick="return confirm('Delete this category?')">
+                                        <button class="btn btn-danger w-100" type="submit"
+                                                onclick="return confirm('Delete this category?')">
+                                            <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png" alt="delete"
+                                                 style="width: 20px; height: auto"/>
                                             Delete
                                         </button>
                                     </form>

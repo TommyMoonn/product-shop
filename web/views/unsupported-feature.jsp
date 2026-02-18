@@ -11,7 +11,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body class="darkmode">
-        <%@include file="navbar.jspf"%>
         <div class="container text-center mt-5">
             <img src="${pageContext.request.contextPath}/images/unavailable-feature.png"
                  class="img-fluid mb-4"
