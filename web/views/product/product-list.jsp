@@ -87,8 +87,10 @@
                                             Update
                                         </a>
                                         <form class="" 
-                                              action="${pageContext.request.contextPath}/product/delete" method="post">
+                                              action="${pageContext.request.contextPath}/auth" method="post">
                                             <input hidden name="productId" value="${p.productId}">
+                                            <input hidden name="type" value="product">
+                                            <input hidden name="action" value="delete">
                                             <button class="btn btn-danger w-100" type="submit"
                                                     onclick="return confirm('Delete this product?')">
                                                 <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png" alt="delete"

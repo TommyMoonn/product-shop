@@ -50,8 +50,10 @@
                                         Edit
                                     </a>
                                     <form class="w-50"
-                                          action="${pageContext.request.contextPath}/category/delete" method="post">
+                                          action="${pageContext.request.contextPath}/auth" method="post">
                                         <input hidden name="typeId" value="${c.typeId}">
+                                        <input hidden name="type" value="category">
+                                        <input hidden name="action" value="delete">
                                         <button class="btn btn-danger w-100" type="submit"
                                                 onclick="return confirm('Delete this category?')">
                                             <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png" alt="delete"
