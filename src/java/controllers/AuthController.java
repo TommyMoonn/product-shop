@@ -14,7 +14,9 @@ public class AuthController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        
         if (getUser(request) == null) {
             //user is not logged in -> redirect to login page
             response.sendRedirect(request.getContextPath() + "/login");
