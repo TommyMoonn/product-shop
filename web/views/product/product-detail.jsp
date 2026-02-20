@@ -17,7 +17,7 @@
         <%@include file="../navbar.jspf"%>
         <div class="container mt-5">
             <div class="card bg-dark text-light shadow-lg">
-                <div class="row g-0">
+                <div class="row g-0 mb-3">
 
                     <div class="col-md-4 text-center p-4">
                         <img src="${pageContext.request.contextPath}${product.productImage}"
@@ -54,14 +54,35 @@
                                     <strong>Discount:</strong> ${product.discount}%
                                 </li>
                             </ul>
+                            <div class="d-flex gap-2 mt-3">
+                                <a href="${pageContext.request.contextPath}/product/list"
+                                   class="btn btn-outline-light">
+                                    ← Back to Products
+                                </a>
+                                <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
+                                    <a class="btn btn-primary"
+                                       href="${pageContext.request.contextPath}/product/update?productId=${product.productId}">
+                                        <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png"
+                                             width="20" height="20"/>
+                                        Update
+                                    </a>
 
-                            <a href="${pageContext.request.contextPath}/product/list"
-                               class="btn btn-outline-light">
-                                ← Back to Products
-                            </a>
+                                    <form action="${pageContext.request.contextPath}/product/delete"
+                                          method="post"
+                                          class="d-inline">
+                                        <input type="hidden" name="productId" value="${product.productId}">
+                                        <button class="btn btn-danger"
+                                                type="submit"
+                                                onclick="return confirm('Delete this product?')">
+                                            <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png"
+                                                 width="20"/>
+                                            Delete
+                                        </button>
+                                    </form>
+                                </c:if>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
