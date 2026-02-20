@@ -18,18 +18,22 @@
 
         <div class="container py-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="col-12 col-md-10 col-lg-8 col-xl-7">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
                             <form action="${pageContext.request.contextPath}/auth" method="post" accept-charset="UTF-8">
                                 <input type="hidden" name="type" value="product">
                                 <input type="hidden" name="action" value="add">
-                                
-                                <div class="mb-md-5 mt-md-3 pb-5">
 
-                                    <h2 class="fw-bold mb-4">Create a new product</h2>
-
-                                    <div class="form-outline form-white mb-3">
+                                <h2 class="fw-bold mb-3"> 
+                                    Create a new product
+                                    <img src="${pageContext.request.contextPath}/images/icons/box-icon.png" alt="product"
+                                         width="35" height="35" class="align-middle"/>
+                                </h2>
+                                <hr>
+                                <!--Product ID and Product Name section-->
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
                                         <label class="form-label" for="proId">Product ID</label>
                                         <input type="text" 
                                                id="proId" 
@@ -37,10 +41,11 @@
                                                required
                                                pattern="[A-Z0-9_-]{3,20}"
                                                title="3–20 characters, uppercase letters, numbers, _ or -"
-                                               class="form-control form-control-md" placeholder="Enter product id"/>
+                                               class="form-control form-control-md" 
+                                               placeholder="e.g. HD001, TS012,..."/>
                                     </div>
 
-                                    <div class="form-outline form-white mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <label class="form-label" for="proName">Product name</label>
                                         <input type="text" 
                                                id="proName" 
@@ -48,19 +53,25 @@
                                                required
                                                minlength="2"
                                                maxlength="100"
-                                               class="form-control form-control-md" placeholder="Enter product name"/>
+                                               class="form-control form-control-md" 
+                                               placeholder="e.g. Hoodie, Áo thun,..."/>
                                     </div>
+                                </div>
 
-                                    <div class="form-outline form-white mb-3">
-                                        <label class="form-label" for="brief">Brief</label>
-                                        <input type="text" 
-                                               id="brief" 
-                                               name="brief" 
-                                               maxlength="255"
-                                               class="form-control form-control-md" placeholder="Enter a brief for the product"/>
-                                    </div>
+                                <!--Brief section-->
+                                <div class="mb-3">
+                                    <label class="form-label" for="brief">Brief</label>
+                                    <textarea 
+                                        id="brief" 
+                                        name="brief" 
+                                        rows="4"
+                                        class="form-control form-control-md" 
+                                        placeholder="Brief introduction for the product"></textarea>
+                                </div>
 
-                                    <div class="form-outline form-white mb-3">
+                                <!--Category and Unit section-->
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
                                         <label class="form-label" for="typeId">Category</label>
                                         <select 
                                             id="typeId"
@@ -76,7 +87,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-outline form-white mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <label class="form-label" for="unit">Unit</label>
                                         <input type="text" 
                                                id="unit" 
@@ -85,10 +96,14 @@
                                                pattern="[\p{L} ]+"
                                                maxlength="20"
                                                title="Only letters and spaces"
-                                               class="form-control form-control-md" placeholder="Enter unit"/>
+                                               class="form-control form-control-md" 
+                                               placeholder="e.g. Cái,..."/>
                                     </div>
+                                </div>
 
-                                    <div class="form-outline form-white mb-3">
+                                <!--Price and Discount section-->
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
                                         <label class="form-label" for="price">Price</label>
                                         <input type="number" 
                                                id="price" 
@@ -96,10 +111,11 @@
                                                required
                                                min="0"
                                                step="0.1"
-                                               class="form-control form-control-md" placeholder="Enter product price"/>
+                                               class="form-control form-control-md" 
+                                               placeholder="e.g. 350000, 270000,..."/>
                                     </div>
 
-                                    <div class="form-outline form-white mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <label class="form-label" for="discount">Discount</label>
                                         <input type="number" 
                                                id="discount" 
@@ -108,19 +124,20 @@
                                                min="0"
                                                max="100"
                                                step="1"
-                                               class="form-control form-control-md" placeholder="Enter discount percentage"/>
+                                               class="form-control form-control-md" 
+                                               placeholder="e.g. 5, 10, 15,..."/>
                                     </div>
-
-                                    <button class="btn btn-primary btn-md mt-3 px-3" type="submit">Create product</button>
                                 </div>
+
+                                <button class="btn btn-primary btn-md mt-3 px-3" type="submit">Create product</button>
                             </form>
                             <c:if test="${not empty error}">
-                                <div class="alert alert-danger">
+                                <div class="alert alert-danger mt-2 mb-2 text-center">
                                     <strong>Failed!</strong> ${error}
                                 </div>
                             </c:if>
                             <a href="${pageContext.request.contextPath}/product/list"
-                               class="btn btn-outline-light">
+                               class="btn btn-outline-light text-center mt-3">
                                 ← Back
                             </a>
                         </div>
