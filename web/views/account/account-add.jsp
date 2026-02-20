@@ -32,6 +32,7 @@
                                          width="45" height="45" class="align-middle"/>
                                 </h2>
                                 <hr>
+                                
                                 <!--Account name and password section-->
                                 <div class="mb-3">
                                     <label class="form-label" for="account">Account name</label>
@@ -135,6 +136,7 @@
                                     </select>
                                 </div>
 
+                                <!--Submit and back button-->
                                 <div class="d-flex justify-content-between mt-4">
                                     <a href="${pageContext.request.contextPath}/account/list"
                                        class="btn btn-outline-light">
@@ -145,7 +147,7 @@
                                 </div>
                             </form>
                             <c:if test="${not empty error}">
-                                <div class="alert alert-danger">
+                                <div class="alert alert-danger mt-3">
                                     <strong>Failed!</strong> ${error}
                                 </div>
                             </c:if>

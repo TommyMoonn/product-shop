@@ -31,6 +31,7 @@
                                          width="35" height="35" class="align-middle"/>
                                 </h2>
                                 <hr>
+                                
                                 <!--Product ID and Product Name section-->
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
@@ -128,18 +129,22 @@
                                                placeholder="e.g. 5, 10, 15,..."/>
                                     </div>
                                 </div>
+                                
+                                <!--Submit and back button-->
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a href="${pageContext.request.contextPath}/product/list"
+                                       class="btn btn-outline-light">
+                                        ← Back
+                                    </a>
 
-                                <button class="btn btn-primary btn-md mt-3 px-3" type="submit">Create product</button>
+                                    <button class="btn btn-primary btn-md px-3" type="submit">Create product</button>
+                                </div>
                             </form>
                             <c:if test="${not empty error}">
-                                <div class="alert alert-danger mt-2 mb-2 text-center">
+                                <div class="alert alert-danger mt-3">
                                     <strong>Failed!</strong> ${error}
                                 </div>
                             </c:if>
-                            <a href="${pageContext.request.contextPath}/product/list"
-                               class="btn btn-outline-light text-center mt-3">
-                                ← Back
-                            </a>
                         </div>
                     </div>
                 </div>

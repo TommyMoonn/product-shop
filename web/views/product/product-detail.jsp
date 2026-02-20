@@ -27,6 +27,8 @@
 
                     <div class="col-md-8">
                         <div class="card-body">
+                            
+                            <!--Product details-->
                             <h2 class="card-title">
                                 ${product.productName}
                                 <small class="fs-6 ms-2">
@@ -54,6 +56,8 @@
                                     <strong>Discount:</strong> ${product.discount}%
                                 </li>
                             </ul>
+                                
+                            <!--Action buttons-->
                             <div class="d-flex gap-2 mt-3">
                                 <a href="${pageContext.request.contextPath}/product/list"
                                    class="btn btn-outline-light">

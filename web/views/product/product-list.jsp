@@ -21,7 +21,7 @@
             <h1 class="text-center"> 
                 Product Dashboard
                 <img src="${pageContext.request.contextPath}/images/icons/box-icon.png" alt="product"
-                    width="40" height="40" class="align-middle"/>
+                     width="40" height="40" class="align-middle"/>
             </h1>
             <div data-bs-theme="dark">
                 <form action="${pageContext.request.contextPath}/product/list" method="get"
@@ -80,14 +80,17 @@
                             <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
                                 <td class="align-middle text-center">
                                     <div class="d-flex flex-column gap-2 justify-content-center">
+                                        
+                                        <!--Update button-->
                                         <a class="btn btn-primary"
                                            href="${pageContext.request.contextPath}/product/update?productId=${p.productId}">
                                             <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="update"
                                                  width="20" height="20"/>
                                             Update
                                         </a>
-                                        <form class="" 
-                                              action="${pageContext.request.contextPath}/auth" method="post">
+                                                 
+                                        <!--Delete button-->
+                                        <form action="${pageContext.request.contextPath}/auth" method="post">
                                             <input hidden name="productId" value="${p.productId}">
                                             <input hidden name="type" value="product">
                                             <input hidden name="action" value="delete">
@@ -98,6 +101,7 @@
                                                 Delete
                                             </button>
                                         </form>
+                                                     
                                     </div>
                                 </td>
                             </c:if>

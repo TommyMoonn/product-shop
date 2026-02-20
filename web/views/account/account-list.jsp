@@ -87,12 +87,16 @@
                                 </c:choose>
                             </td>
                             <td class="d-flex gap-2 align-middle text-center">
+                                
+                                <!--Update button-->
                                 <a class="btn btn-primary w-50" 
                                    href="${pageContext.request.contextPath}/account/update?account=${a.account}">
                                     <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="edit"
                                          width="20" height="20"/>
                                     Edit
                                 </a>
+                                         
+                                <!--Delete button-->
                                 <form class="w-50"
                                       action="${pageContext.request.contextPath}/auth" method="post">
                                     <input hidden name="account" value="${a.account}">
@@ -105,6 +109,7 @@
                                         Delete
                                     </button>
                                 </form>
+                                             
                             </td>
                         </tr>
                     </c:forEach>

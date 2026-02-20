@@ -26,31 +26,30 @@
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="productId" value="${product.productId}">
 
-                                <div class="mt-3">
-                                    <h2 class="fw-bold mb-3"> 
-                                        Update product information
-                                        <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="product"
-                                             width="30" height="30" class="align-middle"/>
-                                        <br>
-                                    </h2>
-                                    <h3>${product.productName}
-                                        <small class='fs-6'> 
-                                            #${product.productId}
-                                        </small>
-                                    </h3>
-                                    <hr>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="proName">Product name</label>
-                                        <input type="text" 
-                                               id="proName" 
-                                               name="productName"
-                                               value='${product.productName}'
-                                               required
-                                               minlength="2"
-                                               maxlength="100"
-                                               class="form-control form-control-md"
-                                               placeholder="e.g. HD001, TS012,..."/>
-                                    </div>
+                                <h2 class="fw-bold mb-3"> 
+                                    Update product information
+                                    <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="product"
+                                         width="30" height="30" class="align-middle"/>
+                                </h2>
+                                <h3>${product.productName}
+                                    <small class='fs-6'> 
+                                        #${product.productId}
+                                    </small>
+                                </h3>
+                                <hr>
+
+                                <!--Product name section-->
+                                <div class="mb-3">
+                                    <label class="form-label" for="proName">Product name</label>
+                                    <input type="text" 
+                                           id="proName" 
+                                           name="productName"
+                                           value='${product.productName}'
+                                           required
+                                           minlength="2"
+                                           maxlength="100"
+                                           class="form-control form-control-md"
+                                           placeholder="e.g. HD001, TS012,..."/>
                                 </div>
 
                                 <!--Brief section-->
@@ -125,6 +124,7 @@
                                            placeholder="e.g. 5, 10, 15,..."/>
                                 </div>
 
+                                <!--Submit and back button-->
                                 <div class="d-flex justify-content-between mt-4">
                                     <a href="${pageContext.request.contextPath}/product/list"
                                        class="btn btn-outline-light">
@@ -137,11 +137,10 @@
                                         Update Product
                                     </button>
                                 </div>
-
                         </div>
                         </form>
                         <c:if test="${not empty error}">
-                            <div class="alert alert-danger mt-3 mb-3">
+                            <div class="alert alert-danger mt-3">
                                 <strong>Failed!</strong> ${error}
                             </div>
                         </c:if>

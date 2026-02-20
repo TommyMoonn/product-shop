@@ -31,6 +31,8 @@
                                          width="35" height="35" class="align-middle"/>
                                 </h2>
                                 <hr>
+                                
+                                <!--Category name and memo section-->
                                 <div class="form-outline form-white mb-3">
                                     <label class="form-label" for="name">Category name</label>
                                     <input type="text" 
@@ -53,6 +55,7 @@
                                               class="form-control form-control-md" placeholder="Enter a memo for the category"></textarea>
                                 </div>
 
+                                <!--Submit and back button-->
                                 <div class="d-flex justify-content-between mt-4">
                                     <a href="${pageContext.request.contextPath}/category/list"
                                        class="btn btn-outline-light">

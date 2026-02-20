@@ -43,12 +43,16 @@
                             <td>${c.memo}</td>
                             <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
                                 <td class="d-flex gap-2 align-middle text-center">
+                                    
+                                    <!--Update button-->
                                     <a class="btn btn-primary w-50" 
                                        href="${pageContext.request.contextPath}/category/update?typeId=${c.typeId}">
                                         <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="update"
                                              width="20" height="20"/>
                                         Edit
                                     </a>
+                                    
+                                    <!--Delete button-->
                                     <form class="w-50"
                                           action="${pageContext.request.contextPath}/auth" method="post">
                                         <input hidden name="typeId" value="${c.typeId}">
@@ -61,6 +65,7 @@
                                             Delete
                                         </button>
                                     </form>
+                                                 
                                 </td> 
                             </c:if>
                         </tr>

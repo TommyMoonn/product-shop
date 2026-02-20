@@ -36,6 +36,8 @@
                                     Name: ${account.account}
                                 </h3>
                                 <hr>
+                                
+                                <!--Password section-->
                                 <div class="form-outline form-white mb-3">
                                     <label class="form-label" for="pass">Password</label>
                                     <input type="password" 
@@ -127,6 +129,7 @@
                                     </select>
                                 </div>
 
+                                <!--Submit and back button-->
                                 <div class="d-flex justify-content-between mt-4">
                                     <a href="${pageContext.request.contextPath}/account/list"
                                        class="btn btn-outline-light">
