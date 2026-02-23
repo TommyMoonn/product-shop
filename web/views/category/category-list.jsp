@@ -22,6 +22,12 @@
                 <img src="${pageContext.request.contextPath}/images/icons/category-icon.png" alt=""
                      width="50" height="50" class="align-middle"/>
             </h1>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    ${error}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </c:if>
 
             <table class="table table-dark table-striped table-bordered table-hover mt-3">
                 <thead>
@@ -43,7 +49,7 @@
                             <td>${c.memo}</td>
                             <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
                                 <td class="d-flex gap-2 align-middle text-center">
-                                    
+
                                     <!--Update button-->
                                     <a class="btn btn-primary w-50" 
                                        href="${pageContext.request.contextPath}/auth?type=category&action=update&typeId=${c.typeId}">
@@ -51,7 +57,7 @@
                                              width="20" height="20"/>
                                         Edit
                                     </a>
-                                    
+
                                     <!--Delete button-->
                                     <form class="w-50"
                                           action="${pageContext.request.contextPath}/auth?type=category&action=delete&typeId=${c.typeId}" method="post">
@@ -62,7 +68,7 @@
                                             Delete
                                         </button>
                                     </form>
-                                                 
+
                                 </td> 
                             </c:if>
                         </tr>

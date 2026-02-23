@@ -69,8 +69,7 @@ public class CategoryController extends HttpServlet {
     }
 
     public void showCategoryList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Category> list = categoryService.findAll();
-        request.setAttribute("list", list);
+        request.setAttribute("list", categoryService.findAll());
         request.getRequestDispatcher("/views/category/category-list.jsp").forward(request, response);
     }
 
@@ -119,8 +118,17 @@ public class CategoryController extends HttpServlet {
     //call service to do delete operation
     public void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String typeId = request.getParameter("typeId");
-        categoryService.delete(typeId);
-        response.sendRedirect(request.getContextPath() + "/category?action=list");
+
+        try {
+            categoryService.delete(typeId);
+            response.sendRedirect(request.getContextPath() + "/category?action=list");
+
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            request.setAttribute("list", categoryService.findAll());
+
+            request.getRequestDispatcher("/views/category/category-list.jsp").forward(request, response);
+        }
     }
 
     @Override

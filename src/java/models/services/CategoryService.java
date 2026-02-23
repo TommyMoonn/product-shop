@@ -9,7 +9,7 @@ import utilities.JPAUtil;
 public class CategoryService implements Accessible<Category> {
 
     private EntityManager em;
-    
+
     public CategoryService() {
         this.em = JPAUtil.getEntityManager();
     }
@@ -17,7 +17,7 @@ public class CategoryService implements Accessible<Category> {
     @Override
     public void create(Category entity) {
         validate(entity);
-        
+
         em.getTransaction().begin();
         em.persist(entity);
         em.getTransaction().commit();
@@ -26,7 +26,7 @@ public class CategoryService implements Accessible<Category> {
     @Override
     public Category update(Category entity) {
         validate(entity);
-        
+
         em.getTransaction().begin();
         Category c = em.merge(entity);
         em.getTransaction().commit();
@@ -35,8 +35,23 @@ public class CategoryService implements Accessible<Category> {
 
     @Override
     public void delete(String id) {
-        em.getTransaction().begin();
         Category c = findById(id);
+
+        if (c == null) {
+            throw new ValidationException("Category does not exist.");
+        }
+
+        Long count = em.createQuery(
+                "SELECT COUNT(p) FROM Product p WHERE p.type = :category",
+                Long.class)
+                .setParameter("category", c)
+                .getSingleResult();
+
+        if (count > 0) {
+            throw new ValidationException("Cannot delete category because it is used by existing products.");
+        }
+
+        em.getTransaction().begin();
         em.remove(c);
         em.getTransaction().commit();
     }
@@ -61,5 +76,5 @@ public class CategoryService implements Accessible<Category> {
             throw new ValidationException("Category name must only contain letters and spaces.");
         }
     }
-    
+
 }
