@@ -23,6 +23,13 @@
                 <img src="${pageContext.request.contextPath}/images/icons/box-icon.png" alt="product"
                      width="40" height="40" class="align-middle"/>
             </h1>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    ${error}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </c:if>
+                     
             <div data-bs-theme="dark">
                 <form action="${pageContext.request.contextPath}/auth" method="get"
                       class="d-flex align-items-center gap-2 mb-3">
@@ -82,7 +89,7 @@
                             <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
                                 <td class="align-middle text-center">
                                     <div class="d-flex flex-column gap-2 justify-content-center">
-                                        
+
                                         <!--Update button-->
                                         <a class="btn btn-primary"
                                            href="${pageContext.request.contextPath}/auth?type=product&action=update&productId=${p.productId}">
@@ -90,7 +97,7 @@
                                                  width="20" height="20"/>
                                             Update
                                         </a>
-                                                 
+
                                         <!--Delete button-->
                                         <form action="${pageContext.request.contextPath}/auth?type=product&action=delete&productId=${p.productId}" method="post">
                                             <button class="btn btn-danger w-100" type="submit"
@@ -100,7 +107,7 @@
                                                 Delete
                                             </button>
                                         </form>
-                                                     
+
                                     </div>
                                 </td>
                             </c:if>

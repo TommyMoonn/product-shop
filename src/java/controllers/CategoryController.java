@@ -73,12 +73,10 @@ public class CategoryController extends HttpServlet {
         request.getRequestDispatcher("/views/category/category-list.jsp").forward(request, response);
     }
 
-    //redirect to add form jsp
     public void showCategoryAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/views/category/category-add.jsp").forward(request, response);
     }
 
-    //call service to do add operation
     public void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category c = new Category();
         c.setCategoryName(request.getParameter("categoryName").trim());
@@ -88,11 +86,10 @@ public class CategoryController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/category?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("/views/category/category-add.jsp").forward(request, response);
+            showCategoryList(request, response);
         }
     }
 
-    //redirect to update form jsp
     public void showCategoryUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("typeId");
         Category c = categoryService.findById(id);
@@ -100,7 +97,6 @@ public class CategoryController extends HttpServlet {
         request.getRequestDispatcher("/views/category/category-update.jsp").forward(request, response);
     }
 
-    //call service to do update operation
     public void updateCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category c = new Category();
         c.setTypeId(Integer.parseInt(request.getParameter("typeId")));
@@ -111,11 +107,10 @@ public class CategoryController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/category?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("/views/category/category-update.jsp").forward(request, response);
+            showCategoryList(request, response);
         }
     }
 
-    //call service to do delete operation
     public void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String typeId = request.getParameter("typeId");
 
@@ -125,9 +120,7 @@ public class CategoryController extends HttpServlet {
 
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            request.setAttribute("list", categoryService.findAll());
-
-            request.getRequestDispatcher("/views/category/category-list.jsp").forward(request, response);
+            showCategoryList(request, response);
         }
     }
 

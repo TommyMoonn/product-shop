@@ -33,7 +33,7 @@
                                          width="30" height="30" class="align-middle"/>
                                 </h2>
                                 <h3>
-                                    Name: ${account.account}
+                                    Username: ${account.account}
                                 </h3>
                                 <hr>
                                 

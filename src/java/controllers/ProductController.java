@@ -134,7 +134,7 @@ public class ProductController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/product?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("/views/product/product-add.jsp").forward(request, response);
+            showProductList(request, response);
         }
     }
 
@@ -168,14 +168,19 @@ public class ProductController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/product?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("/views/product/product-update.jsp").forward(request, response);
+            showProductList(request, response);
         }
     }
 
     public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("productId");
-        productService.delete(id);
-        response.sendRedirect(request.getContextPath() + "/product?action=list");
+        try {
+            productService.delete(id);
+            response.sendRedirect(request.getContextPath() + "/product?action=list");
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            showProductList(request, response);
+        }
     }
 
     @Override

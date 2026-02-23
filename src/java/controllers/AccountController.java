@@ -162,8 +162,13 @@ public class AccountController extends HttpServlet {
 
     public void updateAccountStatus(HttpServletRequest request, HttpServletResponse response, boolean status) throws ServletException, IOException {
         String account = request.getParameter("account");
-        accountService.updateIsUsed(account, status);
-        response.sendRedirect(request.getContextPath() + "/account?action=list");
+        try {
+            accountService.updateIsUsed(account, status);
+            response.sendRedirect(request.getContextPath() + "/account?action=list");
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            showAccountList(request,response);
+        }
     }
 
     public void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -173,9 +178,7 @@ public class AccountController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            request.setAttribute("list", accountService.findAll());
-            
-            request.getRequestDispatcher("/views/account/account-list.jsp").forward(request, response);
+            showAccountList(request,response);
         }
     }
 

@@ -67,7 +67,6 @@ public class CategoryService implements Accessible<Category> {
         return em.createQuery("SELECT c FROM Category c", Category.class).getResultList();
     }
 
-    //helper class to enforce business rules on server-side
     private void validate(Category c) {
         if (c == null) {
             throw new ValidationException("Category cannot be null.");

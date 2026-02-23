@@ -47,11 +47,13 @@ public class ProductService implements Accessible<Product> {
 
     @Override
     public void delete(String id) {
-        em.getTransaction().begin();
         Product p = findById(id);
-        if (p != null) {
-            em.remove(p);
+        if (p == null) {
+            throw new ValidationException("Product does not exist.");
         }
+        
+        em.getTransaction().begin();
+        em.remove(p);
         em.getTransaction().commit();
     }
 
@@ -77,7 +79,6 @@ public class ProductService implements Accessible<Product> {
         }
     }
 
-    //helper class to enforce business rules on server-side
     private void validate(Product p) {
         if (p == null) {
             throw new ValidationException("Product cannot be null.");

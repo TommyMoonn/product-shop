@@ -96,7 +96,6 @@ public class AccountService implements Accessible<Account> {
         }
     }
 
-    //helper class to enforce business rules on server-side
     private void validate(Account a) {
         if (a == null) {
             throw new ValidationException("Account cannot be null.");
