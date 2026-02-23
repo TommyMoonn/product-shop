@@ -24,8 +24,10 @@
                      width="40" height="40" class="align-middle"/>
             </h1>
             <div data-bs-theme="dark">
-                <form action="${pageContext.request.contextPath}/product/list" method="get"
+                <form action="${pageContext.request.contextPath}/auth" method="get"
                       class="d-flex align-items-center gap-2 mb-3">
+                    <input type="hidden" name="type" value="product">
+                    <input type="hidden" name="action" value="list">
                     <select 
                         id="typeId"
                         name="typeId"
@@ -65,7 +67,7 @@
                         <tr>
                             <td>
                                 <a class='text-white product-link'
-                                   href="${pageContext.request.contextPath}/product/detail?productId=${p.productId}">
+                                   href="${pageContext.request.contextPath}/auth?type=product&action=detail&productId=${p.productId}">
                                     ${p.productName}
                                 </a>
                             </td>
@@ -83,17 +85,14 @@
                                         
                                         <!--Update button-->
                                         <a class="btn btn-primary"
-                                           href="${pageContext.request.contextPath}/product/update?productId=${p.productId}">
+                                           href="${pageContext.request.contextPath}/auth?type=product&action=update&productId=${p.productId}">
                                             <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="update"
                                                  width="20" height="20"/>
                                             Update
                                         </a>
                                                  
                                         <!--Delete button-->
-                                        <form action="${pageContext.request.contextPath}/auth" method="post">
-                                            <input hidden name="productId" value="${p.productId}">
-                                            <input hidden name="type" value="product">
-                                            <input hidden name="action" value="delete">
+                                        <form action="${pageContext.request.contextPath}/auth?type=product&action=delete&productId=${p.productId}" method="post">
                                             <button class="btn btn-danger w-100" type="submit"
                                                     onclick="return confirm('Delete this product?')">
                                                 <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png" alt="delete"

@@ -131,7 +131,7 @@
 
                                 <!--Submit and back button-->
                                 <div class="d-flex justify-content-between mt-4">
-                                    <a href="${pageContext.request.contextPath}/account/list"
+                                    <a href="${pageContext.request.contextPath}/account?action=list"
                                        class="btn btn-outline-light">
                                         ← Back
                                     </a>

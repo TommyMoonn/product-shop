@@ -59,22 +59,21 @@
                                 
                             <!--Action buttons-->
                             <div class="d-flex gap-2 mt-3">
-                                <a href="${pageContext.request.contextPath}/product/list"
+                                <a href="${pageContext.request.contextPath}/product?action=list"
                                    class="btn btn-outline-light">
                                     ← Back to Products
                                 </a>
                                 <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
                                     <a class="btn btn-primary"
-                                       href="${pageContext.request.contextPath}/product/update?productId=${product.productId}">
+                                       href="${pageContext.request.contextPath}/auth?type=product&action=update&productId=${product.productId}">
                                         <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png"
                                              width="20" height="20"/>
                                         Update
                                     </a>
 
-                                    <form action="${pageContext.request.contextPath}/product/delete"
+                                    <form action="${pageContext.request.contextPath}/auth?type=product&action=delete&productId=${product.productId}"
                                           method="post"
                                           class="d-inline">
-                                        <input type="hidden" name="productId" value="${product.productId}">
                                         <button class="btn btn-danger"
                                                 type="submit"
                                                 onclick="return confirm('Delete this product?')">

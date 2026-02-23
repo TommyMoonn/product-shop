@@ -14,7 +14,7 @@ import models.entities.Product;
 import models.services.CategoryService;
 import models.services.ProductService;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/product/*"})
+@WebServlet(name = "ProductController", urlPatterns = {"/product"})
 public class ProductController extends HttpServlet {
 
     private final ProductService productService = new ProductService();
@@ -25,23 +25,24 @@ public class ProductController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getPathInfo();
+
+        String action = request.getParameter("action");
 
         if (action == null) {
-            action = "/list";
+            action = "list";
         }
 
         switch (action) {
-            case "/list":
+            case "list":
                 showProductList(request, response);
                 break;
-            case "/add":
+            case "add":
                 showProductAddForm(request, response);
                 break;
-            case "/update":
+            case "update":
                 showProductUpdateForm(request, response);
                 break;
-            case "/detail":
+            case "detail":
                 showProductDetail(request, response);
                 break;
             default:
@@ -55,20 +56,20 @@ public class ProductController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
-        String action = request.getPathInfo();
+        String action = request.getParameter("action");
 
         if (action == null) {
-            action = "/list";
+            action = "list";
         }
 
         switch (action) {
-            case "/add":
+            case "add":
                 addProduct(request, response);
                 break;
-            case "/update":
+            case "update":
                 updateProduct(request, response);
                 break;
-            case "/delete":
+            case "delete":
                 deleteProduct(request, response);
                 break;
             default:
@@ -130,7 +131,7 @@ public class ProductController extends HttpServlet {
         p.setAccount(a);
         try {
             productService.create(p);
-            response.sendRedirect(request.getContextPath() + "/product/list");
+            response.sendRedirect(request.getContextPath() + "/product?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/views/product/product-add.jsp").forward(request, response);
@@ -164,7 +165,7 @@ public class ProductController extends HttpServlet {
 
         try {
             productService.update(p);
-            response.sendRedirect(request.getContextPath() + "/product/list");
+            response.sendRedirect(request.getContextPath() + "/product?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/views/product/product-update.jsp").forward(request, response);
@@ -174,7 +175,7 @@ public class ProductController extends HttpServlet {
     public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("productId");
         productService.delete(id);
-        response.sendRedirect(request.getContextPath() + "/product/list");
+        response.sendRedirect(request.getContextPath() + "/product?action=list");
     }
 
     @Override

@@ -25,26 +25,26 @@ public class AccountController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getPathInfo();
+        String action = request.getParameter("action");
 
         if (action == null) {
-            action = "/list";
+            action = "list";
         }
 
         switch (action) {
-            case "/list":
+            case "list":
                 showAccountList(request, response);
                 break;
-            case "/add":
+            case "add":
                 showAccountAddForm(request, response);
                 break;
-            case "/update":
+            case "update":
                 showAccountUpdateForm(request, response);
                 break;
-            case "/activate":
+            case "activate":
                 updateAccountStatus(request, response, true);
                 break;
-            case "/deactivate":
+            case "deactivate":
                 updateAccountStatus(request, response, false);
                 break;
             default:
@@ -57,20 +57,20 @@ public class AccountController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getPathInfo();
+        String action = request.getParameter("action");
 
         if (action == null) {
-            action = "/list";
+            action = "list";
         }
 
         switch (action) {
-            case "/add":
+            case "add":
                 addAccount(request, response);
                 break;
-            case "/update":
+            case "update":
                 updateAccount(request, response);
                 break;
-            case "/delete":
+            case "delete":
                 deleteAccount(request, response);
                 break;
             default:
@@ -113,7 +113,7 @@ public class AccountController extends HttpServlet {
 
         try {
             accountService.create(a);
-            response.sendRedirect(request.getContextPath() + "/account/list");
+            response.sendRedirect(request.getContextPath() + "/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             request.setAttribute("today", LocalDate.now());
@@ -154,7 +154,7 @@ public class AccountController extends HttpServlet {
 
         try {
             accountService.update(a);
-            response.sendRedirect(request.getContextPath() + "/account/list");
+            response.sendRedirect(request.getContextPath() + "/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             request.setAttribute("today", LocalDate.now());
@@ -165,13 +165,13 @@ public class AccountController extends HttpServlet {
     public void updateAccountStatus(HttpServletRequest request, HttpServletResponse response, boolean status) throws ServletException, IOException {
         String account = request.getParameter("account");
         accountService.updateIsUsed(account, status);
-        response.sendRedirect(request.getContextPath() + "/account/list");
+        response.sendRedirect(request.getContextPath() + "/account?action=list");
     }
 
     public void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
         accountService.delete(account);
-        response.sendRedirect(request.getContextPath() + "/account/list");
+        response.sendRedirect(request.getContextPath() + "/account?action=list");
     }
 
     @Override

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import models.entities.Category;
 import models.services.CategoryService;
 
-@WebServlet(name = "CategoryController", urlPatterns = {"/category/*"})
+@WebServlet(name = "CategoryController", urlPatterns = {"/category"})
 public class CategoryController extends HttpServlet {
 
     private final CategoryService categoryService = new CategoryService();
@@ -21,20 +21,20 @@ public class CategoryController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getPathInfo();
+        String action = request.getParameter("action");
 
         if (action == null) {
-            action = "/list";
+            action = "list";
         }
 
         switch (action) {
-            case "/list":
+            case "list":
                 showCategoryList(request, response);
                 break;
-            case "/add":
+            case "add":
                 showCategoryAddForm(request, response);
                 break;
-            case "/update":
+            case "update":
                 showCategoryUpdateForm(request, response);
                 break;
             default:
@@ -47,20 +47,20 @@ public class CategoryController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getPathInfo();
+        String action = request.getParameter("action");
 
         if (action == null) {
-            action = "/list";
+            action = "list";
         }
 
         switch (action) {
-            case "/add":
+            case "add":
                 addCategory(request, response);
                 break;
-            case "/update":
+            case "update":
                 updateCategory(request, response);
                 break;
-            case "/delete":
+            case "delete":
                 deleteCategory(request, response);
                 break;
             default:
@@ -86,7 +86,7 @@ public class CategoryController extends HttpServlet {
         c.setMemo(request.getParameter("memo"));
         try {
             categoryService.create(c);
-            response.sendRedirect(request.getContextPath() + "/category/list");
+            response.sendRedirect(request.getContextPath() + "/category?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/views/category/category-add.jsp").forward(request, response);
@@ -109,7 +109,7 @@ public class CategoryController extends HttpServlet {
         c.setMemo(request.getParameter("memo"));
         try {
             categoryService.update(c);
-            response.sendRedirect(request.getContextPath() + "/category/list");
+            response.sendRedirect(request.getContextPath() + "/category?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/views/category/category-update.jsp").forward(request, response);
@@ -120,7 +120,7 @@ public class CategoryController extends HttpServlet {
     public void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String typeId = request.getParameter("typeId");
         categoryService.delete(typeId);
-        response.sendRedirect(request.getContextPath() + "/category/list");
+        response.sendRedirect(request.getContextPath() + "/category?action=list");
     }
 
     @Override

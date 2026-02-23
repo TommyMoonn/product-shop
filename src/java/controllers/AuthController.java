@@ -16,22 +16,15 @@ public class AuthController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
+
         if (getUser(request) == null) {
-            //user is not logged in -> redirect to login page
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
         String type = request.getParameter("type");
-        String action = request.getParameter("action");
 
         if (type == null) {
-            response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
-            return;
-        }
-
-        if (action == null) {
             response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
             return;
         }
@@ -70,7 +63,7 @@ public class AuthController extends HttpServlet {
         String action = request.getParameter("action");
 
         String url;
-        if (action.equals("list")) {
+        if (action == null || action.equals("list")) {
             url = resolveUrl(type, "list");
         } else if (Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem())) {
             url = resolveUrl(type, action);
@@ -89,7 +82,7 @@ public class AuthController extends HttpServlet {
         String action = request.getParameter("action");
 
         String url;
-        if (action.equals("list")) {
+        if (action == null || action.equals("list")) {
             url = resolveUrl(type, "list");
         } else if (Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem())) {
             url = resolveUrl(type, action);
@@ -106,7 +99,10 @@ public class AuthController extends HttpServlet {
         Account a = getUser(request);
         String type = request.getParameter("type");
         String action = request.getParameter("action");
-
+        if (action == null) {
+            action = "list";
+        }
+        
         String url;
         if (Role.isAdmin(a.getRoleInSystem())) {
             url = resolveUrl(type, action);
@@ -118,14 +114,12 @@ public class AuthController extends HttpServlet {
         request.getRequestDispatcher("/" + url).forward(request, response);
     }
 
-    //helper class to get user 
     private Account getUser(HttpServletRequest request) {
         return (Account) request.getSession().getAttribute("user");
     }
 
-    //returns a string url "type/action"
     private String resolveUrl(String type, String action) {
-        return type + "/" + action;
+        return type + "?action=" + action;
     }
 
     @Override

@@ -72,14 +72,14 @@
                                 <c:choose>
                                     <c:when test="${a.active}">
                                         <a class="btn btn-success" 
-                                           href="${pageContext.request.contextPath}/account/deactivate?account=${a.account}"
+                                           href="${pageContext.request.contextPath}/auth?type=account&action=deactivate&account=${a.account}"
                                            onclick="return confirm('Deactivate this account?')">
                                             Active
                                         </a>
                                     </c:when>
                                     <c:otherwise>
                                         <a class="btn btn-secondary" 
-                                           href="${pageContext.request.contextPath}/account/activate?account=${a.account}"
+                                           href="${pageContext.request.contextPath}/auth?type=account&action=activate&account=${a.account}"
                                            onclick="return confirm('Activate this account?')">
                                             Unactive
                                         </a>
@@ -90,7 +90,7 @@
                                 
                                 <!--Update button-->
                                 <a class="btn btn-primary w-50" 
-                                   href="${pageContext.request.contextPath}/account/update?account=${a.account}">
+                                   href="${pageContext.request.contextPath}/auth?type=account&action=update&account=${a.account}">
                                     <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="edit"
                                          width="20" height="20"/>
                                     Edit
@@ -98,10 +98,7 @@
                                          
                                 <!--Delete button-->
                                 <form class="w-50"
-                                      action="${pageContext.request.contextPath}/auth" method="post">
-                                    <input hidden name="account" value="${a.account}">
-                                    <input hidden name="type" value="account">
-                                    <input hidden name="action" value="delete">
+                                      action="${pageContext.request.contextPath}/auth?type=account&action=delete&account=${a.account}" method="post">
                                     <button class="btn btn-danger w-100" type="submit"
                                             onclick="return confirm('Delete this account?')">
                                         <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png" alt="delete"

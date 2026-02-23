@@ -57,7 +57,7 @@
 
                                 <!--Submit and back button-->
                                 <div class="d-flex justify-content-between mt-4">
-                                    <a href="${pageContext.request.contextPath}/category/list"
+                                    <a href="${pageContext.request.contextPath}/category?action=list"
                                        class="btn btn-outline-light">
                                         ← Back
                                     </a>
