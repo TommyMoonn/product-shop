@@ -27,7 +27,7 @@
 
                     <div class="col-md-8">
                         <div class="card-body">
-                            
+
                             <!--Product details-->
                             <h2 class="card-title">
                                 ${product.productName}
@@ -43,6 +43,11 @@
                                 <li class="list-group-item bg-dark text-light">
                                     <strong>Posted:</strong> ${product.postedDate}
                                 </li>
+                                <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
+                                    <li class="list-group-item bg-dark text-light">
+                                        <strong>Posted by:</strong> ${product.account.account} - ${product.account.lastName} ${product.account.firstName}
+                                    </li>
+                                </c:if>
                                 <li class="list-group-item bg-dark text-light">
                                     <strong>Category:</strong> ${product.type.categoryName}
                                 </li>
@@ -56,7 +61,7 @@
                                     <strong>Discount:</strong> ${product.discount}%
                                 </li>
                             </ul>
-                                
+
                             <!--Action buttons-->
                             <div class="d-flex gap-2 mt-3">
                                 <a href="${pageContext.request.contextPath}/product?action=list"
