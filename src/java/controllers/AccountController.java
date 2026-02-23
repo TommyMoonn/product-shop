@@ -79,9 +79,7 @@ public class AccountController extends HttpServlet {
     }
 
     public void showAccountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        List<Account> list = accountService.findAll();
-        request.setAttribute("list", list);
+        request.setAttribute("list", accountService.findAll());
         request.getRequestDispatcher("/views/account/account-list.jsp").forward(request, response);
     }
 
@@ -170,8 +168,15 @@ public class AccountController extends HttpServlet {
 
     public void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
-        accountService.delete(account);
-        response.sendRedirect(request.getContextPath() + "/account?action=list");
+        try {
+            accountService.delete(account);
+            response.sendRedirect(request.getContextPath() + "/account?action=list");
+        } catch (ValidationException e) {
+            request.setAttribute("error", e.getMessage());
+            request.setAttribute("list", accountService.findAll());
+            
+            request.getRequestDispatcher("/views/account/account-list.jsp").forward(request, response);
+        }
     }
 
     @Override

@@ -23,6 +23,12 @@
                 <img src="${pageContext.request.contextPath}/images/icons/avatar-icon-2.png" alt="account"
                      width="50" height="50" class="align-middle"/>
             </h1>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    ${error}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </c:if>
 
             <table class="table table-dark table-striped table-bordered table-hover mt-3">
                 <thead>     
@@ -87,7 +93,7 @@
                                 </c:choose>
                             </td>
                             <td class="d-flex gap-2 align-middle text-center">
-                                
+
                                 <!--Update button-->
                                 <a class="btn btn-primary w-50" 
                                    href="${pageContext.request.contextPath}/auth?type=account&action=update&account=${a.account}">
@@ -95,7 +101,7 @@
                                          width="20" height="20"/>
                                     Edit
                                 </a>
-                                         
+
                                 <!--Delete button-->
                                 <form class="w-50"
                                       action="${pageContext.request.contextPath}/auth?type=account&action=delete&account=${a.account}" method="post">
@@ -106,7 +112,7 @@
                                         Delete
                                     </button>
                                 </form>
-                                             
+
                             </td>
                         </tr>
                     </c:forEach>

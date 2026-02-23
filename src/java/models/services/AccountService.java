@@ -23,7 +23,7 @@ public class AccountService implements Accessible<Account> {
             throw new ValidationException("Account already exists.");
         }
         validate(entity);
-        
+
         em.getTransaction().begin();
         em.persist(entity);
         em.getTransaction().commit();
@@ -35,7 +35,7 @@ public class AccountService implements Accessible<Account> {
             throw new ValidationException("Account does not exist.");
         }
         validate(entity);
-        
+
         em.getTransaction().begin();
         Account a = em.merge(entity);
         em.getTransaction().commit();
@@ -44,11 +44,21 @@ public class AccountService implements Accessible<Account> {
 
     @Override
     public void delete(String id) {
-        em.getTransaction().begin();
         Account a = findById(id);
-        if (a != null) {
-            em.remove(a);
+        if (a == null) {
+            throw new ValidationException("Account does not exist.");
         }
+        
+        Long count = em.createQuery("SELECT COUNT(p) FROM Product p WHERE p.account = :account", Long.class)
+                .setParameter("account", a)
+                .getSingleResult();
+
+        if (count > 0) {
+            throw new ValidationException("Cannot delete account because it owns existing products.");
+        }
+        
+        em.getTransaction().begin();
+        em.remove(a);
         em.getTransaction().commit();
     }
 
@@ -67,7 +77,7 @@ public class AccountService implements Accessible<Account> {
         if (a == null) {
             throw new ValidationException("Account does not exist.");
         }
-        
+
         em.getTransaction().begin();
         a.setActive(status);
         a = em.merge(a);
@@ -91,8 +101,8 @@ public class AccountService implements Accessible<Account> {
         if (a == null) {
             throw new ValidationException("Account cannot be null.");
         }
-        if (a.getAccount() == null 
-                || a.getAccount().length() < 4 
+        if (a.getAccount() == null
+                || a.getAccount().length() < 4
                 || a.getAccount().length() > 20) {
             throw new ValidationException("Account name must be 4–20 characters, letters, numbers, underscore only");
         }
@@ -117,5 +127,5 @@ public class AccountService implements Accessible<Account> {
             throw new ValidationException("Invalid role.");
         }
     }
-    
+
 }
