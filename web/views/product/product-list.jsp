@@ -29,7 +29,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             </c:if>
-                     
+
             <div data-bs-theme="dark">
                 <form action="${pageContext.request.contextPath}/auth" method="get"
                       class="d-flex align-items-center gap-2 mb-3">

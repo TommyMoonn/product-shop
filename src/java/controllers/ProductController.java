@@ -114,7 +114,12 @@ public class ProductController extends HttpServlet {
         //set fields recieved from the request
         p.setProductId(request.getParameter("productId"));
         p.setProductName(request.getParameter("productName").trim());
-        p.setProductImage("");
+        String image = request.getParameter("productImage");
+        if (image == null || image.isEmpty()) {
+            p.setProductImage("default.png");
+        } else {
+            p.setProductImage(image.trim());
+        }
         p.setBrief(request.getParameter("brief"));
         p.setUnit(request.getParameter("unit").trim());
         p.setPrice(Integer.parseInt(request.getParameter("price").trim()));
@@ -140,7 +145,12 @@ public class ProductController extends HttpServlet {
 
     public void showProductUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Product p = productService.findById(request.getParameter("productId").trim());
+        String fullPath = p.getProductImage();
 
+        if (fullPath != null) {
+            String fileName = fullPath.substring(fullPath.lastIndexOf("/") + 1);
+            request.setAttribute("imageFileName", fileName);
+        }
         request.setAttribute("product", p);
         request.setAttribute("categories", categoryService.findAll());
         request.getRequestDispatcher("/views/product/product-update.jsp").forward(request, response);
@@ -153,6 +163,12 @@ public class ProductController extends HttpServlet {
         //update old fields
         //keep: id, posted date, image, and account
         p.setProductName(request.getParameter("productName").trim());
+        String image = request.getParameter("productImage");
+        if (image == null || image.isEmpty()) {
+            p.setProductImage("default.png");
+        } else {
+            p.setProductImage(image.trim());
+        }
         p.setBrief(request.getParameter("brief"));
         p.setUnit(request.getParameter("unit").trim());
         p.setPrice(Integer.parseInt(request.getParameter("price").trim()));

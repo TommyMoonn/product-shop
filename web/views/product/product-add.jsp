@@ -31,7 +31,7 @@
                                          width="35" height="35" class="align-middle"/>
                                 </h2>
                                 <hr>
-                                
+
                                 <!--Product ID and Product Name section-->
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
@@ -128,6 +128,17 @@
                                                class="form-control form-control-md" 
                                                placeholder="e.g. 5, 10, 15,..."/>
                                     </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="productImage">Product Image</label>
+                                    <input type="text" 
+                                           id="productImage" 
+                                           name="productImage" 
+                                           pattern="^[a-zA-Z0-9_-]+\.(jpg|jpeg|png)$"
+                                           class="form-control form-control-md"
+                                           title="Image file name, supported extensions: jpg, jpeg, png"
+                                           placeholder="e.g. hoodie.jpg, shirt.png,..."/>
                                 </div>
                                 
                                 <!--Submit and back button-->

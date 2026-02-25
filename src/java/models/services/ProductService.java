@@ -101,6 +101,13 @@ public class ProductService implements Accessible<Product> {
         if (p.getDiscount() < 0 || p.getDiscount() > 100) {
             throw new ValidationException("Discount must be between 0 to 100.");
         }
+        String imageFile = p.getProductImage();
+        if (imageFile == null || imageFile.isEmpty()) {
+            imageFile = "default.png";
+        } else if (!imageFile.matches("^[a-zA-Z0-9_-]+\\.(jpg|jpeg|png)$")) {
+            throw new ValidationException("Invalid image file");
+        }
+        p.setProductImage("/images/sanPham/" + imageFile);
     }
 
 }

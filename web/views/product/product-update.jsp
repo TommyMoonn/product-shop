@@ -123,7 +123,19 @@
                                            class="form-control form-control-md" 
                                            placeholder="e.g. 5, 10, 15,..."/>
                                 </div>
-
+                                           
+                                <div class="mb-3">
+                                    <label class="form-label" for="productImage">Product Image</label>
+                                    <input type="text" 
+                                           id="productImage" 
+                                           name="productImage" 
+                                           value="${imageFileName}" 
+                                           pattern="^[a-zA-Z0-9_-]+\.(jpg|jpeg|png)$"
+                                           class="form-control form-control-md"
+                                           title="Image file name, supported extensions: jpg, jpeg, png"
+                                           placeholder="e.g. hoodie.jpg, shirt.png,..."/>
+                                </div>
+                                                
                                 <!--Submit and back button-->
                                 <div class="d-flex justify-content-between mt-4">
                                     <a href="${pageContext.request.contextPath}/product?action=list"
