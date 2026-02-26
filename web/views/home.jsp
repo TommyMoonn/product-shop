@@ -28,7 +28,7 @@
 
             <div class="row g-4">
                 <div class="col-md-4">
-                    <a href="${pageContext.request.contextPath}/auth?type=product&action=list"
+                    <a href="${pageContext.request.contextPath}/main?type=product&action=list"
                        class="text-decoration-none text-white">
                         <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
                             <div class="card-body text-center">
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <a href="${pageContext.request.contextPath}/auth?type=category&action=list"
+                    <a href="${pageContext.request.contextPath}/main?type=category&action=list"
                        class="text-decoration-none text-white">
                         <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
                             <div class="card-body text-center">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <a href="${pageContext.request.contextPath}/auth?type=account&action=list"
+                    <a href="${pageContext.request.contextPath}/main?type=account&action=list"
                        class="text-decoration-none text-white">
                         <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
                             <div class="card-body text-center">

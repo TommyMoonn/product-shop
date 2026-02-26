@@ -70,13 +70,13 @@
                                 </a>
                                 <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
                                     <a class="btn btn-primary"
-                                       href="${pageContext.request.contextPath}/auth?type=product&action=update&productId=${product.productId}">
+                                       href="${pageContext.request.contextPath}/main?type=product&action=update&productId=${product.productId}">
                                         <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png"
                                              width="20" height="20"/>
                                         Update
                                     </a>
 
-                                    <form action="${pageContext.request.contextPath}/auth?type=product&action=delete&productId=${product.productId}"
+                                    <form action="${pageContext.request.contextPath}/main?type=product&action=delete&productId=${product.productId}"
                                           method="post"
                                           class="d-inline">
                                         <button class="btn btn-danger"

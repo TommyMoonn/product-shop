@@ -113,23 +113,23 @@ public class ProductController extends HttpServlet {
 
         //set fields recieved from the request
         p.setProductId(request.getParameter("productId"));
-        p.setProductName(request.getParameter("productName").trim());
+        p.setProductName(request.getParameter("productName"));
         String image = request.getParameter("productImage");
         if (image == null || image.isEmpty()) {
             p.setProductImage("default.png");
         } else {
-            p.setProductImage(image.trim());
+            p.setProductImage(image);
         }
         p.setBrief(request.getParameter("brief"));
-        p.setUnit(request.getParameter("unit").trim());
-        p.setPrice(Integer.parseInt(request.getParameter("price").trim()));
-        p.setDiscount(Integer.parseInt(request.getParameter("discount").trim()));
+        p.setUnit(request.getParameter("unit"));
+        p.setPrice(Integer.parseInt(request.getParameter("price")));
+        p.setDiscount(Integer.parseInt(request.getParameter("discount")));
 
         //get the current user
         Account a = (Account) request.getSession().getAttribute("user");
 
         //get the category
-        int typeId = Integer.parseInt(request.getParameter("typeId").trim());
+        int typeId = Integer.parseInt(request.getParameter("typeId"));
         Category c = categoryService.findById(String.valueOf(typeId));
 
         p.setType(c);
@@ -144,7 +144,7 @@ public class ProductController extends HttpServlet {
     }
 
     public void showProductUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Product p = productService.findById(request.getParameter("productId").trim());
+        Product p = productService.findById(request.getParameter("productId"));
         String fullPath = p.getProductImage();
 
         if (fullPath != null) {
@@ -162,19 +162,19 @@ public class ProductController extends HttpServlet {
 
         //update old fields
         //keep: id, posted date, image, and account
-        p.setProductName(request.getParameter("productName").trim());
+        p.setProductName(request.getParameter("productName"));
         String image = request.getParameter("productImage");
         if (image == null || image.isEmpty()) {
             p.setProductImage("default.png");
         } else {
-            p.setProductImage(image.trim());
+            p.setProductImage(image);
         }
         p.setBrief(request.getParameter("brief"));
-        p.setUnit(request.getParameter("unit").trim());
-        p.setPrice(Integer.parseInt(request.getParameter("price").trim()));
-        p.setDiscount(Integer.parseInt(request.getParameter("discount").trim()));
+        p.setUnit(request.getParameter("unit"));
+        p.setPrice(Integer.parseInt(request.getParameter("price")));
+        p.setDiscount(Integer.parseInt(request.getParameter("discount")));
 
-        int typeId = Integer.parseInt(request.getParameter("typeId").trim());
+        int typeId = Integer.parseInt(request.getParameter("typeId"));
         Category c = categoryService.findById(String.valueOf(typeId));
 
         p.setType(c);

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import models.entities.Account;
 import models.entities.Role;
 
-@WebServlet(name = "AuthController", urlPatterns = {"/auth"})
-public class AuthController extends HttpServlet {
+@WebServlet(name = "MainController", urlPatterns = {"/main"})
+public class MainController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

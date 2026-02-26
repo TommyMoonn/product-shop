@@ -21,7 +21,7 @@
                 <div class="col-12 col-md-10 col-lg-8 col-xl-7">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
-                            <form action="${pageContext.request.contextPath}/auth" method="post">
+                            <form action="${pageContext.request.contextPath}/main" method="post">
                                 <input type="hidden" name="type" value="category">
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="typeId" value="${category.typeId}">

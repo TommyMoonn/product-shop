@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import models.entities.Account;
 import models.services.AccountService;
 
-@WebServlet(name = "AccountController", urlPatterns = {"/account/*"})
+@WebServlet(name = "AccountController", urlPatterns = {"/account"})
 public class AccountController extends HttpServlet {
 
     private AccountService accountService = new AccountService();
@@ -30,7 +29,7 @@ public class AccountController extends HttpServlet {
         if (action == null) {
             action = "list";
         }
-
+        
         switch (action) {
             case "list":
                 showAccountList(request, response);
@@ -92,9 +91,9 @@ public class AccountController extends HttpServlet {
         Account a = new Account();
 
         a.setAccount(request.getParameter("account"));
-        a.setPass(request.getParameter("pass").trim());
-        a.setFirstName(request.getParameter("firstName").trim());
-        a.setLastName(request.getParameter("lastName").trim());
+        a.setPass(request.getParameter("pass"));
+        a.setFirstName(request.getParameter("firstName"));
+        a.setLastName(request.getParameter("lastName"));
         Date birthday;
         try {
             //parse birthday string receieved from request
@@ -105,7 +104,7 @@ public class AccountController extends HttpServlet {
             throw new ServletException("Invalid birthday format", ex);
         }
         a.setGender(Boolean.valueOf(request.getParameter("gender")));
-        a.setPhone(request.getParameter("phone").trim());
+        a.setPhone(request.getParameter("phone"));
         a.setActive(true); //active by default
         a.setRoleInSystem(Integer.parseInt(request.getParameter("role")));
 
@@ -135,9 +134,9 @@ public class AccountController extends HttpServlet {
             throw new ServletException("Account does not exist.");
         }
         
-        a.setPass(request.getParameter("pass").trim());
-        a.setFirstName(request.getParameter("firstName").trim());
-        a.setLastName(request.getParameter("lastName").trim());
+        a.setPass(request.getParameter("pass"));
+        a.setFirstName(request.getParameter("firstName"));
+        a.setLastName(request.getParameter("lastName"));
         Date birthday;
         try {
             birthday = new SimpleDateFormat("yyyy-MM-dd")
@@ -147,7 +146,7 @@ public class AccountController extends HttpServlet {
             throw new ServletException("Invalid birthday format", ex);
         }
         a.setGender(Boolean.valueOf(request.getParameter("gender")));
-        a.setPhone(request.getParameter("phone").trim());
+        a.setPhone(request.getParameter("phone"));
         a.setRoleInSystem(Integer.parseInt(request.getParameter("role")));
 
         try {

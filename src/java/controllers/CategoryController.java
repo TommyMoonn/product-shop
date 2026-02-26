@@ -2,7 +2,6 @@ package controllers;
 
 import exceptions.ValidationException;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -79,7 +78,7 @@ public class CategoryController extends HttpServlet {
 
     public void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category c = new Category();
-        c.setCategoryName(request.getParameter("categoryName").trim());
+        c.setCategoryName(request.getParameter("categoryName"));
         c.setMemo(request.getParameter("memo"));
         try {
             categoryService.create(c);
@@ -100,7 +99,7 @@ public class CategoryController extends HttpServlet {
     public void updateCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category c = new Category();
         c.setTypeId(Integer.parseInt(request.getParameter("typeId")));
-        c.setCategoryName(request.getParameter("categoryName").trim());
+        c.setCategoryName(request.getParameter("categoryName"));
         c.setMemo(request.getParameter("memo"));
         try {
             categoryService.update(c);

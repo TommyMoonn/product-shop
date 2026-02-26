@@ -21,7 +21,7 @@
                 <div class="col-12 col-md-10 col-lg-8 col-xl-7">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-start">
-                            <form action="${pageContext.request.contextPath}/auth" method="post" accept-charset="UTF-8">
+                            <form action="${pageContext.request.contextPath}/main" method="post" accept-charset="UTF-8">
                                 <input type="hidden" name="type" value="account">
                                 <input type="hidden" name="action" value="add">
 
