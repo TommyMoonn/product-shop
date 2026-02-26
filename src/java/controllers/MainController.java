@@ -65,6 +65,8 @@ public class MainController extends HttpServlet {
         String url;
         if (action == null || action.equals("list")) {
             url = resolveUrl(type, "list");
+        } else if (action.equals("detail")) {
+            url = resolveUrl(type, "detail");
         } else if (Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem())) {
             url = resolveUrl(type, action);
         } else {
