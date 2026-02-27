@@ -139,7 +139,7 @@ public class ProductController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/product?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            showProductList(request, response);
+            showProductAddForm(request, response);
         }
     }
 
@@ -164,9 +164,7 @@ public class ProductController extends HttpServlet {
         //keep: id, posted date, image, and account
         p.setProductName(request.getParameter("productName"));
         String image = request.getParameter("productImage");
-        if (image == null || image.isEmpty()) {
-            p.setProductImage("default.png");
-        } else {
+        if (image != null && !image.isEmpty()) {
             p.setProductImage(image);
         }
         p.setBrief(request.getParameter("brief"));
@@ -184,7 +182,9 @@ public class ProductController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/product?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            showProductList(request, response);
+            request.setAttribute("product", p);
+            request.setAttribute("categories", categoryService.findAll());
+            request.getRequestDispatcher("/views/product/product-update.jsp").forward(request, response);
         }
     }
 

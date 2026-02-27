@@ -85,7 +85,7 @@ public class CategoryController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/category?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            showCategoryList(request, response);
+            showCategoryAddForm(request, response);
         }
     }
 
@@ -106,7 +106,8 @@ public class CategoryController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/category?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            showCategoryList(request, response);
+            request.setAttribute("category", c);
+            request.getRequestDispatcher("/views/category/category-update.jsp").forward(request, response);
         }
     }
 

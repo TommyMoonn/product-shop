@@ -29,7 +29,7 @@ public class AccountController extends HttpServlet {
         if (action == null) {
             action = "list";
         }
-        
+
         switch (action) {
             case "list":
                 showAccountList(request, response);
@@ -113,8 +113,7 @@ public class AccountController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            request.setAttribute("today", LocalDate.now());
-            request.getRequestDispatcher("/views/account/account-add.jsp").forward(request, response);
+            showAccountAddForm(request, response);
         }
     }
 
@@ -133,7 +132,7 @@ public class AccountController extends HttpServlet {
         if (a == null) {
             throw new ServletException("Account does not exist.");
         }
-        
+
         a.setPass(request.getParameter("pass"));
         a.setFirstName(request.getParameter("firstName"));
         a.setLastName(request.getParameter("lastName"));
@@ -154,6 +153,7 @@ public class AccountController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
+            request.setAttribute("account", a);
             request.setAttribute("today", LocalDate.now());
             request.getRequestDispatcher("/views/account/account-update.jsp").forward(request, response);
         }
@@ -166,7 +166,7 @@ public class AccountController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            showAccountList(request,response);
+            showAccountList(request, response);
         }
     }
 
@@ -177,7 +177,7 @@ public class AccountController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
-            showAccountList(request,response);
+            showAccountList(request, response);
         }
     }
 
