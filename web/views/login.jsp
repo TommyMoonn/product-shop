@@ -19,7 +19,7 @@
                         <div class="card bg-dark text-white" style="border-radius: 1rem;">
                             <div class="card-body p-5 text-center">
 
-                                <div class="mb-md-5 mt-md-4 pb-5">  
+                                <div class="mt-md-4 pb-5">  
                                     <div>
                                         <h2 class ="fw-bold mb-2">
                                             Welcome back
@@ -27,7 +27,7 @@
                                         <p>Please enter your credentials</p>
                                     </div>
                                     <h2 class="fw-bold mb-3">
-                                        <img src="${pageContext.request.contextPath}/images/img_avatar1.png" alt="placeholder" style="width:300px;" class="rounded-pill">
+                                        <img src="${pageContext.request.contextPath}/images/img_avatar2.png" alt="placeholder" style="width:300px;" class="rounded-pill">
                                     </h2>
                                     <!--<p class="text-white-50 mb-5">Please enter your login and password!</p>-->
                                     <form action="${pageContext.request.contextPath}/login" method="POST">
@@ -49,7 +49,7 @@
                                                    class="form-control form-control-md" 
                                                    placeholder="Enter you password" autocomplete="off"/>
                                         </div>
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-md px-5 mt-1 mb-4" type="submit">Login</button>
+                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-md px-5 mt-1" type="submit">Login</button>
                                     </form>
                                 </div>
                                 <c:if test="${not empty error}">
@@ -58,7 +58,7 @@
                                     </div>
                                 </c:if>
                                 <a href="${pageContext.request.contextPath}"
-                                   class="btn btn-outline-light">
+                                   class="btn btn-outline-light mt-2">
                                     ← Back to Home
                                 </a>
                             </div>

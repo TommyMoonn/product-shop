@@ -26,8 +26,8 @@ public class LoginController extends HttpServlet {
         String account = request.getParameter("account").trim();
         String pass = request.getParameter("pass").trim();
 
-        AccountService accountDAO = new AccountService();
-        Account a = accountDAO.authenticate(account, pass);
+        AccountService accountService = new AccountService();
+        Account a = accountService.authenticate(account, pass);
 
         if (a == null) {
             request.setAttribute("error", "Invalid account or password");
@@ -37,8 +37,7 @@ public class LoginController extends HttpServlet {
 
         //check if the account is deactivated
         if (!a.getActive()) {
-            request.setAttribute("error",
-                    "Account is deactivated. Please contact the administrator for more information.");
+            request.setAttribute("error", "Account is deactivated. Please contact the administrator for more information.");
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }

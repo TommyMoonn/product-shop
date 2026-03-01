@@ -17,31 +17,36 @@ public class MainController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
-        if (getUser(request) == null) {
+        Account a = (Account) request.getSession().getAttribute("user");
+        if (a == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
         String type = request.getParameter("type");
-
+        String action = request.getParameter("action");
         if (type == null) {
             response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
             return;
         }
 
-        switch (type) {
-            case "product":
-                handleProduct(request, response);
-                break;
-            case "category":
-                handleCategory(request, response);
-                break;
-            case "account":
-                handleAccount(request, response);
-                break;
-            default:
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+        if (action == null) {
+            action = "list";
         }
+
+        if (!isValidAction(action)) {
+            response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+            return;
+        }
+
+        int role = a.getRoleInSystem();
+        if (!hasPermission(role, type, action)) {
+            response.sendRedirect(request.getContextPath() + "/views/access-denied.jsp");
+            return;
+        }
+
+        String url = resolveUrl(type, action);
+        request.getRequestDispatcher("/" + url).forward(request, response);
     }
 
     @Override
@@ -56,74 +61,69 @@ public class MainController extends HttpServlet {
         processRequest(request, response);
     }
 
-    public void handleProduct(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Account a = getUser(request);
-        String type = request.getParameter("type");
-        String action = request.getParameter("action");
-
-        String url;
-        if (action == null || action.equals("list")) {
-            url = resolveUrl(type, "list");
-        } else if (action.equals("detail")) {
-            url = resolveUrl(type, "detail");
-        } else if (action.equals("add")) {
-            url = resolveUrl(type, "add");
-        } else if (Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem())) {
-            url = resolveUrl(type, action);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/views/access-denied.jsp");
-            return;
-        }
-
-        request.getRequestDispatcher("/" + url).forward(request, response);
-    }
-
-    public void handleCategory(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Account a = getUser(request);
-        String type = request.getParameter("type");
-        String action = request.getParameter("action");
-
-        String url;
-        if (action == null || action.equals("list")) {
-            url = resolveUrl(type, "list");
-        } else if (Role.isAdmin(a.getRoleInSystem()) || Role.isManager(a.getRoleInSystem())) {
-            url = resolveUrl(type, action);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/views/access-denied.jsp");
-            return;
-        }
-
-        request.getRequestDispatcher("/" + url).forward(request, response);
-    }
-
-    public void handleAccount(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Account a = getUser(request);
-        String type = request.getParameter("type");
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "list";
-        }
-        
-        String url;
-        if (Role.isAdmin(a.getRoleInSystem())) {
-            url = resolveUrl(type, action);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/views/access-denied.jsp");
-            return;
-        }
-
-        request.getRequestDispatcher("/" + url).forward(request, response);
-    }
-
-    private Account getUser(HttpServletRequest request) {
-        return (Account) request.getSession().getAttribute("user");
-    }
-
     private String resolveUrl(String type, String action) {
         return type + "?action=" + action;
+    }
+
+    /*
+    Authorization
+    
+    Admin -> full access
+    
+    Manager:
+        Product -> list, detail, update and delete
+        Category -> list, add and update
+        Account -> no access
+    Staff: 
+        Product -> list, detail, add and update
+        Category -> list
+        Account -> no access
+     */
+    private boolean hasPermission(int role, String type, String action) {
+        if (Role.isAdmin(role)) {
+            return true;
+        }
+
+        switch (type) {
+            case "product":
+                if (Role.isManager(role)) {
+                    return "list".equals(action)
+                            || "detail".equals(action)
+                            || "update".equals(action)
+                            || "delete".equals(action);
+                }
+                if (Role.isStaff(role)) {
+                    return "list".equals(action)
+                            || "detail".equals(action)
+                            || "add".equals(action)
+                            || "update".equals(action);
+                }
+                return false;
+            case "category":
+                if (Role.isManager(role)) {
+                    return "list".equals(action)
+                            || "add".equals(action)
+                            || "update".equals(action);
+                }
+                if (Role.isStaff(role)) {
+                    return "list".equals(action);
+                }
+                return false;
+            case "account":
+                return false;
+        }
+
+        return false;
+    }
+
+    private boolean isValidAction(String action) {
+        return "list".equals(action)
+                || "detail".equals(action)
+                || "add".equals(action)
+                || "update".equals(action)
+                || "delete".equals(action)
+                || "activate".equals(action)
+                || "deactivate".equals(action);
     }
 
     @Override
