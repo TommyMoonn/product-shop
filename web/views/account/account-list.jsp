@@ -21,7 +21,7 @@
             <h1 class="text-center">
                 Account Dashboard
                 <img src="${pageContext.request.contextPath}/images/icons/avatar-icon-2.png" alt="account"
-                     width="50" height="50" class="align-middle"/>
+                     width="50" height="50" class="mb-1"/>
             </h1>
             <c:if test="${not empty error}">
                 <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">

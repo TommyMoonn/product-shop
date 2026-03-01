@@ -43,7 +43,7 @@
                                 <li class="list-group-item bg-dark text-light">
                                     <strong>Posted:</strong> ${product.postedDate}
                                 </li>
-                                <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
+                                <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem == 1}">
                                     <li class="list-group-item bg-dark text-light">
                                         <strong>Posted by:</strong> ${product.account.account} - ${product.account.lastName} ${product.account.firstName}
                                     </li>
@@ -68,14 +68,17 @@
                                    class="btn btn-outline-light">
                                     ← Back to Products
                                 </a>
-                                <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
-                                    <a class="btn btn-primary"
-                                       href="${pageContext.request.contextPath}/main?type=product&action=update&productId=${product.productId}">
-                                        <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png"
-                                             width="20" height="20"/>
-                                        Update
-                                    </a>
 
+                                <!--Update button-->
+                                <a class="btn btn-primary"
+                                   href="${pageContext.request.contextPath}/main?type=product&action=update&productId=${product.productId}">
+                                    <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png"
+                                         width="20" height="20"/>
+                                    Update
+                                </a>
+
+                                <!--Delete button-->
+                                <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem == 1}">        
                                     <form action="${pageContext.request.contextPath}/main?type=product&action=delete&productId=${product.productId}"
                                           method="post"
                                           class="d-inline">
@@ -88,6 +91,7 @@
                                         </button>
                                     </form>
                                 </c:if>
+
                             </div>
                         </div>
                     </div>

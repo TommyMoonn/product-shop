@@ -20,7 +20,7 @@
             <h1 class="text-center">
                 Category Dashboard
                 <img src="${pageContext.request.contextPath}/images/icons/category-icon.png" alt=""
-                     width="50" height="50" class="align-middle"/>
+                     width="50" height="50" class="mb-1"/>
             </h1>
             <c:if test="${not empty error}">
                 <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
@@ -48,28 +48,29 @@
                             <td>${c.categoryName}</td>
                             <td>${c.memo}</td>
                             <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem != 3}">
-                                <td class="d-flex gap-2 align-middle text-center">
+                                <td class="align-middle text-center">
+                                    <div class="d-flex flex-column gap-2 justify-content-center">
+                                        <!--Update button-->
+                                        <a class="btn btn-primary" 
+                                           href="${pageContext.request.contextPath}/main?type=category&action=update&typeId=${c.typeId}">
+                                            <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="update"
+                                                 width="20" height="20"/>
+                                            Edit
+                                        </a>
 
-                                    <!--Update button-->
-                                    <a class="btn btn-primary w-50" 
-                                       href="${pageContext.request.contextPath}/main?type=category&action=update&typeId=${c.typeId}">
-                                        <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png" alt="update"
-                                             width="20" height="20"/>
-                                        Edit
-                                    </a>
-
-                                    <!--Delete button-->
-                                    <form class="w-50"
-                                          action="${pageContext.request.contextPath}/main?type=category&action=delete&typeId=${c.typeId}" method="post">
-                                        <button class="btn btn-danger w-100" type="submit"
-                                                onclick="return confirm('Delete this category?')">
-                                            <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png" alt="delete"
-                                                 style="width: 20px; height: auto"/>
-                                            Delete
-                                        </button>
-                                    </form>
-
-                                </td> 
+                                        <!--Delete button-->
+                                        <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem == 1}">
+                                            <form action="${pageContext.request.contextPath}/main?type=category&action=delete&typeId=${c.typeId}" method="post">
+                                                <button class="btn btn-danger w-100" type="submit"
+                                                        onclick="return confirm('Delete this category?')">
+                                                    <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png" alt="delete"
+                                                         style="width: 20px; height: auto"/>
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </c:if>
+                                    </div>
+                                </td>
                             </c:if>
                         </tr>
                     </c:forEach>
