@@ -40,6 +40,7 @@
                                                id="proId" 
                                                name="productId" 
                                                required
+                                               maxLength="10"
                                                pattern="[A-Z0-9_-]{3,20}"
                                                title="3–20 characters, uppercase letters, numbers, _ or -"
                                                class="form-control form-control-md" 
@@ -53,7 +54,7 @@
                                                name="productName" 
                                                required
                                                minlength="2"
-                                               maxlength="100"
+                                               maxlength="500"
                                                class="form-control form-control-md" 
                                                placeholder="e.g. Hoodie, Áo thun,..."/>
                                     </div>
@@ -66,6 +67,7 @@
                                         id="brief" 
                                         name="brief" 
                                         rows="4"
+                                        maxlength="2000"
                                         class="form-control form-control-md" 
                                         placeholder="Brief introduction for the product"></textarea>
                                 </div>
@@ -95,7 +97,7 @@
                                                name="unit" 
                                                required
                                                pattern="[\p{L} ]+"
-                                               maxlength="20"
+                                               maxlength="32"
                                                title="Only letters and spaces"
                                                class="form-control form-control-md" 
                                                placeholder="e.g. Cái,..."/>

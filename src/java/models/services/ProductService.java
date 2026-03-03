@@ -83,8 +83,8 @@ public class ProductService implements Accessible<Product> {
         if (p == null) {
             throw new ValidationException("Product cannot be null.");
         }
-        if (p.getProductId() == null || !p.getProductId().matches("[A-Z0-9_-]{3,20}")) {
-            throw new ValidationException("Product Id must be 3–20 characters, uppercase letters, numbers, _ or -");
+        if (p.getProductId() == null || p.getProductId().length() > 10 || !p.getProductId().matches("[A-Z0-9_-]{3,20}")) {
+            throw new ValidationException("Product Id must be 3–10 characters, uppercase letters, numbers, _ or -");
         }
         if (p.getProductName() == null || p.getProductName().length() < 2) {
             throw new ValidationException("Product name is too short.");

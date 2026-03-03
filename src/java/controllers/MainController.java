@@ -106,7 +106,7 @@ public class MainController extends HttpServlet {
                             || "update".equals(action);
                 }
                 if (Role.isStaff(role)) {
-                    return "list".equals(action);
+                    return "list".equals(action);   
                 }
                 return false;
             case "account":

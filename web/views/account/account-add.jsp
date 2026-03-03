@@ -53,6 +53,7 @@
                                            id="pass" 
                                            name="pass" 
                                            required
+                                           maxlength="20"
                                            class="form-control form-control-md" placeholder="Enter account password"/>
                                 </div>
 
@@ -65,7 +66,7 @@
                                                name="firstName"
                                                required
                                                pattern="[\p{L} ]+"
-                                               maxlength="20"
+                                               maxlength="30"
                                                title="Only letters and spaces"
                                                class="form-control form-control-md" placeholder="Enter first name"/>
                                     </div>

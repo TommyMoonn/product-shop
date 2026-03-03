@@ -57,10 +57,6 @@
                                         <strong>Failed!</strong> ${error}
                                     </div>
                                 </c:if>
-                                <a href="${pageContext.request.contextPath}"
-                                   class="btn btn-outline-light mt-2">
-                                    ← Back to Home
-                                </a>
                             </div>
                         </div>
                     </div>

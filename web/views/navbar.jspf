@@ -15,8 +15,11 @@
                         <c:when test="${sessionScope.user.roleInSystem == 1}">
                             Welcome <span style="color:red;">admin</span>, ${sessionScope.user.firstName}!
                         </c:when>
+                        <c:when test="${sessionScope.user.roleInSystem == 2}">
+                            Welcome <span style="color:orange;">manager</span>, ${sessionScope.user.firstName}!
+                        </c:when>
                         <c:otherwise>
-                            Welcome, ${sessionScope.user.firstName}!
+                            Welcome staff, ${sessionScope.user.firstName}!
                         </c:otherwise>    
                     </c:choose>
                 </span>

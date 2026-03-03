@@ -25,9 +25,9 @@
                     Manage products, categories, and accounts in one place
                 </p>
             </div>
-
+                     
             <div class="row g-4">
-                <div class="col-md-4">
+                <div class="col-12 col-md">
                     <a href="${pageContext.request.contextPath}/main?type=product&action=list"
                        class="text-decoration-none text-white">
                         <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
@@ -41,7 +41,7 @@
                     </a>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-12 col-md">
                     <a href="${pageContext.request.contextPath}/main?type=category&action=list"
                        class="text-decoration-none text-white">
                         <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
@@ -54,20 +54,21 @@
                         </div>
                     </a>
                 </div>
-
-                <div class="col-md-4">
-                    <a href="${pageContext.request.contextPath}/main?type=account&action=list"
-                       class="text-decoration-none text-white">
-                        <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Accounts</h5>
-                                <p class="card-text">
-                                    Manage user accounts and roles
-                                </p>
+                <c:if test="${sessionScope.user.roleInSystem == 1}">
+                    <div class="col-12 col-md">
+                        <a href="${pageContext.request.contextPath}/main?type=account&action=list"
+                           class="text-decoration-none text-white">
+                            <div class="card card-hover bg-dark h-100 shadow-sm text-white rounded-3">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Accounts</h5>
+                                    <p class="card-text">
+                                        Manage user accounts and roles
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                </c:if>
             </div>
             <div class='text-center mt-4'>
                 <c:choose>

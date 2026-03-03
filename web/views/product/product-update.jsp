@@ -47,7 +47,7 @@
                                            value='${product.productName}'
                                            required
                                            minlength="2"
-                                           maxlength="100"
+                                           maxlength="500"
                                            class="form-control form-control-md"
                                            placeholder="e.g. HD001, TS012,..."/>
                                 </div>
@@ -58,6 +58,7 @@
                                     <textarea id="brief" 
                                               name="brief"
                                               rows="4"
+                                              maxlength="2000"
                                               class="form-control form-control-md" 
                                               placeholder="Brief introduction for the product">${product.brief}</textarea>
                                 </div>
@@ -89,7 +90,7 @@
                                                value='${product.unit}'
                                                required
                                                pattern="[\p{L} ]+"
-                                               maxlength="20"
+                                               maxlength="32"
                                                title="Only letters and spaces"
                                                class="form-control form-control-md" 
                                                placeholder="e.g. Cái,..."/>

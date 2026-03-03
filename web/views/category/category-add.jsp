@@ -41,7 +41,7 @@
                                            required
                                            pattern="[\p{L} ]+"
                                            minlength="2"
-                                           maxlength="100"
+                                           maxlength="88"
                                            title="Only letters and spaces"
                                            class="form-control form-control-md" placeholder="e.g. Thiết bị điện tử"/>
                                 </div>

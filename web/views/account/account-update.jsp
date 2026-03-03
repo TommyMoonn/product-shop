@@ -45,6 +45,7 @@
                                            name="pass"
                                            value="${account.pass}"
                                            required
+                                           maxlength="20"
                                            class="form-control form-control-md" placeholder="Enter account password"/>
                                 </div>
 
@@ -58,7 +59,7 @@
                                                value="${account.firstName}"
                                                required
                                                pattern="[\p{L} ]+"
-                                               maxlength="20"
+                                               maxlength="30"
                                                class="form-control form-control-md" placeholder="Enter first name"/>
                                     </div>
 
