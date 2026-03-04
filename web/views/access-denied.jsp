@@ -19,7 +19,7 @@
 
                 <h2 class="fw-bold mb-4"><strong>You aren't authorized to peform this action!</strong></h2>
 
-                <a href="${pageContext.request.contextPath}"
+                <a href="${pageContext.request.contextPath}/views/home.jsp"
                    class="btn btn-outline-light mt-4 mb-4">
                     ← Back to home
                 </a>
