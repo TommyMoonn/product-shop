@@ -15,7 +15,7 @@ import models.services.AuthorizationService;
 import models.services.CategoryService;
 import models.services.ProductService;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/admin/product"})
+@WebServlet(name = "AdminProductController", urlPatterns = {"/admin/product"})
 public class AdminProductController extends HttpServlet {
 
     private final ProductService productService = new ProductService();

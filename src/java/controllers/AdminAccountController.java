@@ -15,7 +15,7 @@ import models.entities.Account;
 import models.services.AccountService;
 import models.services.AuthorizationService;
 
-@WebServlet(name = "AccountController", urlPatterns = {"/admin/account"})
+@WebServlet(name = "AdminAccountController", urlPatterns = {"/admin/account"})
 public class AdminAccountController extends HttpServlet {
 
     private AccountService accountService = new AccountService();

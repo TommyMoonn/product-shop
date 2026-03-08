@@ -12,7 +12,7 @@ import models.entities.Category;
 import models.services.AuthorizationService;
 import models.services.CategoryService;
 
-@WebServlet(name = "CategoryController", urlPatterns = {"/admin/category"})
+@WebServlet(name = "AdminCategoryController", urlPatterns = {"/admin/category"})
 public class AdminCategoryController extends HttpServlet {
 
     private final CategoryService categoryService = new CategoryService();
