@@ -13,41 +13,120 @@
         <c:set var="activePage" value="store"/>
         <%@include file="../navbar.jspf"%>
 
-        <div class="container-fluid py-5">
+        <div class="container-fluid py-3 px-5">
 
-            <h1 class="text-center mb-4">
+<!--            <h1 class="text-center mb-4">
                 Product Store
                 <img src="${pageContext.request.contextPath}/images/icons/product-icon.png"
                      width="40" height="40" class="mb-1"/>
-            </h1>
+            </h1>-->
 
-            <!-- Category Filter -->
-            <div data-bs-theme="dark">
-                <form action="${pageContext.request.contextPath}/product" method="get"
-                      class="d-flex align-items-center gap-2 mb-4">
+            <div data-bs-theme="dark" class="mb-2">
+                <form action="${pageContext.request.contextPath}/product"
+                      method="get"
+                      class="py-2">
 
                     <input type="hidden" name="action" value="list">
+                    <!-- Search -->
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-md-6">
+                            <div class="input-group input-group-lg">
+                                <input type="text"
+                                       name="keyword"
+                                       value="${param.keyword}"
+                                       placeholder="Search products..."
+                                       class="form-control">
 
-                    <select name="typeId" class="form-select w-auto">
-                        <option value="">All categories</option>
+                                <button class="btn btn-primary">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Filters -->
+                    <div class="row align-items-end">
+                        <div class="col-md-9 mt-4">
+                            <div class="row g-3">
+                                <!-- Category -->
+                                <div class="col-md-3">
+                                    <label class="form-label">Category</label>
+                                    <select name="typeId" class="form-select">
+                                        <option value="">All</option>
+                                        <c:forEach var="c" items="${requestScope.categories}">
+                                            <option value="${c.typeId}"
+                                                    <c:if test="${param.typeId == c.typeId}">selected</c:if>>
+                                                ${c.categoryName}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <!-- Price Range -->
+                                <div class="col-md-4">
+                                    <label class="form-label">Price Range</label>
+                                    <div class="d-flex gap-2">
+                                        <input type="number"
+                                               name="minPrice"
+                                               value="${param.minPrice}"
+                                               placeholder="Min"
+                                               class="form-control">
 
-                        <c:forEach var="c" items="${requestScope.categories}">
-                            <option value="${c.typeId}"
-                                    <c:if test="${param.typeId == c.typeId}">
-                                        selected
-                                    </c:if>>
-                                ${c.categoryName}
-                            </option>
-                        </c:forEach>
-                    </select>
+                                        <input type="number"
+                                               name="maxPrice"
+                                               value="${param.maxPrice}"
+                                               placeholder="Max"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <!--Sort by Price and Discount-->
+                                <div class="col-md-3">
+                                    <!--Sort by Price-->
+                                    <label class="form-label">Sort</label>
+                                    <select name="sortPrice" class="form-select">
+                                        <option value="">Default</option>
+                                        <option value="asc"
+                                                <c:if test="${param.sortPrice == 'asc'}">selected</c:if>>
+                                                    Price ↑
+                                                </option>
+                                                <option value="desc"
+                                                <c:if test="${param.sortPrice == 'desc'}">selected</c:if>>
+                                                    Price ↓
+                                                </option>
+                                        </select>
+                                    </div>
+                                    <!-- Discount -->
+                                    <div class="col-md-2">
+                                        <label class="form-label">Discounted</label>
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   name="discounted"
+                                                   value="true"
+                                                   id="discounted"
+                                            <c:if test="${param.discounted == 'true'}">checked</c:if>>
 
-                    <button class="btn btn-primary">
-                        Filter
-                    </button>
+                                            <label class="form-check-label" for="discounted">
+                                                Yes
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!-- Buttons -->
+                            <div class="col-md-3 d-flex justify-content-end gap-2 mt-3">
+                                <!--Filter-->
+                                <button class="btn btn-primary">
+                                    Apply Filters
+                                </button>
+                                <!--Reset Filter-->
+                                <a href="${pageContext.request.contextPath}/product?action=list"
+                               class="btn btn-outline-light">
+                                Reset
+                            </a>
+                        </div>
+                    </div>
                 </form>
             </div>
-
 
             <!-- Product Grid -->
             <div class="row g-4">
@@ -60,7 +139,7 @@
                             <!-- Image -->
                             <img src="${pageContext.request.contextPath}${p.productImage}"
                                  class="card-img-top"
-                                 style="height:220px; object-fit:cover;">
+                                 style="height:500px; object-fit:cover;">
                             <div class="card-body d-flex flex-column">
                                 <!-- Name -->
                                 <h5 class="card-title">
@@ -76,7 +155,7 @@
 
                                 <!-- Price -->
                                 <p class="fw-bold mb-1">
-                                    $${p.price}
+                                    ${p.price} VND
                                 </p>
                                 <!-- Discount -->
                                 <c:if test="${p.discount > 0}">

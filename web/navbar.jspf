@@ -35,10 +35,16 @@
             <li class="nav-item">
                 <a class="nav-link  ${activePage == 'store' ? 'active' : ''}" 
                    href="${pageContext.request.contextPath}/product?action=list" role="button">
-                    Store
+                    Shop
                 </a>
             </li>
-            <c:if test="${sessionScope.user.roleInSystem != 0 && !isAdminPage}">
+            <li class="nav-item">
+                <a class="nav-link  ${activePage == 'cart' ? 'active' : ''}" 
+                   href="#" role="button">
+                    Cart
+                </a>
+            </li>
+            <c:if test="${sessionScope.user.roleInSystem != null && sessionScope.user.roleInSystem > 0 && !isAdminPage}">
                 <li class="nav-item">
                     <a class="nav-link  ${activePage == 'dashboard' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/admin/dashboard.jsp" role="button">Admin Panel</a>
@@ -61,18 +67,35 @@
                     </c:choose>
                 </a> 
                 <ul class="dropdown-menu dropdown-menu-end">
+                    <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem == 0}">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                                <img src="${pageContext.request.contextPath}/images/icons/profile-black-icon.png"
+                                     style="width:20px; height:20px;" class="inline">
+                                Profile
+                            </a>
+                        </li>
+                    </c:if>
                     <li>
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/register">Register</a>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="${pageContext.request.contextPath}/register">
+                            <img src="${pageContext.request.contextPath}/images/icons/register-black-icon.png"
+                                 style="width:20px; height:20px;" class="inline">
+                            Register
+                        </a>
                     </li>
                     <c:choose>
                         <c:when test="${empty sessionScope.user}">
                             <li>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Login</a>
+                                <a class="dropdown-item d-flex align-items-center gap-2" href="${pageContext.request.contextPath}/login">Login</a>
                             </li>
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
+                                <a class="dropdown-item d-flex align-items-center gap-2" href="${pageContext.request.contextPath}/logout">
+                                    <img src="${pageContext.request.contextPath}/images/icons/logout-black-icon.png"
+                                         style="width:20px; height:20px;" class="inline">
+                                    Sign Out
+                                </a>
                             </li>
                         </c:otherwise>    
                     </c:choose>

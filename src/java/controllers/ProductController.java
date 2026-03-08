@@ -45,19 +45,36 @@ public class ProductController extends HttpServlet {
     }
     
     public void showProductList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> list;
-        String typeId = request.getParameter("typeId");
-
-        //check if filter by category is used 
-        if (typeId != null && !typeId.isEmpty()) {
-            //filter is used -> get list filtered by category
-            int id = Integer.parseInt(typeId);
-            list = productService.findByCategory(id);
-        } else {
-            //filter is not used -> normal list
-            list = productService.findAll();
+        String keyword = request.getParameter("keyword");
+        String typeIdParam = request.getParameter("typeId");
+        String minPriceParam = request.getParameter("minPrice");
+        String maxPriceParam = request.getParameter("maxPrice");
+        String discountedParam = request.getParameter("discounted");
+        String sort = request.getParameter("sort");
+        
+        Integer typeId = null;
+        Integer minPrice = null;
+        Integer maxPrice = null;
+        Boolean discounted = null;
+        
+        if (typeIdParam != null && !typeIdParam.isEmpty()) {
+            typeId = Integer.parseInt(typeIdParam);
         }
-
+        
+        if (minPriceParam != null && !minPriceParam.isEmpty()) {
+            minPrice = Integer.parseInt(minPriceParam);
+        }
+        
+        if (maxPriceParam != null && !maxPriceParam.isEmpty()) {
+            maxPrice = Integer.parseInt(maxPriceParam);
+        }
+        
+        if ("true".equals(discountedParam)) {
+            discounted = true;
+        }
+        
+        List<Product> list = productService.filter(keyword, typeId, minPrice, maxPrice, discounted, sort);
+        
         request.setAttribute("list", list);
         request.setAttribute("categories", categoryService.findAll());
         request.getRequestDispatcher("/product-list.jsp").forward(request, response);

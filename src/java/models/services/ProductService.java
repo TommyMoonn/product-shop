@@ -4,6 +4,7 @@ import exceptions.ValidationException;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import models.entities.Product;
 import utilities.JPAUtil;
 
@@ -51,7 +52,7 @@ public class ProductService implements Accessible<Product> {
         if (p == null) {
             throw new ValidationException("Product does not exist.");
         }
-        
+
         em.getTransaction().begin();
         em.remove(p);
         em.getTransaction().commit();
@@ -67,10 +68,57 @@ public class ProductService implements Accessible<Product> {
         return em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
     }
 
-    public List<Product> findByCategory(int typeId) {
-        return em.createQuery("SELECT p from Product p WHERE p.type.typeId = :typeId",
-                Product.class).setParameter("typeId", typeId).getResultList();
+    public List<Product> filter(String keyword, Integer typeId, Integer minPrice, Integer maxPrice, Boolean discounted, String sort) {
+        String s = "SELECT p FROM Product p WHERE 1=1";
 
+        if (keyword != null && !keyword.isEmpty()) {
+            s += " AND LOWER(p.productName) LIKE LOWER(:keyword)";
+        }
+
+        if (typeId != null) {
+            s += " AND p.type.typeId = :typeId";
+        }
+
+        if (minPrice != null) {
+            s += " AND p.price >= :minPrice";
+        }
+
+        if (maxPrice != null) {
+            s += " AND p.price <= :maxPrice";
+        }
+
+        if (discounted != null && discounted) {
+            s += " AND p.discount > 0";
+        }
+
+        if ("asc".equals(sort)) {
+            s += " ORDER BY p.price, p.productName ASC";
+        } else if ("desc".equals(sort)) {
+            s += " ORDER BY p.price, p.productName DESC";
+        } else {
+            s += " ORDER BY p.productName";
+        }
+
+        TypedQuery<Product> query = em.createQuery(s, Product.class);
+
+        if (keyword != null && !keyword.isEmpty()) {
+            keyword = keyword.trim().toLowerCase();
+            query.setParameter("keyword", "%" + keyword + "%");
+        }
+
+        if (typeId != null) {
+            query.setParameter("typeId", typeId);
+        }
+
+        if (minPrice != null) {
+            query.setParameter("minPrice", minPrice);
+        }
+
+        if (maxPrice != null) {
+            query.setParameter("maxPrice", maxPrice);
+        }
+
+        return query.getResultList();
     }
 
     public void close() {
