@@ -28,7 +28,7 @@ public class AdminAccountController extends HttpServlet {
         if (action == null) {
             action = "list";
         }
-        
+
         Account user = (Account) request.getSession().getAttribute("user");
         if (!AuthorizationService.hasPermission(user, "account", action)) {
             response.sendRedirect(request.getContextPath() + "access-denied.jsp");
@@ -38,6 +38,12 @@ public class AdminAccountController extends HttpServlet {
         switch (action) {
             case "list":
                 showAccountList(request, response);
+                break;
+            case "staff":
+                showStaffList(request, response);
+                break;
+            case "customer":
+                showCustomerList(request, response);
                 break;
             case "add":
                 showAccountAddForm(request, response);
@@ -83,6 +89,16 @@ public class AdminAccountController extends HttpServlet {
     public void showAccountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("list", accountService.findAll());
         request.getRequestDispatcher("/admin/account/account-list.jsp").forward(request, response);
+    }
+
+    public void showStaffList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("list", accountService.findAllStaff());
+        request.getRequestDispatcher("/admin/account/staff-list.jsp").forward(request, response);
+    }
+    
+    public void showCustomerList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("list", accountService.findAllCustomers());
+        request.getRequestDispatcher("/admin/account/customer-list.jsp").forward(request, response);
     }
 
     public void showAccountAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Account List</title>
+        <title>Customer List</title>
         <%@ include file="../../head.jspf" %>
     </head>
 
@@ -19,7 +19,7 @@
                 <h1 class="text-center">
                     <img src="${pageContext.request.contextPath}/images/icons/account-icon.png" alt="account"
                          width="50" height="50" class="mb-1"/>
-                    List of Accounts
+                    List of Customers
                 </h1>
                 <c:if test="${not empty error}">
                     <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">

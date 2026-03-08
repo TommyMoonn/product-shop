@@ -120,6 +120,7 @@
                                             name="role"
                                             required
                                             class="form-select form-select-md">
+                                            <option value="0" ${account.roleInSystem == 0 ? "selected" : ""}>Customer</option>
                                             <option value="1" ${account.roleInSystem == 1 ? "selected" : ""}>Admin</option>
                                             <option value="2" ${account.roleInSystem == 2 ? "selected" : ""}>Manager</option>
                                             <option value="3" ${account.roleInSystem == 3 ? "selected" : ""}>Staff</option>

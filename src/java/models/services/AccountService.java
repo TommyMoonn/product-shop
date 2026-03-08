@@ -71,6 +71,14 @@ public class AccountService implements Accessible<Account> {
     public List<Account> findAll() {
         return em.createQuery("SELECT a FROM Account a", Account.class).getResultList();
     }
+    
+    public List<Account> findAllCustomers() {
+        return em.createQuery("SELECT a FROM Account a WHERE a.roleInSystem = 0", Account.class).getResultList();
+    }
+    
+    public List<Account> findAllStaff() {
+        return em.createQuery("SELECT a FROM Account a WHERE a.roleInSystem > 0", Account.class).getResultList();
+    }
 
     public Account updateIsUsed(String account, boolean status) {
         Account a = findById(account);
