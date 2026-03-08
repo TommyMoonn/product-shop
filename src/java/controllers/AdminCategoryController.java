@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import models.entities.Category;
 import models.services.CategoryService;
 
-@WebServlet(name = "CategoryController", urlPatterns = {"/category"})
-public class CategoryController extends HttpServlet {
+@WebServlet(name = "CategoryController", urlPatterns = {"/admin/category"})
+public class AdminCategoryController extends HttpServlet {
 
     private final CategoryService categoryService = new CategoryService();
 
@@ -37,7 +37,7 @@ public class CategoryController extends HttpServlet {
                 showCategoryUpdateForm(request, response);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+                response.sendRedirect(request.getContextPath() + "/unsupported-feature.jsp");
         }
     }
 
@@ -63,17 +63,17 @@ public class CategoryController extends HttpServlet {
                 deleteCategory(request, response);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+                response.sendRedirect(request.getContextPath() + "/unsupported-feature.jsp");
         }
     }
 
     public void showCategoryList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("list", categoryService.findAll());
-        request.getRequestDispatcher("/views/category/category-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/category/category-list.jsp").forward(request, response);
     }
 
     public void showCategoryAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/views/category/category-add.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/category/category-add.jsp").forward(request, response);
     }
 
     public void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -82,7 +82,7 @@ public class CategoryController extends HttpServlet {
         c.setMemo(request.getParameter("memo"));
         try {
             categoryService.create(c);
-            response.sendRedirect(request.getContextPath() + "/category?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/category?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             showCategoryAddForm(request, response);
@@ -93,7 +93,7 @@ public class CategoryController extends HttpServlet {
         String id = request.getParameter("typeId");
         Category c = categoryService.findById(id);
         request.setAttribute("category", c);
-        request.getRequestDispatcher("/views/category/category-update.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/category/category-update.jsp").forward(request, response);
     }
 
     public void updateCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -103,11 +103,11 @@ public class CategoryController extends HttpServlet {
         c.setMemo(request.getParameter("memo"));
         try {
             categoryService.update(c);
-            response.sendRedirect(request.getContextPath() + "/category?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/category?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             request.setAttribute("category", c);
-            request.getRequestDispatcher("/views/category/category-update.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/category/category-update.jsp").forward(request, response);
         }
     }
 
@@ -116,7 +116,7 @@ public class CategoryController extends HttpServlet {
 
         try {
             categoryService.delete(typeId);
-            response.sendRedirect(request.getContextPath() + "/category?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/category?action=list");
 
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());

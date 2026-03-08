@@ -33,9 +33,9 @@ public class Account implements Serializable {
     private Boolean gender;
     @Column(name = "phone")
     private String phone;
-    @Column(name = "isUse")
+    @Column(name = "status")
     private Boolean active;
-    @Column(name = "roleInSystem")
+    @Column(name = "role")
     private Integer roleInSystem;
     @OneToMany(mappedBy = "account")
     private Collection<Product> productsCollection;

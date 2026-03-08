@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import models.entities.Account;
 import models.services.AccountService;
 
-@WebServlet(name = "AccountController", urlPatterns = {"/account"})
-public class AccountController extends HttpServlet {
+@WebServlet(name = "AccountController", urlPatterns = {"/admin/account"})
+public class AdminAccountController extends HttpServlet {
 
     private AccountService accountService = new AccountService();
 
@@ -47,7 +47,7 @@ public class AccountController extends HttpServlet {
                 updateAccountStatus(request, response, false);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+                response.sendRedirect(request.getContextPath() + "/unsupported-feature.jsp");
         }
     }
 
@@ -73,18 +73,18 @@ public class AccountController extends HttpServlet {
                 deleteAccount(request, response);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+                response.sendRedirect(request.getContextPath() + "/unsupported-feature.jsp");
         }
     }
 
     public void showAccountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("list", accountService.findAll());
-        request.getRequestDispatcher("/views/account/account-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/account/account-list.jsp").forward(request, response);
     }
 
     public void showAccountAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("today", LocalDate.now());
-        request.getRequestDispatcher("/views/account/account-add.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/account/account-add.jsp").forward(request, response);
     }
 
     public void addAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -110,7 +110,7 @@ public class AccountController extends HttpServlet {
 
         try {
             accountService.create(a);
-            response.sendRedirect(request.getContextPath() + "/account?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             showAccountAddForm(request, response);
@@ -123,7 +123,7 @@ public class AccountController extends HttpServlet {
 
         request.setAttribute("account", a);
         request.setAttribute("today", LocalDate.now());
-        request.getRequestDispatcher("/views/account/account-update.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/account/account-update.jsp").forward(request, response);
     }
 
     public void updateAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -150,12 +150,12 @@ public class AccountController extends HttpServlet {
 
         try {
             accountService.update(a);
-            response.sendRedirect(request.getContextPath() + "/account?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             request.setAttribute("account", a);
             request.setAttribute("today", LocalDate.now());
-            request.getRequestDispatcher("/views/account/account-update.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/account/account-update.jsp").forward(request, response);
         }
     }
 
@@ -163,7 +163,7 @@ public class AccountController extends HttpServlet {
         String account = request.getParameter("account");
         try {
             accountService.updateIsUsed(account, status);
-            response.sendRedirect(request.getContextPath() + "/account?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             showAccountList(request, response);
@@ -174,7 +174,7 @@ public class AccountController extends HttpServlet {
         String account = request.getParameter("account");
         try {
             accountService.delete(account);
-            response.sendRedirect(request.getContextPath() + "/account?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/account?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             showAccountList(request, response);

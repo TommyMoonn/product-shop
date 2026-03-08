@@ -1,0 +1,49 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+<!-- Grey with black text -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark"
+     style="${isAdminPage ? 'margin-left:180px;' : ''}">
+    <div class="container-fluid">
+        <ul class="navbar-nav w-100">
+            <li class="nav-item">
+                <a class="nav-link  ${activePage == 'home' ? 'active' : ''}" href="${pageContext.request.contextPath}/home.jsp" role="button">Home</a>
+            </li>
+            <c:if test="${sessionScope.user.roleInSystem != 0}">
+                <li class="nav-item">
+                    <a class="nav-link  ${activePage == 'dashboard' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin/dashboard.jsp" role="button">Admin Dashboard</a>
+                </li>
+            </c:if>
+            <li class="nav-item dropdown ms-auto">
+                <a class="navbar-brand" href="#" role="button" data-bs-toggle="dropdown">
+                    <c:choose>
+                        <c:when test="${empty sessionScope.user}">
+                            <img src="${pageContext.request.contextPath}/images/avatar_placeholder.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                        </c:when>
+                        <c:when test="${sessionScope.user.gender}">
+                            <img src="${pageContext.request.contextPath}/images/img_avatar1.png"
+                                 style="width:40px;" class="rounded-pill" alt="avatar">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${pageContext.request.contextPath}/images/img_avatar2.png"
+                                 style="width:40px;" class="rounded-pill" alt="avatar">
+                        </c:otherwise>
+                    </c:choose>
+                </a> 
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <c:choose>
+                        <c:when test="${empty sessionScope.user}">
+                            <li>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Login</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
+                            </li>
+                        </c:otherwise>    
+                    </c:choose>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

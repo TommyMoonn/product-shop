@@ -14,8 +14,8 @@ import models.entities.Product;
 import models.services.CategoryService;
 import models.services.ProductService;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/product"})
-public class ProductController extends HttpServlet {
+@WebServlet(name = "ProductController", urlPatterns = {"/admin/product"})
+public class AdminProductController extends HttpServlet {
 
     private final ProductService productService = new ProductService();
     private final CategoryService categoryService = new CategoryService();
@@ -46,7 +46,7 @@ public class ProductController extends HttpServlet {
                 showProductDetail(request, response);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+                response.sendRedirect(request.getContextPath() + "/unsupported-feature.jsp");
         }
     }
 
@@ -73,7 +73,7 @@ public class ProductController extends HttpServlet {
                 deleteProduct(request, response);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "/views/unsupported-feature.jsp");
+                response.sendRedirect(request.getContextPath() + "/unsupported-feature.jsp");
         }
     }
 
@@ -93,19 +93,19 @@ public class ProductController extends HttpServlet {
 
         request.setAttribute("list", list);
         request.setAttribute("categories", categoryService.findAll());
-        request.getRequestDispatcher("/views/product/product-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/product/product-list.jsp").forward(request, response);
     }
 
     public void showProductDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("productId");
         Product p = productService.findById(id);
         request.setAttribute("product", p);
-        request.getRequestDispatcher("/views/product/product-detail.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/product/product-detail.jsp").forward(request, response);
     }
 
     public void showProductAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("categories", categoryService.findAll());
-        request.getRequestDispatcher("/views/product/product-add.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/product/product-add.jsp").forward(request, response);
     }
 
     public void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -136,7 +136,7 @@ public class ProductController extends HttpServlet {
         p.setAccount(a);
         try {
             productService.create(p);
-            response.sendRedirect(request.getContextPath() + "/product?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/product?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             showProductAddForm(request, response);
@@ -153,7 +153,7 @@ public class ProductController extends HttpServlet {
         }
         request.setAttribute("product", p);
         request.setAttribute("categories", categoryService.findAll());
-        request.getRequestDispatcher("/views/product/product-update.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/product/product-update.jsp").forward(request, response);
     }
 
     public void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -179,12 +179,12 @@ public class ProductController extends HttpServlet {
 
         try {
             productService.update(p);
-            response.sendRedirect(request.getContextPath() + "/product?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/product?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             request.setAttribute("product", p);
             request.setAttribute("categories", categoryService.findAll());
-            request.getRequestDispatcher("/views/product/product-update.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/product/product-update.jsp").forward(request, response);
         }
     }
 
@@ -192,7 +192,7 @@ public class ProductController extends HttpServlet {
         String id = request.getParameter("productId");
         try {
             productService.delete(id);
-            response.sendRedirect(request.getContextPath() + "/product?action=list");
+            response.sendRedirect(request.getContextPath() + "/admin/product?action=list");
         } catch (ValidationException e) {
             request.setAttribute("error", e.getMessage());
             showProductList(request, response);

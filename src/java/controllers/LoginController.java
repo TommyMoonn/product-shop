@@ -53,7 +53,7 @@ public class LoginController extends HttpServlet {
         HttpSession newSession = request.getSession();
         newSession.setAttribute("user", a);
 
-        response.sendRedirect(request.getContextPath() + "/views/home.jsp");
+        response.sendRedirect(request.getContextPath() + "/admin/dashboard.jsp");
     }
 
     @Override
