@@ -17,7 +17,7 @@
                 We’re still working on it. Check back later!
             </p>
 
-            <a href="${pageContext.request.contextPath}/views/home.jsp"
+            <a href="${pageContext.request.contextPath}/home.jsp"
                class="btn btn-outline-light mt-1">
                 ← Back to home
             </a>

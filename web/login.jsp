@@ -48,6 +48,10 @@
                                         <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-md px-5 mt-1" type="submit">Login</button>
                                     </form>
                                 </div>
+                                <a href="${pageContext.request.contextPath}/home.jsp"
+                                   class="btn btn-outline-light mt-4">
+                                    ← Back to home
+                                </a>
                                 <c:if test="${not empty error}">
                                     <div class="alert alert-danger">
                                         <strong>Failed!</strong> ${error}

@@ -6,11 +6,36 @@
     <div class="container-fluid">
         <ul class="navbar-nav w-100">
             <li class="nav-item">
-                <a class="nav-link  ${activePage == 'home' ? 'active' : ''}" href="${pageContext.request.contextPath}/home.jsp" role="button">Home</a>
+                <span class="nav-link navbar-brand">
+                    <c:choose>
+                        <c:when test="${empty sessionScope.user}">
+                            Welcome, Guest!
+                        </c:when>
+                        <c:when test="${sessionScope.user.roleInSystem == 1}">
+                            Welcome <span style="color:red;">admin</span>, ${sessionScope.user.firstName}!
+                        </c:when>
+                        <c:when test="${sessionScope.user.roleInSystem == 2}">
+                            Welcome <span style="color:orange;">manager</span>, ${sessionScope.user.firstName}!
+                        </c:when>
+                        <c:when test="${sessionScope.user.roleInSystem == 3}">
+                            Welcome staff, ${sessionScope.user.firstName}!
+                        </c:when>
+                        <c:otherwise>
+                            Welcome, ${sessionScope.user.firstName}!
+                        </c:otherwise>    
+                    </c:choose>
+                </span>
             </li>
-            <c:if test="${sessionScope.user.roleInSystem != 0}">
+            <li class="nav-item">
+                <a class="nav-link  ${activePage == 'home' ? 'active' : ''}" 
+                   href="${pageContext.request.contextPath}/home.jsp" role="button">
+                    Home
+                </a>
+            </li>
+            <c:if test="${sessionScope.user.roleInSystem != 0 && !isAdminPage}">
                 <li class="nav-item">
-                    <a class="nav-link  ${activePage == 'dashboard' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin/dashboard.jsp" role="button">Admin Dashboard</a>
+                    <a class="nav-link  ${activePage == 'dashboard' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/admin/dashboard.jsp" role="button">Admin Panel</a>
                 </li>
             </c:if>
             <li class="nav-item dropdown ms-auto">
@@ -30,6 +55,9 @@
                     </c:choose>
                 </a> 
                 <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/register">Register</a>
+                    </li>
                     <c:choose>
                         <c:when test="${empty sessionScope.user}">
                             <li>
