@@ -17,8 +17,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
         request.removeAttribute("error");
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
@@ -26,8 +24,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
         String account = request.getParameter("account").trim();
         String pass = request.getParameter("pass").trim();
 

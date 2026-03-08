@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import models.entities.Account;
 import models.entities.Category;
 import models.entities.Product;
+import models.services.AuthorizationService;
 import models.services.CategoryService;
 import models.services.ProductService;
 
@@ -23,15 +24,18 @@ public class AdminProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-
         String action = request.getParameter("action");
 
         if (action == null) {
             action = "list";
         }
 
+        Account user = (Account) request.getSession().getAttribute("user");
+        if (!AuthorizationService.hasPermission(user, "product", action)) {
+            response.sendRedirect(request.getContextPath() + "access-denied.jsp");
+            return;
+        }
+        
         switch (action) {
             case "list":
                 showProductList(request, response);
@@ -53,9 +57,6 @@ public class AdminProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-
         String action = request.getParameter("action");
 
         if (action == null) {

@@ -3,21 +3,28 @@
 <div class="bg-dark text-white position-fixed top-0 start-0 vh-100 p-1"
      style="width:180px; z-index:1000;">
 
-    <h6 class="text-center mb-3 mt-2"> 
+    <h6 class="text-center mt-2"> 
         <img src="${pageContext.request.contextPath}/images/icons/shop-icon.png" alt="shop"
-             width="40" height="40" class="mb-1"/>
+             width="40" height="40" class=""/>
         Shop Manager
     </h6>
-    <h5 class="mx-3">General</h5>
     <hr>
-
     <ul class="nav flex-column">
-
+        <li class="nav-item mt-2">
+            <c:if test="${sessionScope.user.roleInSystem != 0}">
+                <a class="nav-link text-white ${activePage == 'dashboard' ? 'active' : ''}" 
+                   href="${pageContext.request.contextPath}/admin/dashboard.jsp" role="button">
+                    <img src="${pageContext.request.contextPath}/images/icons/dashboard-icon.png" alt="account"
+                     width="27" height="27" class="mb-1"/>
+                    Dashboard
+                </a>
+            </c:if>
+        </li>
         <!-- Accounts -->
         <li class="nav-item dropdown mt-2">
 
             <a class="nav-link text-white dropdown-toggle ${activePage == 'accounts' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">
-                <img src="${pageContext.request.contextPath}/images/icons/avatar-icon-2.png" alt="account"
+                <img src="${pageContext.request.contextPath}/images/icons/account-icon.png" alt="account"
                      width="30" height="30" class="mb-1"/>
                 Accounts
             </a>
@@ -34,7 +41,7 @@
         <!-- Products -->
         <li class="nav-item dropdown mt-2">
             <a class="nav-link text-white dropdown-toggle ${activePage == 'products' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">
-                <img src="${pageContext.request.contextPath}/images/icons/box-icon.png" alt="account"
+                <img src="${pageContext.request.contextPath}/images/icons/product-icon.png" alt="account"
                      width="30" height="30" class="mb-1"/>
                 Products
             </a>
@@ -47,11 +54,11 @@
                 </li>
             </ul>
         </li>
-        
+
         <!-- Categories -->
         <li class="nav-item dropdown mt-2">
             <a class="nav-link text-white dropdown-toggle ${activePage == 'categories' ? 'active' : ''}" href="#" role="button" data-bs-toggle="dropdown">
-                <img src="${pageContext.request.contextPath}/images/icons/category-icon.png" alt="account"
+                <img src="${pageContext.request.contextPath}/images/icons/category-icon-2.png" alt="account"
                      width="30" height="30" class="mb-1"/>
                 Categories
             </a>

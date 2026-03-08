@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.entities.Account;
 import models.entities.Category;
+import models.services.AuthorizationService;
 import models.services.CategoryService;
 
 @WebServlet(name = "CategoryController", urlPatterns = {"/admin/category"})
@@ -18,12 +20,16 @@ public class AdminCategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
 
         if (action == null) {
             action = "list";
+        }
+        
+        Account user = (Account) request.getSession().getAttribute("user");
+        if (!AuthorizationService.hasPermission(user, "category", action)) {
+            response.sendRedirect(request.getContextPath() + "access-denied.jsp");
+            return;
         }
 
         switch (action) {
@@ -44,8 +50,6 @@ public class AdminCategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
 
         if (action == null) {
