@@ -2,9 +2,6 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-label {
-    font-weight: bold;
-}
 
 .sidebar a:hover {
     background-color: #495057;
@@ -44,3 +41,6 @@ label {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+label {
+    font-weight: bold;
+}

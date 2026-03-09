@@ -46,7 +46,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link  ${activePage == 'history' ? 'active' : ''}" 
-                   href="${pageContext.request.contextPath}/product?action=history" role="button">
+                   href="${pageContext.request.contextPath}/user/history" role="button">
                     History
                 </a>
             </li>

@@ -12,17 +12,17 @@
         <c:set var="activePage" value="store" />
         <%@include file="../../navbar.jspf"%>
         <div class="container-fluid row">
-            <div class="col py-5">
+            <div class="col py-5 px-5">
                 <div class="card bg-dark text-light shadow-lg">
-                    <div class="row g-0 mb-3">
+                    <div class="row g-0 mb-3 p-4">
 
-                        <div class="col-md-4 text-center p-4">
+                        <div class="col-md-3 text-center">
                             <img src="${pageContext.request.contextPath}${product.productImage}"
                                  class="img-fluid rounded"
                                  alt="${product.productName}">
                         </div>
 
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <div class="card-body">
 
                                 <!--Product details-->
@@ -56,7 +56,7 @@
 
                                 <!--Back to home --->
                                 <div class="d-flex gap-2 mt-3">
-                                    <a href="${pageContext.request.contextPath}/product?action=list"
+                                    <a onclick="history.back()"
                                        class="btn btn-outline-light">
                                         ← Back to Store
                                     </a>
