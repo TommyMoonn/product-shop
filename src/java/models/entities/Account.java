@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
 
-@Entity
+@Entity(name = "Account")
 @Table(name = "accounts")
 public class Account implements Serializable {
 
@@ -35,7 +35,7 @@ public class Account implements Serializable {
     private String phone;
     @Column(name = "status")
     private Boolean active;
-    @Column(name = "role")
+    @Column(name = "roleInSystem")
     private Integer roleInSystem;
     @OneToMany(mappedBy = "account")
     private Collection<Product> productsCollection;

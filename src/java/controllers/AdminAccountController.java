@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,12 +39,6 @@ public class AdminAccountController extends HttpServlet {
         switch (action) {
             case "list":
                 showAccountList(request, response);
-                break;
-            case "staff":
-                showStaffList(request, response);
-                break;
-            case "customer":
-                showCustomerList(request, response);
                 break;
             case "add":
                 showAccountAddForm(request, response);
@@ -87,18 +82,23 @@ public class AdminAccountController extends HttpServlet {
     }
 
     public void showAccountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("list", accountService.findAll());
+        List<Account> list;
+        String type = request.getParameter("type");
+        
+        if (type == null) type = "";
+        switch(type) {
+            case "staff":
+                list = accountService.findAllStaff();
+                break;
+            case "customer":
+                list = accountService.findAllCustomers();
+                break;
+            default:
+                list = accountService.findAll();
+        }
+        
+        request.setAttribute("list", list);
         request.getRequestDispatcher("/admin/account/account-list.jsp").forward(request, response);
-    }
-
-    public void showStaffList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("list", accountService.findAllStaff());
-        request.getRequestDispatcher("/admin/account/staff-list.jsp").forward(request, response);
-    }
-    
-    public void showCustomerList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("list", accountService.findAllCustomers());
-        request.getRequestDispatcher("/admin/account/customer-list.jsp").forward(request, response);
     }
 
     public void showAccountAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

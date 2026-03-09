@@ -30,10 +30,10 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/account?action=staff">List of Staff</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/account?action=list&type=staff">List of Staff</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/account?action=customer">List of Customers</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/account?action=list&type=customer">List of Customers</a>
                 </li>
                 <li>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/account?action=list">List of Accounts</a>
