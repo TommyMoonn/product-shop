@@ -18,8 +18,10 @@
 
                                 <div class="mt-md-4">  
                                     <div>
-                                        <h2 class ="fw-bold mb-2">
-                                            Welcome back
+                                        <h2 class ="fw-bold mb-2 d-flex justify-content-center align-items-center gap-2">
+                                            <img src="${pageContext.request.contextPath}/images/icons/store-icon.png"
+                                                 width="30" height="30">
+                                            Product Shop
                                         </h2>
                                         <p>Please enter your credentials</p>
                                     </div>
@@ -28,23 +30,32 @@
                                     </h2>
                                     <!--<p class="text-white-50 mb-5">Please enter your login and password!</p>-->
                                     <form action="${pageContext.request.contextPath}/login" method="POST">
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <label class="form-label" for="account">Name</label>
-                                            <input type="text"
-                                                   id="account"
-                                                   name="account"
-                                                   class="form-control form-control-md" 
-                                                   placeholder="Username" autocomplete="off"/>
-                                            <a href="../../../../../../../../Downloads/login-form.html"></a>
+                                        <div class="form-outline mt-4 mb-4">
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-success border-success">
+                                                    <img src="${pageContext.request.contextPath}/images/icons/profile-icon.png"
+                                                         width="20" height="20">
+                                                </span>
+                                                <input type="text"
+                                                       id="account"
+                                                       name="account"
+                                                       class="form-control form-control-md" 
+                                                       placeholder="Username" autocomplete="off"/>
+                                            </div>
                                         </div>
 
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <label class="form-label" for="password">Password</label>
-                                            <input type="password"
-                                                   id="password"
-                                                   name="pass"
-                                                   class="form-control form-control-md" 
-                                                   placeholder="Password" autocomplete="off"/>
+                                        <div class="form-outline mb-4">
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-success border-success">
+                                                    <img src="${pageContext.request.contextPath}/images/icons/lock-icon.png"
+                                                         width="20" height="20">
+                                                </span>
+                                                <input type="password"
+                                                       id="password"
+                                                       name="pass"
+                                                       class="form-control form-control-md" 
+                                                       placeholder="Password" autocomplete="off"/>
+                                            </div>
                                         </div>
                                         <button class="btn btn-success w-100 p-2 mt-4" type="submit">Sign in</button>
                                     </form>
