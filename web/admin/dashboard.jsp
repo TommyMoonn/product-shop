@@ -10,7 +10,6 @@
     <body class="darkmode">
         <c:set var="isAdminPage" value="true"/>
         <c:set var="activePage" value="dashboard"/>
-        <%@include file="../navbar.jspf"%>
         <div class="container-fluid">
             <div class="row">
                 <%@include file="sidebar.jspf"%>
@@ -20,7 +19,7 @@
                     <div class="p-4 rounded-4 shadow-sm bg-dark text-center mb-4">
                         <img src="${pageContext.request.contextPath}/images/welcome.png"
                              class="img-fluid mb-4"
-                             alt="Welcome illustration">
+                             alt="shop">
 
                         <h1 class="fw-bold mb-4">Shop Management Dashboard</h1>
                         <p class="fs-6">

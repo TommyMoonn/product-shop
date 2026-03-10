@@ -38,18 +38,20 @@
                     Shop
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link  ${activePage == 'cart' ? 'active' : ''}" 
-                   href="#" role="button">
-                    Cart
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link  ${activePage == 'history' ? 'active' : ''}" 
-                   href="${pageContext.request.contextPath}/user/history" role="button">
-                    History
-                </a>
-            </li>
+            <c:if test="${sessionScope.user.roleInSystem != null && sessionScope.user.roleInSystem == 0}">
+                <li class="nav-item">
+                    <a class="nav-link  ${activePage == 'cart' ? 'active' : ''}" 
+                       href="#" role="button">
+                        Cart
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  ${activePage == 'history' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/user/history" role="button">
+                        History
+                    </a>
+                </li>
+            </c:if>
             <c:if test="${sessionScope.user.roleInSystem != null && sessionScope.user.roleInSystem > 0 && !isAdminPage}">
                 <li class="nav-item">
                     <a class="nav-link  ${activePage == 'dashboard' ? 'active' : ''}" 
