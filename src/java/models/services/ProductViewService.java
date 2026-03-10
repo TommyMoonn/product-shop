@@ -18,16 +18,16 @@ public class ProductViewService {
         this.em = JPAUtil.getEntityManager();
     }
 
-    public void recordView(Account user, Product p) {
+    public void recordView(Account account, String productId) {
         ProductView view = new ProductView();
         view.setViewDate(new Date());
 
         em.getTransaction().begin();
 
-        Account managedUser = em.find(Account.class, user.getAccount());
-        Product managedProduct = em.find(Product.class, p.getProductId());
-        view.setAccount(managedUser);
-        view.setProduct(managedProduct);
+        Account user = em.find(Account.class, account.getAccount());
+        Product product = em.find(Product.class, productId);
+        view.setAccount(user);
+        view.setProduct(product);
 
         em.persist(view);
         em.getTransaction().commit();
@@ -58,18 +58,18 @@ public class ProductViewService {
         em.getTransaction().commit();
     }
 
-    public void clearHistory(Account a) {
+    public void clearHistory(Account account) {
         em.getTransaction().begin();
         em.createQuery("DELETE FROM ProductView pv WHERE pv.account = :account")
-                .setParameter("account", a)
+                .setParameter("account", account)
                 .executeUpdate();
         em.getTransaction().commit();
     }
 
-    public List<ProductView> filter(Account user, Integer typeId, Integer minPrice, Integer maxPrice, Boolean discounted, String sort) {
+    public List<ProductView> filter(Account account, Integer typeId, Integer minPrice, Integer maxPrice, Boolean discounted, String sort) {
         String s = "SELECT pv FROM ProductView pv WHERE 1=1";
 
-        if (user != null) {
+        if (account != null) {
             s += " AND pv.account = :account";
         }
         
@@ -104,12 +104,14 @@ public class ProductViewService {
                     s += " ORDER BY pv.product.price DESC, pv.product.productName ASC";
                     break;
             }
+        } else {
+            s += " ORDER BY pv.viewDate DESC, pv.product.productName ASC";
         }
         
         TypedQuery<ProductView> query = em.createQuery(s, ProductView.class);
         
-        if (user != null) {
-            query.setParameter("account", user);
+        if (account != null) {
+            query.setParameter("account", account);
         }
         
         if (typeId != null) {
