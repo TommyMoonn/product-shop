@@ -11,10 +11,9 @@
     <body class="darkmode">
         <c:set var="isAdminPage" value="true"/>
         <c:set var="activePage" value="categories" />
-        <%@include file="../../navbar.jspf"%>
         <div class="container-fluid row">
             <%@include file="../sidebar.jspf"%>
-            <div class="col py-5">
+            <div style="margin-left:180px;" class="col py-5">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-10 col-lg-8 col-xl-7">
                         <div class="card bg-dark text-white" style="border-radius: 1rem;">

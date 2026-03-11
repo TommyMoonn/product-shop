@@ -12,7 +12,6 @@
     <body class="darkmode">
         <c:set var="isAdminPage" value="true"/>
         <c:set var="activePage" value="accounts" />
-        <%@include file="../../navbar.jspf"%>
         <div class="container-fluid row">
             <%@include file="../sidebar.jspf"%>
             <div class="col py-5">

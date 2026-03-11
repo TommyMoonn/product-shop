@@ -12,22 +12,47 @@
     <body class="darkmode">
         <c:set var="isAdminPage" value="true"/>
         <c:set var="activePage" value="accounts" />
-        <%@include file="../../navbar.jspf"%>
         <div class="container-fluid row">
             <%@include file="../sidebar.jspf"%>
             <div style="margin-left:180px;" class="col py-1 mt-4">
-                <h1 class="text-center">
-                    <img src="${pageContext.request.contextPath}/images/icons/account-icon.png" alt="account"
-                         width="50" height="50" class="mb-1"/>
-                    List of Accounts
-                </h1>
                 <c:if test="${not empty error}">
                     <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
                         ${error}
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 </c:if>
+                <div data-bs-theme="dark" class="">
+                    <form action="${pageContext.request.contextPath}/admin/account?action=list" method="get"
+                          class="d-flex align-items-center gap-2 mb-3">
+                        <select 
+                            id="type"
+                            name="type"
+                            class="form-select form-select-md w-auto">
+                            <option value="">All accounts</option>
+                            <option value="customer"
+                                    <c:if test="${param.type == 'customer'}">
+                                        selected
+                                    </c:if>>
+                                Customer
+                            </option>
+                            <option value="staff"
+                                    <c:if test="${param.type == 'staff'}">
+                                        selected
+                                    </c:if>>
+                                Staff
+                            </option>
+                        </select>
 
+                        <button type="submit" class="btn btn-primary btn-md">
+                            Filter
+                        </button>
+
+                        <a class="btn btn-success ms-auto"
+                           href="${pageContext.request.contextPath}/admin/account?action=add">
+                            + Add New Account
+                        </a>
+                    </form>
+                </div>
                 <table class="table table-dark table-striped table-bordered table-hover mt-3">
                     <thead>     
                         <tr>

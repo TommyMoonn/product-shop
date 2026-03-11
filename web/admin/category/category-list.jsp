@@ -11,15 +11,17 @@
     <body class="darkmode">
         <c:set var="isAdminPage" value="true"/>
         <c:set var="activePage" value="categories" />
-        <%@include file="../../navbar.jspf"%>
         <div class="container-fluid row">
             <%@include file="../sidebar.jspf"%>
             <div style="margin-left:180px;" class="col py-1 mt-4">
-                <h1 class="text-center">
-                    Category Dashboard
-                    <img src="${pageContext.request.contextPath}/images/icons/category-icon.png" alt=""
-                         width="50" height="50" class="mb-1"/>
-                </h1>
+                <div data-bs-theme="dark" class="">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <a class="btn btn-success ms-auto"
+                           href="${pageContext.request.contextPath}/admin/category?action=add">
+                            + Add New Category
+                        </a>
+                    </div>
+                </div>
                 <c:if test="${not empty error}">
                     <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
                         ${error}

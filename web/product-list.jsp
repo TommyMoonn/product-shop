@@ -201,10 +201,12 @@
                                     </a>
 
                                     <!-- Cart -->
-                                    <a class="btn btn-success w-50"
-                                       href="#">
-                                        Add to Cart
-                                    </a>
+                                    <form method="post" action="${pageContext.request.contextPath}/user/cart?action=add"
+                                          class="w-50">
+                                        <a class="btn btn-success w-100">
+                                            Add to Cart
+                                        </a>
+                                    </form>
                                 </div>
 
                             </div>

@@ -11,15 +11,9 @@
     <body class="darkmode">
         <c:set var="isAdminPage" value="true"/>
         <c:set var="activePage" value="products" />
-        <%@include file="../../navbar.jspf"%>
         <div class="container-fluid row">
             <%@include file="../sidebar.jspf"%>
             <div style="margin-left: 180px;" class="col py-5">
-                <h1 class="text-center"> 
-                    Product Dashboard
-                    <img src="${pageContext.request.contextPath}/images/icons/box-icon.png" alt="product"
-                         width="40" height="40" class="mb-1"/>
-                </h1>
                 <c:if test="${not empty error}">
                     <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
                         ${error}
@@ -28,28 +22,79 @@
                 </c:if>
 
                 <div data-bs-theme="dark">
-                    <form action="${pageContext.request.contextPath}/admin/product" method="get"
-                          class="d-flex align-items-center gap-2 mb-3">
-                        <input type="hidden" name="action" value="list">
-                        <select 
-                            id="typeId"
-                            name="typeId"
-                            class="form-select form-select-md w-auto">
-                            <option value="">All categories</option>
-                            <c:forEach var="c" items="${requestScope.categories}">
-                                <option value="${c.typeId}"
-                                        <c:if test="${param.typeId == c.typeId}">
-                                            selected
-                                        </c:if>>
-                                    ${c.categoryName}
-                                </option>
-                            </c:forEach>
-                        </select>
 
-                        <button type="submit" class="btn btn-primary btn-md">
-                            Filter
-                        </button>
+                    <form action="${pageContext.request.contextPath}/admin/product?action=list"
+                          method="get"
+                          class="d-flex justify-content-between align-items-end mb-3">
+
+                        <!-- LEFT: Filters -->
+                        <div class="d-flex align-items-end gap-3">
+
+                            <!-- Category -->
+                            <div>
+                                <label class="form-label">Category</label>
+                                <select id="typeId" name="typeId" class="form-select">
+                                    <option value="">All categories</option>
+                                    <c:forEach var="c" items="${requestScope.categories}">
+                                        <option value="${c.typeId}"
+                                                <c:if test="${param.typeId == c.typeId}">selected</c:if>>
+                                            ${c.categoryName}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+
+                            <!-- Sort -->
+                            <div>
+                                <label class="form-label">Sort</label>
+                                <select name="sortPrice" class="form-select">
+                                    <option value="">Default</option>
+                                    <option value="asc"
+                                            <c:if test="${param.sortPrice == 'asc'}">selected</c:if>>
+                                                Price ↑
+                                            </option>
+                                            <option value="desc"
+                                            <c:if test="${param.sortPrice == 'desc'}">selected</c:if>>
+                                                Price ↓
+                                            </option>
+                                    </select>
+                                </div>
+
+                                <!-- Discount -->
+                                <div>
+                                    <label class="form-label">Discounted</label>
+                                    <div class="form-check mt-1">
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               name="discounted"
+                                               value="true"
+                                               id="discounted"
+                                        <c:if test="${param.discounted == 'true'}">checked</c:if>>
+
+                                        <label class="form-check-label" for="discounted">
+                                            Yes
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- RIGHT: Buttons -->
+                            <div class="d-flex gap-2">
+
+                                <button type="submit" class="btn btn-primary">
+                                    Filter
+                                </button>
+
+                                <a class="btn btn-success"
+                                   href="${pageContext.request.contextPath}/admin/product?action=add">
+                                + Add Product
+                            </a>
+
+                        </div>
+
                     </form>
+
                 </div>
                 <table class="table table-dark table-striped table-bordered table-hover mt-3">
                     <thead>
