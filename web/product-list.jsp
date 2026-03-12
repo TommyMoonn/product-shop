@@ -35,25 +35,25 @@
                       class="py-2">
                     <input type="hidden" name="action" value="list">
 
-                    <!-- Filters -->
                     <div class="filter-card mb-2">
-                    <!-- Search -->
-                    <div class="row justify-content-center mb-4">
-                        <div class="col-md-8 search-box">
-                            <div class="input-group input-group-lg">
-                                <input type="text"
-                                       name="keyword"
-                                       value="${param.keyword}"
-                                       placeholder="Search products..."
-                                       class="form-control">
+                        <!-- Search -->
+                        <div class="row justify-content-center mb-4">
+                            <div class="col-md-8 search-box">
+                                <div class="input-group input-group-lg">
+                                    <input type="text"
+                                           name="keyword"
+                                           value="${param.keyword}"
+                                           placeholder="Search products..."
+                                           class="form-control">
 
-                                <button class="btn btn-primary">
-                                    Search
-                                </button>
+                                    <button class="btn btn-primary">
+                                        Search
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                        <!-- Filters -->
                         <div class="row align-items-end">
                             <div class="col-md-9 mt-4">
                                 <div class="row g-3">
@@ -92,7 +92,6 @@
 
                                     <!--Sort by Price and Discount-->
                                     <div class="col-md-3">
-
                                         <!--Sort by Price-->
                                         <label class="form-label">Sort</label>
                                         <select name="sortPrice" class="form-select">
@@ -129,12 +128,10 @@
 
                                 <!-- Buttons -->
                                 <div class="col-md-3 d-flex justify-content-end gap-2 mt-3">
-
                                     <!--Filter-->
                                     <button class="btn btn-primary">
                                         Apply Filters
                                     </button>
-
                                     <!--Reset Filter-->
                                     <a href="${pageContext.request.contextPath}/product?action=list"
                                    class="btn btn-outline-light">

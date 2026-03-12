@@ -39,9 +39,8 @@
 }
 
 .product-image{
-    max-height:450px;
-    max-width:100%;
-    object-fit:contain;
+    height: 450px;
+    object-fit: cover;
 }
 
 .discount-badge{
@@ -59,3 +58,15 @@
     max-width:600px;
 }
 
+.remove-btn{
+    opacity: 0;
+}
+
+.product-card:hover .remove-btn{
+    opacity: 0.8;
+}
+
+.viewed-date{
+    font-size: .85rem;
+    color: #9aa0a6;
+}

@@ -15,7 +15,7 @@
 
         <c:set var="activePage" value="cart"/>
         <%@include file="../navbar.jspf"%>
-        <div class="container-fluid py-4">
+        <div class="container-fluid py-3 px-4">
             <c:if test="${not empty sessionScope.success}">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     ${sessionScope.success}
@@ -83,8 +83,10 @@
                                         <!-- Product Info -->
                                         <td>
                                             <div class="d-flex align-items-center gap-3">
-                                                <img src="${pageContext.request.contextPath}${item.product.productImage}"
-                                                     class="cart-product-img">
+                                                <a href="${pageContext.request.contextPath}/product?action=detail&productId=${item.product.productId}">
+                                                    <img src="${pageContext.request.contextPath}${item.product.productImage}"
+                                                         class="cart-product-img">
+                                                </a>
                                                 <div>
                                                     <div class="fw-bold">
                                                         <a class="product-link text-white"
@@ -100,19 +102,19 @@
                                         </td>
 
                                         <!-- Price -->
-                                        <td>
+                                        <td class="fw-bold">
                                             <fmt:formatNumber value="${price}" type="number"/> VND
                                         </td>
 
                                         <!-- Discount -->
-                                        <td>
+                                        <td class="text-center">
                                             <c:if test="${discount > 0}">
                                                 <span class="badge bg-danger">
                                                     -${discount}%
                                                 </span>
                                             </c:if>
                                             <c:if test="${discount == 0}">
-                                                <span class="badge bg-danger">
+                                                <span class="badge bg-secondary">
                                                     -0%
                                                 </span>
                                             </c:if>
