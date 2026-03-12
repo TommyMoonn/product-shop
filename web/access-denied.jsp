@@ -32,11 +32,6 @@
                 <button onclick="history.back()" class="btn btn-outline-light px-4">
                     ← Go Back
                 </button>
-
-                <a href="${pageContext.request.contextPath}/home"
-                   class="btn btn-primary px-4">
-                    Home
-                </a>
             </div>
 
         </div>

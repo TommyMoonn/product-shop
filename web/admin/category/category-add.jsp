@@ -5,69 +5,69 @@
     <head>
         <meta charset="UTF-8">
         <title>New Category</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
         <%@ include file="../../head.jspf" %>
     </head>
 
     <body class="darkmode">
         <c:set var="isAdminPage" value="true"/>
-        <c:set var="activePage" value="categories" />
+        <c:set var="activePage" value="categories"/>
         <div class="container-fluid row">
             <%@include file="../sidebar.jspf"%>
-            <div style="margin-left:180px;" class="col py-5">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-10 col-lg-8 col-xl-7">
-                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                            <div class="card-body p-5 text-start">
-                                <form action="${pageContext.request.contextPath}/admin/category?action=add" method="post" accept-charset="UTF-8">
-
-                                    <h2 class="fw-bold mb-4">
-                                        Create a new category
-                                        <img src="${pageContext.request.contextPath}/images/icons/category-icon.png" alt="product"
-                                             width="35" height="35" class="align-middle"/>
-                                    </h2>
-                                    <hr>
-
-                                    <!--Category name and memo section-->
-                                    <div class="form-outline form-white mb-3">
+            <div class="col admin-content">
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-9">
+                        <div class="admin-card">
+                            <div class="admin-header">
+                                <h2>
+                                    Create a new category
+                                </h2>
+                                <p class="text-white">Add a new category to the system</p>
+                            </div>
+                            <hr>
+                            <form action="${pageContext.request.contextPath}/admin/category?action=add"
+                                  method="post"
+                                  accept-charset="UTF-8">
+                                <div class="form-section">
+                                    <h5 class="section-title">Category Information</h5>
+                                    <div class="mb-3">
                                         <label class="form-label" for="name">Category name</label>
-                                        <input type="text" 
-                                               id="name" 
-                                               name="categoryName" 
+                                        <input type="text"
+                                               id="name"
+                                               name="categoryName"
                                                required
                                                pattern="[\p{L} ]+"
                                                minlength="2"
                                                maxlength="88"
                                                title="Only letters and spaces"
-                                               class="form-control form-control-md" placeholder="e.g. Thiết bị điện tử"/>
+                                               class="form-control"
+                                               placeholder="e.g. Thiết bị điện tử"/>
                                     </div>
-
-                                    <div class="form-outline form-white mb-3">
+                                    <div class="mb-3">
                                         <label class="form-label" for="memo">Memo</label>
-                                        <textarea id="memo" 
-                                                  name="memo"
-                                                  rows="4"
-                                                  class="form-control form-control-md" placeholder="Enter a memo for the category"></textarea>
+                                        <textarea
+                                            id="memo"
+                                            name="memo"
+                                            rows="4"
+                                            class="form-control"
+                                            placeholder="Enter a memo for the category"></textarea>
                                     </div>
-
-                                    <!--Submit and back button-->
-                                    <div class="d-flex justify-content-between mt-4">
-                                        <a href="${pageContext.request.contextPath}/admin/category?action=list"
-                                           class="btn btn-outline-light">
-                                            ← Back
-                                        </a>
-
-                                        <button class="btn btn-primary px-4"
-                                                type="submit">
-                                            Create category
-                                        </button>
-                                    </div>
-                                </form>
-                                <c:if test="${not empty error}">
-                                    <div class="alert alert-danger mt-3">
-                                        <strong>Failed!</strong> ${error}
-                                    </div>
-                                </c:if>
-                            </div>
+                                </div>
+                                <div class="form-actions">
+                                    <a class="btn btn-outline-light"
+                                       onclick="history.back()">
+                                        Back
+                                    </a>
+                                    <button class="btn btn-primary px-4" type="submit">
+                                        Create category
+                                    </button>
+                                </div>
+                            </form>
+                            <c:if test="${not empty error}">
+                                <div class="alert alert-danger mt-3">
+                                    <strong>Failed!</strong> ${error}
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>
