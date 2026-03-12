@@ -25,7 +25,7 @@
                 <c:if test="${not empty viewedProducts}">
                     <form method="post" action="${pageContext.request.contextPath}/user/history?action=clear">
                         <button type="submit" class="btn btn-danger"
-                                href="">
+                                onclick="return confirm('Are you sure you want to clear your history?');">
                             Clear History
                         </button>
                     </form>
@@ -200,9 +200,11 @@
                                     </a>
                                     <form method="post" action="${pageContext.request.contextPath}/user/cart?action=add"
                                           class="w-50">
-                                        <a class="btn btn-success w-100">
+                                        <input type="hidden" name="productId" value="${p.productId}">
+                                        <input type="hidden" name="redirect" value="history">
+                                        <button type="submit" class="btn btn-success w-100">
                                             Add to Cart
-                                        </a>
+                                        </button>
                                     </form>
                                 </div>
 

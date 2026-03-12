@@ -203,9 +203,11 @@
                                     <!-- Cart -->
                                     <form method="post" action="${pageContext.request.contextPath}/user/cart?action=add"
                                           class="w-50">
-                                        <a class="btn btn-success w-100">
+                                        <input type="hidden" name="productId" value="${p.productId}">
+                                        <input type="hidden" name="redirect" value="shop">
+                                        <button type="submit" class="btn btn-success w-100">
                                             Add to Cart
-                                        </a>
+                                        </button>
                                     </form>
                                 </div>
 

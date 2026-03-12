@@ -115,6 +115,7 @@ INSERT INTO cateGOries(categoryName) values(N'Thiết bị thông minh')
 INSERT INTO categories(categoryName) values(N'Quần - Áo thời trang')
 go
 
+-- Kitchen appliances --
 INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)		
               values('SHG2303MRA', N'Bộ nồi Inox 3 đáy SUNHOUSE', '/images/sanPham/boNoiInoxSunhouse.jpg',
 			          N'Quai nồi Quai inox tán đinh bọc silicon cách nhiệt, Núm cầm Núm inox bọc silicon cách nhiệt, 
@@ -135,7 +136,21 @@ INSERT INTO products (productId, productName, productImage, brief, account, pric
 						Báo nhiệt thông minh, cho biết nhiệt độ lý tưởng để nấu ăn ngon.', 
 					   'admin', 709000,0,1,N'Bộ');
 go
--- Trang trí nội thất -------------------------------------------------------------------------------------------------------
+INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)
+VALUES
+('SUNHAOD001', N'Bộ nồi Anod Sunhouse cao cấp', '/images/sanPham/boNoiAnodSunhouse.jpg',
+N'Bộ nồi anod Sunhouse cao cấp với lớp phủ chống dính bền bỉ, truyền nhiệt nhanh và đều. 
+Thiết kế hiện đại, phù hợp với mọi loại bếp.', 
+'manager', 599000, 5, 1, N'Bộ');
+GO
+INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)
+VALUES
+('FIVESTAR01', N'Bộ nồi Inox Fivestar Standard', '/images/sanPham/boNoiInoxFivestarStandard.jpg',
+N'Bộ nồi inox Fivestar với đáy từ 3 lớp, truyền nhiệt tốt, bền đẹp theo thời gian. 
+Phù hợp với mọi loại bếp từ, bếp gas.', 
+'admin', 689000, 0, 1, N'Bộ');
+GO
+-- Home decor --
 INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)  
               values('4062373305', N'Ghế thư giãn', '/images/sanPham/gheThuGian.jpg',
 			          N'Ghế làm chất liệu cao cấp, chắc chắn. Dùng ở văn phong, đi dã ngoại, ở nhà.
@@ -165,7 +180,23 @@ INSERT INTO products (productId, productName, productImage, brief, account, pric
 						+ Màu sắc: Vân gỗ,Trắng hiện đại, nâu', 
 					 'admin', 569000,0,3, N'Bộ');
 go
--- Điện  gia dụng [2] -------------------------------------------------------------------------------------------------------
+INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)
+VALUES
+('SOFAGOC001', N'Sofa góc phòng khách hiện đại', '/images/sanPham/sofaGocPhongKhach.png',
+N'Sofa góc phòng khách thiết kế hiện đại, bọc nỉ cao cấp, khung gỗ chắc chắn.
+Mang lại không gian sang trọng và thoải mái cho phòng khách.',
+'manager', 4590000, 10, 3, N'Bộ');
+GO
+
+INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)
+VALUES
+('KEMY001', N'Kệ mỹ phẩm trang điểm đa năng', '/images/sanPham/keMyPhamTrangDiem.jpg',
+N'Kệ đựng mỹ phẩm tiện lợi với nhiều ngăn giúp sắp xếp gọn gàng đồ trang điểm.
+Thiết kế nhỏ gọn phù hợp với bàn trang điểm.',
+'admin', 189000, 0, 3, N'Cái');
+GO
+
+-- Electrical appliances --
 INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)  
               values('BK105S2VWS', N'Máy giặt Toshiba Inverter', '/images/sanPham/mayGiatToshiba.jpg',
 			          N'Máy Giặt Cửa Trước Inverter Toshiba TW-BK105S2V-WS (9.5kg) - Hàng Chính Hãng sở hữu kiểu thiết kế lồng ngang hiện đại, mang phong cách châu Âu cùng với gam màu trắng tinh tế, 
@@ -191,7 +222,8 @@ INSERT INTO products (productId, productName, productImage, brief, account, pric
 					  Bộ lọc TasteLock Crisper với NutriPlus tạo ra một môi trường kín, ẩm để khóa các chất dinh dưỡng lâu hơn, giữ cho trái cây và rau quả của bạn tươi trong bảy ngày.', 
 					 'manager', 22590000,0,2, N'Bộ');
 go
--- Dụng cụ thể thao [4] -----------------------------------------------------------------------------------------------------
+
+-- Sports --
 INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)  
               values('7823080768', N'Tạ đeo chân cao cấp', '/images/sanPham/taDeoChanCaoCap.jpg',
 			          N'Tạ đeo chân cao cấp phiên bản 4.0 - Nâng cao thể lực, giảm mỡ tăng cơ, phát triển chiều cao, sức bật và sức bền
@@ -222,7 +254,22 @@ INSERT INTO products (productId, productName, productImage, brief, account, pric
 						Bàn để chân rộng, tạo thế đứng vững chắc, tay cầm bọc mút dày, tạo sự thoải mái cho người tập', 
 					  'admin', 1020000,0,4, N'Bộ');
 go
--- Quần áo thời trang [6] --------------------------------------------------------------------------------------------------
+INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)
+VALUES
+('GIANTA003', N'Giàn tạ đa năng 3 vị trí', '/images/sanPham/gianTaDaNang3ViTri.jpg',
+N'Giàn tạ đa năng hỗ trợ tập luyện toàn thân: ngực, tay, vai và chân.
+Khung thép chắc chắn, phù hợp cho tập luyện tại nhà.',
+'manager', 2490000, 5, 4, N'Bộ');
+GO
+
+INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)
+VALUES
+('CHINHCOT01', N'Dụng cụ chỉnh cột sống hỗ trợ thoát vị', '/images/sanPham/chinhCotSOng_dieuChinhThoatVi.jpg',
+N'Dụng cụ kéo giãn cột sống hỗ trợ giảm đau lưng và cải thiện tư thế.
+Thiết kế tiện dụng, dễ sử dụng tại nhà.',
+'admin', 325000, 0, 4, N'Cái');
+GO
+-- Fashion --
 INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)  
               values('6681948644', N'Váy Babaydoll Kẻ Caro Phối Nơ', '/images/sanPham/vayBabadollCaro.jpg',
 			          N'Mẫu váy nhẹ nhàng tiểu thư cho các nàng bánh bèo vừa về kho Lê Sang nha!. Mã mới xưởng bên mới thiết kế chào hàng các nàng luôn ạ.
@@ -252,7 +299,14 @@ INSERT INTO products (productId, productName, productImage, brief, account, pric
 						Giày bốt nam GD-08 thiết kế giữa chất da và lớt vải lỗ thoáng khi nơi thân giày giúp chân bạn được thoáng khi hơn có 2 màu : Đen và Nâu', 
 					  'manager',189000,0,6, N'Đôi');
 go
--- Thiết bị thông minh [5] ---------------------------------------------------------------------------------------------------
+INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)
+VALUES
+('TSHIRT001', N'Áo thun cổ tròn thời trang', '/images/sanPham/aoThunCoTron.png',
+N'Áo thun cổ tròn chất cotton mềm mại, thoáng mát, phù hợp cho cả nam và nữ.
+Thiết kế đơn giản, dễ phối đồ.',
+'manager', 79000, 0, 6, N'Cái');
+GO
+-- Smart Appliances --
 INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)  
               values('11MAX64213', N'Điện Thoại iPhone 11 Pro Max 64GB', '/images/sanPham/iPhone11_ProMax.jpg',
 			          N'Điện thoại iPhone 11 Pro Max là phiên bản cao cấp nhất của iPhone năm nay. Sản phẩm có nhiều cải tiến nổi bật, hiệu năng, 
@@ -284,3 +338,18 @@ INSERT INTO products (productId, productName, productImage, brief, account, pric
 					  chắn sẽ làm bạn hài lòng.', 
 					 'manager',299000,0,5, N'Bộ');
 go
+INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)
+VALUES
+('SMARTAMA01', N'Đồng hồ thông minh AMA SmartWatch', '/images/sanPham/smartWatchAMA.jpg',
+N'Đồng hồ thông minh AMA theo dõi sức khỏe, đo nhịp tim, đếm bước chân,
+hiển thị thông báo từ điện thoại và hỗ trợ nhiều chế độ thể thao.',
+'manager', 1290000, 5, 5, N'Cái');
+GO
+
+INSERT INTO products (productId, productName, productImage, brief, account, price, discount, typeId, unit)
+VALUES
+('APPLECHRG1', N'Đế sạc không dây Apple MagSafe', '/images/sanPham/deSacKhongDayApple.jpg',
+N'Đế sạc không dây chuẩn MagSafe tương thích iPhone và AirPods.
+Thiết kế nhỏ gọn, sạc nhanh và tiện lợi.',
+'admin', 890000, 0, 5, N'Cái');
+GO

@@ -5,26 +5,11 @@
      style="${isAdminPage ? 'margin-left:180px;' : ''}">
     <div class="container-fluid">
         <ul class="navbar-nav w-100">
-            <li class="nav-item">
-                <span class="nav-link navbar-brand">
-                    <c:choose>
-                        <c:when test="${empty sessionScope.user}">
-                            Welcome, Guest!
-                        </c:when>
-                        <c:when test="${sessionScope.user.roleInSystem == 1}">
-                            Welcome <span style="color:red;">admin</span>, ${sessionScope.user.firstName}!
-                        </c:when>
-                        <c:when test="${sessionScope.user.roleInSystem == 2}">
-                            Welcome <span style="color:orange;">manager</span>, ${sessionScope.user.firstName}!
-                        </c:when>
-                        <c:when test="${sessionScope.user.roleInSystem == 3}">
-                            Welcome staff, ${sessionScope.user.firstName}!
-                        </c:when>
-                        <c:otherwise>
-                            Welcome, ${sessionScope.user.firstName}!
-                        </c:otherwise>    
-                    </c:choose>
-                </span>
+            <li class="nav-item nav-brand me-2">
+                <a href="${pageContext.request.contextPath}/home.jsp">
+                    <img src="${pageContext.request.contextPath}/images/icons/shop-icon.png"
+                        width="40" height="40">
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link  ${activePage == 'home' ? 'active' : ''}" 
@@ -39,12 +24,6 @@
                 </a>
             </li>
             <c:if test="${sessionScope.user.roleInSystem != null && sessionScope.user.roleInSystem == 0}">
-                <li class="nav-item">
-                    <a class="nav-link  ${activePage == 'cart' ? 'active' : ''}" 
-                       href="#" role="button">
-                        Cart
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link  ${activePage == 'history' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/user/history" role="button">
@@ -78,6 +57,16 @@
                     </li>
                 </c:otherwise>    
             </c:choose>
+            <c:if test="${sessionScope.user.roleInSystem != null && sessionScope.user.roleInSystem == 0}">
+                <li class="nav-item ">
+                    <a class="nav-link ${activePage == 'cart' ? 'active' : ''} d-flex justify-content-center align-items-center gap-1"
+                       href="${pageContext.request.contextPath}/user/cart" role="button">
+                        <img src="${pageContext.request.contextPath}/images/icons/cart-icon.png"
+                             style="width:21px; height:21px;" class="inline">
+                        Cart
+                    </a>
+                </li>
+            </c:if>
             <li class="nav-item dropdown ms-2">
                 <a class="navbar-brand" href="#" role="button" data-bs-toggle="dropdown">
                     <c:choose>

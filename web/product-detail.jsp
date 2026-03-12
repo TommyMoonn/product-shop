@@ -9,7 +9,6 @@
     </head>
 
     <body class="darkmode">
-        <c:set var="activePage" value="store" />
         <%@include file="../../navbar.jspf"%>
         <div class="container-fluid row">
             <div class="col py-5 px-5">
@@ -58,8 +57,16 @@
                                 <div class="d-flex gap-2 mt-3">
                                     <a onclick="history.back()"
                                        class="btn btn-outline-light">
-                                        ← Back to Store
+                                        ← Back
                                     </a>
+                                    <form method="post" action="${pageContext.request.contextPath}/user/cart?action=add"
+                                          class="">
+                                        <input type="hidden" name="productId" value="${product.productId}">
+                                        <input type="hidden" name="redirect" value="detail">
+                                        <button type="submit" class="btn btn-success">
+                                            Add to Cart
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -48,7 +48,7 @@ public class ProductViewService {
 
     public void removeView(int id) {
         ProductView view = findById(id);
-
+        
         if (view == null) {
             throw new ValidationException("Product view does not exist");
         }

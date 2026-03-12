@@ -5,10 +5,7 @@
     <class>models.entities.Account</class>
     <class>models.entities.Category</class>
     <class>models.entities.Product</class>
-    <class>models.entities.Accounts</class>
-    <class>models.entities.Categories</class>
     <class>models.entities.Cart</class>
-    <class>models.entities.Products</class>
     <class>models.entities.CartItem</class>
     <class>models.entities.ProductView</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>

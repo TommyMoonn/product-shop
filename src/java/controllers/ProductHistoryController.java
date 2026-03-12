@@ -56,7 +56,7 @@ public class ProductHistoryController extends HttpServlet {
                 
         request.setAttribute("categories", categoryService.findAll());
         request.setAttribute("viewedProducts", list);
-        request.getRequestDispatcher("/product-history.jsp").forward(request, response);
+        request.getRequestDispatcher("product-history.jsp").forward(request, response);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class ProductHistoryController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/user/history");
         } catch (ValidationException e) {
             request.setAttribute("error", e);
-            request.getRequestDispatcher("/product-history.jsp").forward(request, response);
+            request.getRequestDispatcher("product-history.jsp").forward(request, response);
         }
     }
 
