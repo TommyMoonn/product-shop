@@ -22,7 +22,7 @@ public class ProductHistoryController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Account user = (Account) request.getSession().getAttribute("user");
+        Account a = (Account) request.getSession().getAttribute("user");
         String typeIdParam = request.getParameter("typeId");
         String minPriceParam = request.getParameter("minPrice");
         String maxPriceParam = request.getParameter("maxPrice");
@@ -50,7 +50,7 @@ public class ProductHistoryController extends HttpServlet {
             discounted = true;
         }
         
-        List<ProductView> list = productViewService.filter(user, typeId, minPrice, maxPrice, discounted, sort);
+        List<ProductView> list = productViewService.filter(a.getAccount(), typeId, minPrice, maxPrice, discounted, sort);
         
         CategoryService categoryService = new CategoryService();
                 
@@ -94,9 +94,9 @@ public class ProductHistoryController extends HttpServlet {
 
     public void clearHistory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Account user = (Account) request.getSession().getAttribute("user");
-        if (user != null) {
-            productViewService.clearHistory(user);
+        Account a = (Account) request.getSession().getAttribute("user");
+        if (a != null) {
+            productViewService.clearHistory(a.getAccount());
         }
         response.sendRedirect(request.getContextPath() + "/user/history");
     }

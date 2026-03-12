@@ -18,18 +18,29 @@ public class ProductViewService {
         this.em = JPAUtil.getEntityManager();
     }
 
-    public void recordView(Account account, String productId) {
-        ProductView view = new ProductView();
-        view.setViewDate(new Date());
-
+    public void recordView(String account, String productId) {
         em.getTransaction().begin();
-
-        Account user = em.find(Account.class, account.getAccount());
+        Account user = em.find(Account.class, account);
         Product product = em.find(Product.class, productId);
-        view.setAccount(user);
-        view.setProduct(product);
 
-        em.persist(view);
+        List<ProductView> result = em.createQuery("SELECT pv FROM ProductView pv WHERE pv.account = :account AND pv.product = :product",
+                ProductView.class)
+                .setParameter("account", user)
+                .setParameter("product", product)
+                .getResultList();
+
+        ProductView view;
+        if (!result.isEmpty()) {
+            view = result.get(0);
+            view.setViewDate(new Date());
+        } else {
+            view = new ProductView();
+            view.setViewDate(new Date());
+            view.setAccount(user);
+            view.setProduct(product);
+            em.persist(view);
+        }
+
         em.getTransaction().commit();
     }
 
@@ -37,18 +48,20 @@ public class ProductViewService {
         return em.find(ProductView.class, id);
     }
 
-    public List<ProductView> findViewedProducts(Account account) {
+    public List<ProductView> findViewedProducts(String account) {
+        Account user = em.find(Account.class, account);
+
         return em.createQuery(
                 "SELECT pv FROM ProductView pv WHERE pv.account = :account ORDER BY pv.viewDate DESC",
                 ProductView.class)
-                .setParameter("account", account)
+                .setParameter("account", user)
                 .setMaxResults(20)
                 .getResultList();
     }
 
     public void removeView(int id) {
         ProductView view = findById(id);
-        
+
         if (view == null) {
             throw new ValidationException("Product view does not exist");
         }
@@ -58,21 +71,23 @@ public class ProductViewService {
         em.getTransaction().commit();
     }
 
-    public void clearHistory(Account account) {
+    public void clearHistory(String account) {
         em.getTransaction().begin();
+        Account user = em.find(Account.class, account);
         em.createQuery("DELETE FROM ProductView pv WHERE pv.account = :account")
-                .setParameter("account", account)
+                .setParameter("account", user)
                 .executeUpdate();
         em.getTransaction().commit();
     }
 
-    public List<ProductView> filter(Account account, Integer typeId, Integer minPrice, Integer maxPrice, Boolean discounted, String sort) {
+    public List<ProductView> filter(String account, Integer typeId, Integer minPrice, Integer maxPrice, Boolean discounted, String sort) {
         String s = "SELECT pv FROM ProductView pv WHERE 1=1";
+        Account user = em.find(Account.class, account);
 
-        if (account != null) {
+        if (user != null) {
             s += " AND pv.account = :account";
         }
-        
+
         if (typeId != null) {
             s += " AND pv.product.type.typeId = :typeId";
         }
@@ -107,13 +122,13 @@ public class ProductViewService {
         } else {
             s += " ORDER BY pv.viewDate DESC, pv.product.productName ASC";
         }
-        
+
         TypedQuery<ProductView> query = em.createQuery(s, ProductView.class);
-        
-        if (account != null) {
-            query.setParameter("account", account);
+
+        if (user != null) {
+            query.setParameter("account", user);
         }
-        
+
         if (typeId != null) {
             query.setParameter("typeId", typeId);
         }
@@ -125,7 +140,7 @@ public class ProductViewService {
         if (maxPrice != null) {
             query.setParameter("maxPrice", maxPrice);
         }
-        
+
         return query.getResultList();
     }
 }

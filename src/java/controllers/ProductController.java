@@ -85,11 +85,11 @@ public class ProductController extends HttpServlet {
     public void showProductDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String productId = request.getParameter("productId");
         Product p = productService.findById(productId);
-        Account user = (Account) request.getSession().getAttribute("user");
+        Account a = (Account) request.getSession().getAttribute("user");
 
         ProductViewService productViewService = new ProductViewService();
-        if (user != null && p != null) {
-            productViewService.recordView(user, productId);
+        if (a != null && p != null) {
+            productViewService.recordView(a.getAccount(), productId);
         }
         
         request.setAttribute("product", p);
