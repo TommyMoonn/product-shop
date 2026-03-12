@@ -32,7 +32,7 @@ public class AdminProductController extends HttpServlet {
 
         Account user = (Account) request.getSession().getAttribute("user");
         if (!AuthorizationService.hasPermission(user, "product", action)) {
-            response.sendRedirect(request.getContextPath() + "access-denied.jsp");
+            response.sendRedirect(request.getContextPath() + "/access-denied.jsp");
             return;
         }
         

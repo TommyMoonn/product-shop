@@ -28,7 +28,7 @@ public class AdminCategoryController extends HttpServlet {
         
         Account user = (Account) request.getSession().getAttribute("user");
         if (!AuthorizationService.hasPermission(user, "category", action)) {
-            response.sendRedirect(request.getContextPath() + "access-denied.jsp");
+            response.sendRedirect(request.getContextPath() + "/access-denied.jsp");
             return;
         }
 
