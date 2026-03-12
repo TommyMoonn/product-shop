@@ -16,10 +16,9 @@
         <%@include file="../navbar.jspf"%>
 
         <div class="container-fluid py-3 px-4">
-            <div class="d-flex justify-content-between align-items-center mb-4 store-header">
+            <div class="store-hero mb-1">
                 <div class="d-flex align-items-center gap-3">
-                    <img src="${pageContext.request.contextPath}/images/icons/store-icon.png"
-                         width="55">
+                    <img src="${pageContext.request.contextPath}/images/icons/store-icon.png" width="55">
 
                     <div>
                         <h2 class="mb-0">Product Store</h2>
@@ -30,12 +29,14 @@
                 </div>
             </div>
 
-            <div data-bs-theme="dark" class="mb-2">
+            <div data-bs-theme="dark">
                 <form action="${pageContext.request.contextPath}/product"
                       method="get"
                       class="py-2">
                     <input type="hidden" name="action" value="list">
 
+                    <!-- Filters -->
+                    <div class="filter-card mb-2">
                     <!-- Search -->
                     <div class="row justify-content-center mb-4">
                         <div class="col-md-8 search-box">
@@ -53,8 +54,6 @@
                         </div>
                     </div>
 
-                    <!-- Filters -->
-                    <div class="filter-card mb-4">
                         <div class="row align-items-end">
                             <div class="col-md-9 mt-4">
                                 <div class="row g-3">
