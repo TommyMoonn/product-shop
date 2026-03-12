@@ -106,12 +106,12 @@ INSERT INTO accounts
 values('customer','123',N'Lê Hoàng','Vũ','2000/04/19',1,'0878091235',1,0)
 GO
 
-INSERT INTO categories(categoryName) values(N'Dụng cụ nhà bếp')
-INSERT INTO categories(categoryName) values(N'Điện gia dụng')
-INSERT INTO categories(categoryName) values(N'Trang trí nội thất')
-INSERT INTO categories(categoryName) values(N'Dụng cụ thể thao')
-INSERT INTO cateGOries(categoryName) values(N'Thiết bị thông minh')
-INSERT INTO categories(categoryName) values(N'Quần - Áo thời trang')
+INSERT INTO categories(categoryName) values(N'Dụng cụ nhà bếp') -- 1
+INSERT INTO categories(categoryName) values(N'Điện gia dụng') -- 2
+INSERT INTO categories(categoryName) values(N'Trang trí nội thất') -- 3
+INSERT INTO categories(categoryName) values(N'Dụng cụ thể thao') -- 4
+INSERT INTO cateGOries(categoryName) values(N'Thiết bị thông minh') -- 5
+INSERT INTO categories(categoryName) values(N'Quần - Áo thời trang') -- 6
 go
 
 -- Kitchen appliances --
