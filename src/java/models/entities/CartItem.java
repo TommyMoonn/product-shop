@@ -73,6 +73,10 @@ public class CartItem implements Serializable {
     public void setProduct(Product product) {
         this.product = product;
     }
+    
+    public int getSubTotal() {
+        return product.getFinalPrice() * quantity;
+    }
 
     @Override
     public int hashCode() {

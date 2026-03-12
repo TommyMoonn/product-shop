@@ -8,6 +8,8 @@
     <class>models.entities.Cart</class>
     <class>models.entities.CartItem</class>
     <class>models.entities.ProductView</class>
+    <class>models.entities.OrderDetail</class>
+    <class>models.entities.Order</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=ProductIntro"/>

@@ -132,6 +132,10 @@ public class Product implements Serializable {
     public void setType(Category type) {
         this.type = type;
     }
+    
+    public int getFinalPrice() {
+        return price - (price * discount/100);
+    }
 
     @Override
     public int hashCode() {

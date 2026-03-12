@@ -30,6 +30,12 @@
                         History
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link  ${activePage == 'order' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/user/order" role="button">
+                        My Orders
+                    </a>
+                </li>
             </c:if>
             <c:if test="${sessionScope.user.roleInSystem != null && sessionScope.user.roleInSystem > 0 && !isAdminPage}">
                 <li class="nav-item">
@@ -67,8 +73,8 @@
                     </a>
                 </li>
             </c:if>
-            <li class="nav-item dropdown ms-2">
-                <a class="navbar-brand" href="#" role="button" data-bs-toggle="dropdown">
+            <li class="nav-item ms-2">
+                <a class="navbar-brand" href="#" role="button">
                     <c:choose>
                         <c:when test="${empty sessionScope.user}">
                             <img src="${pageContext.request.contextPath}/images/avatar_placeholder.png" alt="Logo" style="width:40px;" class="rounded-pill">

@@ -75,12 +75,11 @@ GO
 
 ---- [Orders] -----
 CREATE TABLE Orders (
-	orderId nvarchar(20) PRIMARY KEY,
-	orderName nvarchar(50) NOT NULL,
+	orderId INT PRIMARY KEY IDENTITY,
 	account varchar(20) NOT NULL REFERENCES Accounts(account),
 	orderDate datetime DEFAULT CURRENT_TIMESTAMP,
 	orderStatus integer NOT NULL,
-	customerName nvarchar(30) NOT NULL,
+	customerName nvarchar(80) NOT NULL,
 	customerPhone nvarchar(20) NOT NULL,
 	customerAddress nvarchar(100) NOT NULL,
 	totalValue integer NOT NULL DEFAULT 0 
@@ -89,7 +88,7 @@ GO
 
 ---- [OrderDetails] ---- 
 CREATE TABLE OrderDetails (
-	orderId nvarchar(20) NOT NULL REFERENCES Orders(orderId),
+	orderId INT NOT NULL REFERENCES Orders(orderId),
 	productId varchar(10) NOT NULL REFERENCES Products(productId),
 	price integer NOT NULL,
 	quantity integer NOT NULL,
