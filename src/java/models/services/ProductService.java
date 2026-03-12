@@ -72,6 +72,12 @@ public class ProductService implements Accessible<Product> {
         return em.createQuery("SELECT p from Product p WHERE p.type.typeId = :typeId",
                 Product.class).setParameter("typeId", typeId).getResultList();
     }
+    
+    public List<Product> findLatestProduct(int amount) {
+        return em.createQuery("SELECT p FROM Product p ORDER BY p.postedDate DESC", Product.class)
+                .setMaxResults(amount)
+                .getResultList();
+    }
 
     public List<Product> filter(String keyword, Integer typeId, Integer minPrice, Integer maxPrice, Boolean discounted, String sort) {
         String s = "SELECT p FROM Product p WHERE 1=1";

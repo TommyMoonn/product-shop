@@ -1,0 +1,62 @@
+.hero-section{
+    height:420px;
+    position:relative;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+        url("../images/hero.jpg");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-section h1{
+    letter-spacing:0.5px;
+}
+
+.hero-section p{
+    max-width:550px;
+    margin:auto;
+    opacity:0.9;
+}
+
+.hero-section .btn{
+    padding:10px 28px;
+    font-weight:600;
+}
+
+.category-card{
+    border:1px solid #333;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.category-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.45);
+}
+
+.category-card img{
+    height:160px;
+    object-fit:cover;
+}
+
+.product-card{
+    border:1px solid #333;
+    transition: transform .2s ease;
+}
+
+.product-card:hover{
+    transform:translateY(-5px);
+}
+
+.product-card img{
+    height:200px;
+    object-fit:cover;
+}
+
+.benefit-box{
+    padding:20px;
+    border-radius:12px;
+    background:#1e1e1e;
+    border:1px solid #333;
+}

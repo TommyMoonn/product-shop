@@ -13,7 +13,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link  ${activePage == 'home' ? 'active' : ''}" 
-                   href="${pageContext.request.contextPath}/home.jsp" role="button">
+                   href="${pageContext.request.contextPath}/home" role="button">
                     Home
                 </a>
             </li>
