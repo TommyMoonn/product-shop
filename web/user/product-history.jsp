@@ -6,6 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Product History</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/shop.css"/>
         <%@include file="../head.jspf"%>
     </head>
 
@@ -13,14 +14,25 @@
         <c:set var="activePage" value="history"/>
         <%@include file="../navbar.jspf"%>
 
-        <div class="container-fluid py-3 px-5">
+        <div class="container-fluid py-3 px-4">
 
             <!--Page title and Clear History button-->
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="mb-0 d-flex align-items-center justify-content-center gap-2">
-                    <img src="${pageContext.request.contextPath}/images/icons/history-icon.png" width="45" height="45">
-                    Your Viewing History
-                </h3>
+                <div class="d-flex align-items-center gap-2">
+
+                    <!-- Store Icon -->
+                    <img src="${pageContext.request.contextPath}/images/icons/history-icon.png"
+                         width="60" height="60">
+
+                    <!-- Title -->
+                    <div>
+                        <h2 class="mb-0">Viewing History</h2>
+                        <small class="text-light">
+                            Browse products you have looked at
+                        </small>
+                    </div>
+
+                </div>
 
                 <c:if test="${not empty viewedProducts}">
                     <form method="post" action="${pageContext.request.contextPath}/user/history?action=clear">
@@ -145,75 +157,80 @@
 
             <!-- Viewed Product Grid -->
             <div class="row g-4">
-                <c:forEach var="pv" items="${requestScope.viewedProducts}">
+                <c:forEach var="pv" items="${viewedProducts}">
                     <div class="col-md-3">
-                        <div class="card h-100 bg-dark text-white border-secondary position-relative">
+                        <div class="card product-card h-100 bg-dark text-white border-secondary position-relative">
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/user/history?action=remove"
+                                  class="position-absolute top-0 end-0 m-2"
+                                  onclick="event.stopPropagation();">
 
-                            <!--Remove view button-->
-                            <form method="post" action="${pageContext.request.contextPath}/user/history?action=remove"
-                                  class="position-absolute top-0 end-0 m-2">
                                 <input type="hidden" name="viewId" value="${pv.viewId}">
 
-                                <button class="btn btn-sm btn-danger rounded"
-                                        style="width:30px;height:25px;padding:0;">
+                                <button class="btn btn-sm btn-danger rounded-circle remove-btn"
+                                        onclick="return confirm('Remove this item from your history?');">
                                     X
                                 </button>
                             </form>
+                            <a href="${pageContext.request.contextPath}/product?action=detail&productId=${pv.product.productId}"
+                               class="text-decoration-none text-white">
 
-                            <!-- Image -->
-                            <img src="${pageContext.request.contextPath}${pv.product.productImage}"
-                                 class="card-img-top"
-                                 style="height:500px; object-fit:cover;">
-
-                            <!--Card Body-->
-                            <div class="card-body d-flex flex-column">
-                                <!-- Name -->
-                                <h5 class="card-title">
-                                    <a class="text-white text-decoration-none"
-                                       href="${pageContext.request.contextPath}/product?action=detail&productId=${p.productId}">
-                                        ${pv.product.productName}
-                                    </a>
-                                </h5>
-
-                                <!-- Category -->
-                                <p class="text-secondary mb-1">
-                                    ${pv.product.type.categoryName}
-                                </p>
-
-                                <!-- Price -->
-                                <p class="fw-bold mb-1">
-                                    ${pv.product.price} VND
-                                </p>
-
-                                <!-- Discount -->
                                 <c:if test="${pv.product.discount > 0}">
-                                    <span class="badge bg-danger mb-2 mt-2">
+                                    <span class="badge bg-danger discount-badge">
                                         -${pv.product.discount}%
                                     </span>
                                 </c:if>
 
-                                <!-- Button -->
-                                <div class="mt-auto d-flex align-items-center gap-2">
-                                    <a class="btn btn-outline-light w-50"
-                                       href="${pageContext.request.contextPath}/product?action=detail&productId=${pv.product.productId}">
-                                        View Details
-                                    </a>
-                                    <form method="post" action="${pageContext.request.contextPath}/user/cart?action=add"
-                                          class="w-50">
-                                        <input type="hidden" name="productId" value="${p.productId}">
+                                <img src="${pageContext.request.contextPath}${pv.product.productImage}"
+                                     class="card-img-top product-image">
+
+                                <div class="card-body d-flex flex-column">
+                                    <h6 class="card-title mb-1">
+                                        <a class="text-white text-decoration-none"
+                                           href="${pageContext.request.contextPath}/product?action=detail&productId=${p.productId}">
+                                            ${pv.product.productName}
+                                        </a>
+                                    </h6>
+
+                                    <p class="text-secondary small mb-2">
+                                        ${pv.product.type.categoryName}
+                                    </p>
+
+                                    <c:choose>
+                                        <c:when test="${pv.product.discount > 0}">
+                                            <p class="product-price mb-3">
+                                                <span class="text-secondary text-decoration-line-through me-2">
+                                                    <fmt:formatNumber value="${pv.product.price}" type="number"/> VND
+                                                </span>
+                                                <span class="fw-bold text-danger">
+                                                    <fmt:formatNumber value="${pv.product.price * (100 - pv.product.discount) / 100}" type="number"/> VND
+                                                </span>
+                                            </p>
+                                        </c:when>
+
+                                        <c:otherwise>
+                                            <p class="fw-bold product-price mb-3">
+                                                <fmt:formatNumber value="${pv.product.price}" type="number"/> VND
+                                            </p>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    <form method="post"
+                                          action="${pageContext.request.contextPath}/user/cart?action=add"
+                                          class="w-100">
+                                        <input type="hidden" name="productId" value="${pv.product.productId}">
                                         <input type="hidden" name="redirect" value="history">
-                                        <button type="submit" class="btn btn-success w-100">
-                                            Add to Cart
+
+                                        <button class="btn btn-success w-100">
+                                            Add To Cart
                                         </button>
                                     </form>
+                                    <!-- Viewed Date -->
+                                    <p class="text-secondary small text-center mt-3 mb-0">
+                                        Viewed
+                                        <fmt:formatDate value="${pv.viewDate}" pattern="dd MMM yyyy HH:mm"/>
+                                    </p>
                                 </div>
-
-                                <!--Viewed date-->
-                                <h5 class="text-white text-center small mt-4">
-                                    Viewed <fmt:formatDate value="${pv.viewDate}" pattern="dd MMM yyyy HH:mm"/>
-                                </h5>
-
-                            </div>
                         </div>
                     </div>
                 </c:forEach>

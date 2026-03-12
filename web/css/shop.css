@@ -1,0 +1,50 @@
+.store-header img{
+    filter:drop-shadow(0 0 6px rgba(0,0,0,.6));
+}
+
+.filter-card{
+    background:#1b1b1b;
+    border-radius:12px;
+    padding:20px;
+    border:1px solid #2d2d2d;
+}
+
+.product-card{
+    transition:all .2s ease;
+}
+
+.product-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,.4);
+}
+
+.product-image-container{
+    height:260px;
+    background:#111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.product-image{
+    max-height:450px;
+    max-width:100%;
+    object-fit:contain;
+}
+
+.discount-badge{
+    position:absolute;
+    top:10px;
+    left:10px;
+    font-size:.8rem;
+}
+
+.product-price{
+    font-size:1.2rem;
+}
+
+.search-box{
+    max-width:600px;
+}
+

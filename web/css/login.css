@@ -1,0 +1,58 @@
+.login-card{
+    border-radius:1rem;
+    backdrop-filter: blur(10px);
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.logo-title img{
+    filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
+}
+
+.form-control{
+    background-color:#1e1e1e;
+    color:white;
+    border:1px solid #333;
+}
+
+.form-control:focus{
+    border-color:#198754;
+    box-shadow:0 0 0 .2rem rgba(25,135,84,.25);
+    background:#1e1e1e;
+    color:white;
+}
+
+.form-control::placeholder{
+    color:#bfbfbf;
+    opacity:1;
+}
+
+.form-control::-ms-input-placeholder{
+    color:#bfbfbf;
+}
+
+.form-control::-webkit-input-placeholder{
+    color:#bfbfbf;
+}
+
+.input-group-text{
+    border:none;
+}
+
+.login-btn{
+    font-weight:600;
+    letter-spacing:.5px;
+}
+
+.login-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(25,135,84,0.4);
+}
+
+.card-hover:hover{
+    text-decoration:underline;
+}
+
+.avatar{
+    width:140px;
+    opacity:0.9;
+}

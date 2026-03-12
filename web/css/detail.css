@@ -1,0 +1,25 @@
+.product-detail-img{
+    max-height:520px;
+    object-fit:contain;
+}
+
+.price-old{
+    text-decoration:line-through;
+    color:#aaa;
+    margin-right:10px;
+}
+
+.price-new{
+    color:#ff4d4d;
+    font-weight:600;
+    font-size:1.4rem;
+}
+
+.price-normal{
+    font-weight:600;
+    font-size:1.4rem;
+}
+
+.discount-badge{
+    font-size:0.9rem;
+}
