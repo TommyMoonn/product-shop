@@ -1,0 +1,90 @@
+.gateway-page{
+    height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* BIG CARD */
+
+.gateway-main-card{
+
+    width:700px;
+
+    padding:45px;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#1a1a1a,#2a2a2a);
+
+    border:1px solid #3a3c41;
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* HEADER */
+
+.gateway-header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.gateway-header h2{
+    margin-top:10px;
+    font-weight:600;
+}
+
+/* OPTIONS */
+
+.gateway-options{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+/* OPTION CARD */
+
+.gateway-option{
+
+    display:flex;
+    align-items:center;
+
+    gap:18px;
+
+    padding:18px 20px;
+
+    border-radius:10px;
+
+    background:#2f3136;
+
+    text-decoration:none;
+
+    color:white;
+
+    transition:all .25s ease;
+}
+
+.gateway-option img{
+    width:45px;
+}
+
+.gateway-option h4{
+    margin:0;
+    font-size:17px;
+}
+
+.gateway-option p{
+    margin:0;
+    font-size:13px;
+    color:#a7a7a7;
+}
+
+.gateway-option:hover{
+
+    transform:translateX(6px);
+
+    background:#35373c;
+
+    border-left:4px solid #0d6efd;
+
+}

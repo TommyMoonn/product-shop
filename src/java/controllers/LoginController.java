@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/home.jsp");
             return;
         }
-        response.sendRedirect(request.getContextPath() + "/admin/dashboard.jsp");
+        response.sendRedirect(request.getContextPath() + "/admin/gateway.jsp");
     }
 
     @Override
