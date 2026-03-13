@@ -8,6 +8,10 @@
         <description>ServletContextListener</description>
         <listener-class>listeners.ContextListener</listener-class>
     </listener>
+    <listener>
+        <description>HttpSessionAttributeListener</description>
+        <listener-class>listeners.LoginListener</listener-class>
+    </listener>
     <session-config>
         <session-timeout>
             30
