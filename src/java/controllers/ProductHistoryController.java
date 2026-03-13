@@ -76,7 +76,7 @@ public class ProductHistoryController extends HttpServlet {
         }
     }
 
-    public void removeView(HttpServletRequest request, HttpServletResponse response)
+    private void removeView(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String viewId = request.getParameter("viewId");
 
@@ -92,7 +92,7 @@ public class ProductHistoryController extends HttpServlet {
         }
     }
 
-    public void clearHistory(HttpServletRequest request, HttpServletResponse response)
+    private void clearHistory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
         if (a != null) {

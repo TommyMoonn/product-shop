@@ -54,12 +54,7 @@ public class ShoppingCartController extends HttpServlet {
         }
     }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
-    public void showShoppingCart(HttpServletRequest request, HttpServletResponse response)
+    private void showShoppingCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
 
@@ -67,7 +62,7 @@ public class ShoppingCartController extends HttpServlet {
         request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
     }
 
-    public void addToCart(HttpServletRequest request, HttpServletResponse response)
+    private void addToCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
         String productId = request.getParameter("productId");
@@ -84,7 +79,7 @@ public class ShoppingCartController extends HttpServlet {
         }
     }
 
-    public void removeFromCart(HttpServletRequest request, HttpServletResponse response)
+    private void removeFromCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
         String productId = request.getParameter("productId");
@@ -94,7 +89,7 @@ public class ShoppingCartController extends HttpServlet {
         showShoppingCart(request, response);
     }
 
-    public void updateQuantity(HttpServletRequest request, HttpServletResponse response)
+    private void updateQuantity(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
         String productId = request.getParameter("productId");
@@ -114,7 +109,7 @@ public class ShoppingCartController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/user/cart");
     }
 
-    public void clearCart(HttpServletRequest request, HttpServletResponse response)
+    private void clearCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
 
@@ -123,4 +118,9 @@ public class ShoppingCartController extends HttpServlet {
         request.getSession().setAttribute("success", "Shopping cart cleared");
         response.sendRedirect(request.getContextPath() + "/user/cart");
     }
+    
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 }

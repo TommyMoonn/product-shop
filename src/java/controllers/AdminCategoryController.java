@@ -71,16 +71,16 @@ public class AdminCategoryController extends HttpServlet {
         }
     }
 
-    public void showCategoryList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showCategoryList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("list", categoryService.findAll());
         request.getRequestDispatcher("/admin/category/category-list.jsp").forward(request, response);
     }
 
-    public void showCategoryAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showCategoryAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/admin/category/category-add.jsp").forward(request, response);
     }
 
-    public void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category c = new Category();
         c.setCategoryName(request.getParameter("categoryName"));
         c.setMemo(request.getParameter("memo"));
@@ -93,14 +93,14 @@ public class AdminCategoryController extends HttpServlet {
         }
     }
 
-    public void showCategoryUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showCategoryUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("typeId");
         Category c = categoryService.findById(id);
         request.setAttribute("category", c);
         request.getRequestDispatcher("/admin/category/category-update.jsp").forward(request, response);
     }
 
-    public void updateCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void updateCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category c = new Category();
         c.setTypeId(Integer.parseInt(request.getParameter("typeId")));
         c.setCategoryName(request.getParameter("categoryName"));
@@ -115,7 +115,7 @@ public class AdminCategoryController extends HttpServlet {
         }
     }
 
-    public void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String typeId = request.getParameter("typeId");
 
         try {

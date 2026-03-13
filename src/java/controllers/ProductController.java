@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.entities.Account;
 import models.entities.Product;
-import models.entities.ProductView;
 import models.services.CategoryService;
 import models.services.ProductService;
 import models.services.ProductViewService;
@@ -47,7 +46,7 @@ public class ProductController extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    public void showProductList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showProductList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keyword = request.getParameter("keyword");
         String typeIdParam = request.getParameter("typeId");
         String minPriceParam = request.getParameter("minPrice");
@@ -83,7 +82,7 @@ public class ProductController extends HttpServlet {
         request.getRequestDispatcher("/product-list.jsp").forward(request, response);
     }
 
-    public void showProductDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showProductDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String productId = request.getParameter("productId");
         Product p = productService.findById(productId);
         Account a = (Account) request.getSession().getAttribute("user");

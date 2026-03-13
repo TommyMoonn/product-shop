@@ -81,7 +81,7 @@ public class AdminAccountController extends HttpServlet {
         }
     }
 
-    public void showAccountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showAccountList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Account> list;
         String type = request.getParameter("type");
         
@@ -101,12 +101,12 @@ public class AdminAccountController extends HttpServlet {
         request.getRequestDispatcher("/admin/account/account-list.jsp").forward(request, response);
     }
 
-    public void showAccountAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showAccountAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("today", LocalDate.now());
         request.getRequestDispatcher("/admin/account/account-add.jsp").forward(request, response);
     }
 
-    public void addAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void addAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Account a = new Account();
 
         a.setAccount(request.getParameter("account"));
@@ -136,7 +136,7 @@ public class AdminAccountController extends HttpServlet {
         }
     }
 
-    public void showAccountUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showAccountUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
         Account a = accountService.findById(account);
 
@@ -145,7 +145,7 @@ public class AdminAccountController extends HttpServlet {
         request.getRequestDispatcher("/admin/account/account-update.jsp").forward(request, response);
     }
 
-    public void updateAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void updateAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
         Account a = accountService.findById(account);
         if (a == null) {
@@ -178,7 +178,7 @@ public class AdminAccountController extends HttpServlet {
         }
     }
 
-    public void updateAccountStatus(HttpServletRequest request, HttpServletResponse response, boolean status) throws ServletException, IOException {
+    private void updateAccountStatus(HttpServletRequest request, HttpServletResponse response, boolean status) throws ServletException, IOException {
         String account = request.getParameter("account");
         try {
             accountService.updateIsUsed(account, status);
@@ -189,7 +189,7 @@ public class AdminAccountController extends HttpServlet {
         }
     }
 
-    public void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
         try {
             accountService.delete(account);

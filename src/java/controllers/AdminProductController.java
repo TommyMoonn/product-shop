@@ -78,7 +78,7 @@ public class AdminProductController extends HttpServlet {
         }
     }
 
-    public void showProductList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showProductList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String typeIdParam = request.getParameter("typeId");
         String discountedParam = request.getParameter("discounted");
         String sort = request.getParameter("sort");
@@ -101,19 +101,19 @@ public class AdminProductController extends HttpServlet {
         request.getRequestDispatcher("/admin/product/product-list.jsp").forward(request, response);
     }
 
-    public void showProductDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showProductDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("productId");
         Product p = productService.findById(id);
         request.setAttribute("product", p);
         request.getRequestDispatcher("/admin/product/product-detail.jsp").forward(request, response);
     }
 
-    public void showProductAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showProductAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("categories", categoryService.findAll());
         request.getRequestDispatcher("/admin/product/product-add.jsp").forward(request, response);
     }
 
-    public void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Product p = new Product();
 
         //set fields recieved from the request
@@ -148,7 +148,7 @@ public class AdminProductController extends HttpServlet {
         }
     }
 
-    public void showProductUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showProductUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Product p = productService.findById(request.getParameter("productId"));
         String fullPath = p.getProductImage();
 
@@ -161,7 +161,7 @@ public class AdminProductController extends HttpServlet {
         request.getRequestDispatcher("/admin/product/product-update.jsp").forward(request, response);
     }
 
-    public void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("productId");
         Product p = productService.findById(id);
 
@@ -193,7 +193,7 @@ public class AdminProductController extends HttpServlet {
         }
     }
 
-    public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("productId");
         try {
             productService.delete(id);

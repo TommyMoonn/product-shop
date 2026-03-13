@@ -62,7 +62,7 @@ public class OrderController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/user/order");
     }
 
-    public void showOrderList(HttpServletRequest request, HttpServletResponse response)
+    private void showOrderList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
 
@@ -70,7 +70,7 @@ public class OrderController extends HttpServlet {
         request.getRequestDispatcher("order-list.jsp").forward(request, response);
     }
 
-    public void showOrderDetail(HttpServletRequest request, HttpServletResponse response)
+    private void showOrderDetail(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String orderIdParam = request.getParameter("orderId");
 
@@ -83,7 +83,7 @@ public class OrderController extends HttpServlet {
         request.getRequestDispatcher("order-detail.jsp").forward(request, response);
     }
 
-    public void showCheckoutForm(HttpServletRequest request, HttpServletResponse response)
+    private void showCheckoutForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
 
