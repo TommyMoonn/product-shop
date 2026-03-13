@@ -1,148 +1,116 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" %>
 
-<div class="sidebar bg-dark text-white position-fixed top-0 start-0 vh-100 d-flex flex-column"
-     style="width:200px; z-index:1000;">
-    <!-- Logo -->
-    <div class="text-center py-3 border-bottom border-secondary">
-        <a href="${pageContext.request.contextPath}/admin/dashboard.jsp"
-           class="text-white text-decoration-none d-flex justify-content-center align-items-center gap-2 p-2">
+<div class="admin-sidebar position-fixed top-0 start-0 vh-100 d-flex flex-column">
+    <div class="sidebar-header text-center py-3">
+        <a href="${pageContext.request.contextPath}/admin/dashboard"
+           class="text-decoration-none d-flex align-items-center justify-content-center gap-2">
+
             <img src="${pageContext.request.contextPath}/images/icons/shop-icon.png"
                  width="36" height="36">
-            <span class="fw-semibold">Shop Manager</span>
+
+            <span class="sidebar-title">Shop Manager</span>
+
         </a>
     </div>
-    <!-- Navigation -->
-    <ul class="nav flex-column px-2 mt-3">
-        <!-- Dashboard -->
+
+    <ul class="nav flex-column px-2 mt-2">
         <c:if test="${sessionScope.user.roleInSystem != 0}">
             <li class="nav-item">
-                <a class="nav-link text-white ${activePage == 'dashboard' ? 'active' : ''}"
+                <a class="nav-link ${activePage == 'dashboard' ? 'active' : ''}"
                    href="${pageContext.request.contextPath}/admin/dashboard">
                     <img src="${pageContext.request.contextPath}/images/icons/analytics-icon.png"
-                         width="22" height="22">
+                         class="sidebar-icon">
                     Dashboard
                 </a>
             </li>
         </c:if>
 
-        <!-- Accounts -->
+        <div class="sidebar-section">Management</div>
         <li class="nav-item">
-            <a class="nav-link text-white ${activePage == 'accounts' ? 'active' : ''}"
+            <a class="nav-link ${activePage == 'accounts' ? 'active' : ''}"
                href="${pageContext.request.contextPath}/admin/account?action=list">
                 <img src="${pageContext.request.contextPath}/images/icons/account-icon-2.png"
-                     width="22" height="22">
+                     class="sidebar-icon">
                 Accounts
             </a>
         </li>
 
-        <!-- Products -->
         <li class="nav-item">
-            <a class="nav-link text-white ${activePage == 'products' ? 'active' : ''}"
+            <a class="nav-link ${activePage == 'products' ? 'active' : ''}"
                href="${pageContext.request.contextPath}/admin/product?action=list">
                 <img src="${pageContext.request.contextPath}/images/icons/product-icon-2.png"
-                     width="22" height="22">
+                     class="sidebar-icon">
                 Products
             </a>
         </li>
 
-        <!-- Categories -->
         <li class="nav-item">
-            <a class="nav-link text-white ${activePage == 'categories' ? 'active' : ''}"
+            <a class="nav-link ${activePage == 'categories' ? 'active' : ''}"
                href="${pageContext.request.contextPath}/admin/category?action=list">
                 <img src="${pageContext.request.contextPath}/images/icons/category-icon.png"
-                     width="22" height="22">
+                     class="sidebar-icon">
                 Categories
             </a>
         </li>
     </ul>
 
-    <!-- Divider -->
-    <hr class="text-secondary mt-auto">
-
-    <!-- Profile -->
-    <div data-bs-theme="dark">
-        <div class="dropdown text-center pb-3">
+    <div class="sidebar-profile mt-auto text-center pb-3">
+        <div class="dropdown">
             <a href="#" data-bs-toggle="dropdown">
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">
                         <img src="${pageContext.request.contextPath}/images/avatar_placeholder.png"
-                             class="rounded-circle"
-                             width="45"
-                             height="45">
+                             class="sidebar-avatar">
                     </c:when>
                     <c:when test="${sessionScope.user.gender}">
                         <img src="${pageContext.request.contextPath}/images/img_avatar1.png"
-                             class="rounded-circle"
-                             width="45"
-                             height="45">
+                             class="sidebar-avatar">
                     </c:when>
                     <c:otherwise>
                         <img src="${pageContext.request.contextPath}/images/img_avatar2.png"
-                             class="rounded-circle"
-                             width="45"
-                             height="45">
+                             class="sidebar-avatar">
                     </c:otherwise>
                 </c:choose>
             </a>
-
-            <ul class="dropdown-menu dropdown-menu-end">
-                <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem == 0}">
+            <div data-bs-theme="dark">
+                <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
-                            <img src="${pageContext.request.contextPath}/images/icons/profile-black-icon.png"
+                        <a class="dropdown-item d-flex gap-2 align-items-center"
+                           href="${pageContext.request.contextPath}/home">
+                            <img src="${pageContext.request.contextPath}/images/icons/home-icon.png"
                                  width="18">
-                            Profile
+                            View Store
                         </a>
                     </li>
-                </c:if>
-                <c:choose>
-                    <c:when test="${empty sessionScope.user}">
-                        <li>
-                            <a class="dropdown-item"
-                               href="${pageContext.request.contextPath}/login">
-                                Login
-                            </a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li>
-                            <a class="dropdown-item d-flex gap-2 align-items-center"
-                               href="${pageContext.request.contextPath}/home">
-                                <img src="${pageContext.request.contextPath}/images/icons/home-icon.png"
-                                     width="18">
-                                View Store
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex gap-2 align-items-center"
-                               href="${pageContext.request.contextPath}/logout">
-                                <img src="${pageContext.request.contextPath}/images/icons/logout-icon-2.png"
-                                     width="18">
-                                Sign Out
-                            </a>
-                        </li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
-
-            <div class="mt-2 small">
-                ${sessionScope.user.lastName} ${sessionScope.user.firstName}
+                    <li>
+                        <a class="dropdown-item d-flex gap-2 align-items-center"
+                           href="${pageContext.request.contextPath}/logout">
+                            <img src="${pageContext.request.contextPath}/images/icons/logout-icon-2.png"
+                                 width="18">
+                            Sign Out
+                        </a>
+                    </li>
+                </ul>
             </div>
+        </div>
+        <div class="sidebar-name">
+            ${sessionScope.user.lastName} ${sessionScope.user.firstName}
+        </div>
+        <div class="sidebar-role">
+            <c:choose>
+                <c:when test="${sessionScope.user.roleInSystem == 1}">
+                    <span class="role-admin">Admin</span>
+                </c:when>
 
-            <div class="text-secondary small">
-                <c:choose>
-                    <c:when test="${sessionScope.user.roleInSystem == 1}">
-                        <span class="text-danger fw-bold">Admin</span>
-                    </c:when>
-                    <c:when test="${sessionScope.user.roleInSystem == 2}">
-                        <span class="text-primary fw-bold">Manager</span>
-                    </c:when>
-                    <c:when test="${sessionScope.user.roleInSystem == 3}">
-                        <span class="text-white fw-bold">Staff</span>
-                    </c:when>
-                </c:choose>
-            </div>
+                <c:when test="${sessionScope.user.roleInSystem == 2}">
+                    <span class="role-manager">Manager</span>
+                </c:when>
+
+                <c:when test="${sessionScope.user.roleInSystem == 3}">
+                    <span class="role-staff">Staff</span>
+                </c:when>
+            </c:choose>
         </div>
     </div>
 </div>
