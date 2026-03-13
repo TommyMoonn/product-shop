@@ -7,7 +7,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Shopping Cart</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css"/>
+
+        <!-- SAME CSS AS ORDERS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/order.css"/>
+
         <%@include file="../head.jspf"%>
     </head>
 
@@ -15,59 +18,49 @@
 
         <c:set var="activePage" value="cart"/>
         <%@include file="../navbar.jspf"%>
+
         <div class="container-fluid py-3 px-4">
-            <c:if test="${not empty sessionScope.success}">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    ${sessionScope.success}
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="alert"
-                            aria-label="Close"></button>
-                </div>
-                <c:remove var="success" scope="session"/>
-            </c:if>
-            <!-- Header -->
-            <div class="d-flex align-items-center gap-2 mb-4">
+            <!-- HEADER -->
+            <div class="page-header d-flex align-items-center gap-3 mb-3">
                 <img src="${pageContext.request.contextPath}/images/icons/cart-icon.png"
-                     width="60" height="60">
+                     width="55" height="55">
                 <div>
                     <h2 class="mb-0">Shopping Cart</h2>
-                    <small class="text-light">
+
+                    <small class="text-secondary">
                         ${requestScope.cartItems.size()} items in your cart
                     </small>
                 </div>
-            </div>
 
-            <!-- Empty Cart -->
+            </div>
+            <!-- EMPTY CART -->
             <c:if test="${empty requestScope.cartItems}">
-                <div class="text-center py-5">
-                    <img src="${pageContext.request.contextPath}/images/icons/empty-cart-icon.png"
-                         width="90"
-                         class="mb-3">
-                    <h4>Your cart is empty</h4>
+                <div class="text-center empty-state">
+                    <img src="${pageContext.request.contextPath}/images/icons/empty-cart.png"
+                         width="110" class="mb-3">
+                    <h4 class="text-light">Your cart is empty</h4>
                     <p class="text-secondary">
-                        Looks like you haven't added anything yet.
+                        Looks like you haven't added any products yet.
                     </p>
                     <a class="btn btn-primary mt-2"
-                       href="${pageContext.request.contextPath}/product">
+                       href="${pageContext.request.contextPath}/product?action=list">
                         Start Shopping
                     </a>
                 </div>
             </c:if>
-
-            <div data-bs-theme="dark">
-                <!-- Cart Table -->
-                <c:if test="${not empty requestScope.cartItems}">
-                    <div class="table-responsive">
-                        <table class="table table-dark table-bordered align-middle">
+            <!-- CART TABLE -->
+            <c:if test="${not empty requestScope.cartItems}">
+                <div class="page-card">
+                    <div class="table-responsive orders-table">
+                        <table class="table table-dark table-borderless align-middle mb-0">
                             <thead>
                                 <tr>
                                     <th>Product</th>
-                                    <th width="170">Price</th>
-                                    <th width="120">Discount</th>
-                                    <th width="140">Quantity</th>
-                                    <th width="150">Subtotal</th>
-                                    <th width="120">Action</th>
+                                    <th width="180">Price</th>
+                                    <th width="140">Discount</th>
+                                    <th width="170">Quantity</th>
+                                    <th width="200">Subtotal</th>
+                                    <th width="150">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,20 +72,14 @@
                                     <c:set var="subtotal" value="${finalPrice * item.quantity}" />
                                     <c:set var="total" value="${total + subtotal}" />
                                     <tr>
-
-                                        <!-- Product Info -->
                                         <td>
                                             <div class="d-flex align-items-center gap-3">
-                                                <a href="${pageContext.request.contextPath}/product?action=detail&productId=${item.product.productId}">
-                                                    <img src="${pageContext.request.contextPath}${item.product.productImage}"
-                                                         class="cart-product-img">
-                                                </a>
+                                                <img src="${pageContext.request.contextPath}${item.product.productImage}"
+                                                     width="65" height="65"
+                                                     style="object-fit:cover;border-radius:8px;">
                                                 <div>
                                                     <div class="fw-bold">
-                                                        <a class="product-link text-white"
-                                                           href="${pageContext.request.contextPath}/product?action=detail&productId=${item.product.productId}">
-                                                            ${item.product.productName}
-                                                        </a>
+                                                        ${item.product.productName}
                                                     </div>
                                                     <small class="text-secondary">
                                                         ${item.product.type.categoryName}
@@ -100,54 +87,49 @@
                                                 </div>
                                             </div>
                                         </td>
-
-                                        <!-- Price -->
-                                        <td class="fw-bold">
+                                        <td>
                                             <fmt:formatNumber value="${price}" type="number"/> VND
                                         </td>
-
-                                        <!-- Discount -->
-                                        <td class="text-center">
-                                            <c:if test="${discount > 0}">
-                                                <span class="badge bg-danger">
-                                                    -${discount}%
-                                                </span>
-                                            </c:if>
-                                            <c:if test="${discount == 0}">
-                                                <span class="badge bg-secondary">
-                                                    -0%
-                                                </span>
-                                            </c:if>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${discount > 0}">
+                                                    <span class="badge bg-danger">
+                                                        -${discount}%
+                                                    </span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="badge bg-secondary">
+                                                        -0%
+                                                    </span>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </td>
-
-                                        <!-- Quantity -->
                                         <td>
                                             <form method="post"
                                                   action="${pageContext.request.contextPath}/user/cart?action=update"
-                                                  class="d-flex">
-                                                <input type="hidden" name="productId" value="${item.product.productId}">
+                                                  class="d-flex gap-2">
+                                                <input type="hidden"
+                                                       name="productId"
+                                                       value="${item.product.productId}">
                                                 <input type="number"
                                                        name="quantity"
                                                        value="${item.quantity}"
                                                        min="1"
-                                                       class="form-control form-control-sm cart-qty me-2">
-
-                                                <button class="btn btn-outline-light btn-sm btn-update">
+                                                       class="form-control"
+                                                       style="width:70px;">
+                                                <button class="btn btn-outline-light btn-sm">
                                                     Update
                                                 </button>
                                             </form>
                                         </td>
-
-                                        <!-- Subtotal -->
-                                        <td class="cart-subtotal">
+                                        <td class="order-total">
                                             <fmt:formatNumber value="${subtotal}" type="number"/> VND
                                         </td>
-
-                                        <!-- Remove -->
                                         <td>
-                                            <form method="post" class="d-flex justify-content-center"
+                                            <form method="post"
                                                   action="${pageContext.request.contextPath}/user/cart?action=remove">
-                                                <input type="hidden" name="productId"
+                                                <input type="hidden"
+                                                       name="productId"
                                                        value="${item.product.productId}">
                                                 <button class="btn btn-danger btn-sm"
                                                         onclick="return confirm('Remove this item?');">
@@ -160,46 +142,35 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <!-- Cart Summary -->
-                    <div class="row mt-4">
-                        <div class="col-md-6">
-                            <a href="${pageContext.request.contextPath}/product?action=list"
-                               class="btn btn-outline-light">
-                                Continue Shopping
-                            </a>
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-end">
-                            <div class="cart-total-box text-end">
-                                <h4 class="mb-3">
-                                    Total:
-                                    <span class="text-success">
-                                        <fmt:formatNumber value="${total}" type="number"/> VND
-                                    </span>
-                                </h4>
-                                <div class="d-flex gap-2 justify-content-end">
-                                    <form method="post"
-                                          action="${pageContext.request.contextPath}/user/cart?action=clear">
-
-                                        <button class="btn btn-outline-danger"
-                                                onclick="return confirm('Are you sure you want to clear the cart?');">
-                                            Clear Cart
-                                        </button>
-                                    </form>
-                                    <form method="get"
-                                          action="${pageContext.request.contextPath}/user/order">
-                                        <input type="hidden" name="action" value="checkout">
-
-                                        <button class="btn btn-success btn-checkout">
-                                            Checkout
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
+                    <!-- SUMMARY -->
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <a href="${pageContext.request.contextPath}/product?action=list"
+                           class="btn btn-outline-light">
+                            Continue Shopping
+                        </a>
+                        <div class="d-flex align-items-center gap-3">
+                            <h5 class="order-total mt-2">
+                                Total:
+                                <fmt:formatNumber value="${total}" type="number"/> VND
+                            </h5>
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/user/cart?action=clear">
+                                <button class="btn btn-outline-danger"
+                                        onclick="return confirm('Clear your cart?');">
+                                    Clear Cart
+                                </button>
+                            </form>
+                            <form method="get"
+                                  action="${pageContext.request.contextPath}/user/order">
+                                <input type="hidden" name="action" value="checkout">
+                                <button class="btn btn-success">
+                                    Checkout
+                                </button>
+                            </form>
                         </div>
                     </div>
-                </c:if>
-            </div>
+                </div>
+            </c:if>
         </div>
     </body>
 </html>

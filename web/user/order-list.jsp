@@ -14,7 +14,7 @@
     <body class="darkmode">
         <c:set var="activePage" value="order"/>
         <%@include file="../navbar.jspf"%>
-        <div class="container-fluid py-4 px-4">
+        <div class="container-fluid py-3 px-4">
             <div class="page-header d-flex align-items-center gap-3 mb-3">
 
                 <img src="${pageContext.request.contextPath}/images/icons/order-icon.png"
@@ -69,19 +69,15 @@
                             <tbody>
                                 <c:forEach var="order" items="${orders}">
                                     <tr>
-
                                         <td class="order-id">
                                             #${order.orderId}
                                         </td>
-
                                         <td>
                                             <fmt:formatDate value="${order.orderDate}"
                                                             pattern="dd MMM yyyy, HH:mm"/>
                                         </td>
-
                                         <td>
                                             <c:choose>
-
                                                 <c:when test="${order.orderStatus == 0}">
                                                     <span class="badge bg-warning text-dark">
                                                         Pending
@@ -108,29 +104,21 @@
 
                                             </c:choose>
                                         </td>
-
                                         <td class="order-total">
                                             <fmt:formatNumber value="${order.totalValue}" type="number"/> VND
                                         </td>
-
                                         <td>
-
                                             <a class="btn btn-outline-light btn-sm view-btn"
                                                href="${pageContext.request.contextPath}/user/order?action=detail&orderId=${order.orderId}">
                                                 View Details
                                             </a>
-
                                         </td>
-
                                     </tr>
                                 </c:forEach>
                             </tbody>
-
                         </table>
                     </div>
-
                 </div>
-
             </c:if>
         </div>
     </body>
