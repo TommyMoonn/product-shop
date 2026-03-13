@@ -67,12 +67,12 @@ public class ProductService implements Accessible<Product> {
     public List<Product> findAll() {
         return em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
     }
-    
+
     public List<Product> findByCategory(int typeId) {
         return em.createQuery("SELECT p from Product p WHERE p.type.typeId = :typeId",
                 Product.class).setParameter("typeId", typeId).getResultList();
     }
-    
+
     public List<Product> findLatestProduct(int amount) {
         return em.createQuery("SELECT p FROM Product p ORDER BY p.postedDate DESC", Product.class)
                 .setMaxResults(amount)
@@ -168,5 +168,4 @@ public class ProductService implements Accessible<Product> {
         }
         p.setProductImage("/images/sanPham/" + imageFile);
     }
-
 }

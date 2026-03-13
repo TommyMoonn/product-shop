@@ -1,0 +1,156 @@
+.dashboard-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.admin-metric-card{
+    background:#2b2b2b;
+    border-radius:12px;
+    padding:22px;
+    text-align:center;
+    border:1px solid #3a3a3a;
+    transition:.2s;
+}
+
+.admin-metric-card:hover{
+    transform:translateY(-3px);
+    border-color:#4dabf7;
+    box-shadow:0 10px 22px rgba(0,0,0,.45);
+}
+
+.metric-label{
+    font-size:13px;
+    color:#aaa;
+    margin-bottom:6px;
+}
+
+.metric-value{
+    font-size:28px;
+    font-weight:600;
+}
+
+.product-analytics{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 0;
+    border-bottom:1px solid #3a3a3a;
+}
+
+.product-analytics:last-child{
+    border-bottom:none;
+}
+
+.rank{
+    font-weight:600;
+    color:#4c8dff;
+    width:28px;
+}
+
+.product-thumb{
+    width:40px;
+    height:40px;
+    object-fit:cover;
+    border-radius:6px;
+}
+
+.product-info{
+    flex:1;
+}
+
+.product-name{
+    font-size:14px;
+}
+
+.product-price{
+    font-size:12px;
+    color:#aaa;
+}
+
+.orders-table{
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.orders-table td:first-child,
+.orders-table th:first-child{
+    padding-left:15px;
+    padding-top:15px;
+    padding-bottom:15px;
+}
+
+.orders-table thead{
+    background:#2f3136;
+    border-bottom:1px solid #3a3d42;
+}
+
+.orders-table tbody tr{
+    transition: background 0.15s ease;
+    cursor:pointer;
+}
+
+.orders-table tbody tr:hover{
+    background:#3f4348;
+}
+
+.orders-table tbody tr:hover td:first-child{
+    border-left:4px solid #4dabf7;
+}
+
+.order-id{
+    font-weight:600;
+    color:#4dabf7;
+}
+
+.order-total{
+    font-weight:700;
+    color:#51cf66;
+}
+
+.view-btn{
+    border-radius:8px;
+}
+
+.product-analytics.large{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:18px 10px;
+    border-bottom:1px solid #3a3a3a;
+}
+
+.product-analytics.large:last-child{
+    border-bottom:none;
+}
+
+.product-thumb-large{
+    width:80px;
+    height:80px;
+    object-fit:cover;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.45);
+}
+
+.product-info{
+    flex:1;
+}
+
+.product-name{
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:4px;
+}
+
+.product-metric{
+    font-size:14px;
+    color:#aeb4ba;
+}
+
+.rank{
+    font-weight:700;
+    color:#4dabf7;
+    font-size:18px;
+    width:40px;
+    text-align:center;
+}

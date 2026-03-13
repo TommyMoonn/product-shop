@@ -1,6 +1,6 @@
 package listeners;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,7 +13,7 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
-        context.setAttribute("onlineUsers", new HashMap<>());
+        context.setAttribute("onlineUsers", new ArrayList<>());
     }
 
     @Override

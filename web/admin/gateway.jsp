@@ -51,7 +51,7 @@
 
 
                     <!-- MANAGEMENT -->
-                    <a href="${pageContext.request.contextPath}/admin/dashboard.jsp" class="gateway-option">
+                    <a href="${pageContext.request.contextPath}/admin/dashboard" class="gateway-option">
 
                         <img src="${pageContext.request.contextPath}/images/icons/admin-icon.png">
 

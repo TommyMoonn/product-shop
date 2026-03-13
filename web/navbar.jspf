@@ -53,7 +53,7 @@
             <c:if test="${sessionScope.user.roleInSystem != null && sessionScope.user.roleInSystem > 0 && !isAdminPage}">
                 <li class="nav-item">
                     <a class="nav-link ${activePage == 'dashboard' ? 'active' : ''}"
-                       href="${pageContext.request.contextPath}/admin/dashboard.jsp">
+                       href="${pageContext.request.contextPath}/admin/dashboard">
                         Admin Panel
                     </a>
                 </li>

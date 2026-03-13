@@ -143,4 +143,16 @@ public class ProductViewService {
 
         return query.getResultList();
     }
+
+    public List<Object[]> getTopViewedProducts(int limit) {
+        return em.createQuery(
+                "SELECT pv.product, COUNT(pv) "
+                + "FROM ProductView pv "
+                + "GROUP BY pv.product "
+                + "ORDER BY COUNT(pv) DESC",
+                Object[].class
+        )
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }

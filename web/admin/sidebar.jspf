@@ -18,7 +18,7 @@
         <c:if test="${sessionScope.user.roleInSystem != 0}">
             <li class="nav-item">
                 <a class="nav-link text-white ${activePage == 'dashboard' ? 'active' : ''}"
-                   href="${pageContext.request.contextPath}/admin/dashboard.jsp">
+                   href="${pageContext.request.contextPath}/admin/dashboard">
                     <img src="${pageContext.request.contextPath}/images/icons/analytics-icon.png"
                          width="22" height="22">
                     Dashboard
@@ -108,7 +108,7 @@
                     <c:otherwise>
                         <li>
                             <a class="dropdown-item d-flex gap-2 align-items-center"
-                               href="${pageContext.request.contextPath}/home.jsp">
+                               href="${pageContext.request.contextPath}/home">
                                 <img src="${pageContext.request.contextPath}/images/icons/home-icon.png"
                                      width="18">
                                 View Store

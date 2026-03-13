@@ -1,6 +1,6 @@
 package listeners;
 
-import java.util.Map;
+import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
@@ -19,16 +19,16 @@ public class SessionListener implements HttpSessionListener {
     public void sessionDestroyed(HttpSessionEvent se) {
         HttpSession session = se.getSession();
         Account a = (Account) session.getAttribute("user");
-        
+
         if (a != null) {
             ServletContext context = session.getServletContext();
-            Map<String, Account> onlineUsers = (Map<String, Account>) context.getAttribute("onlineUsers");
-            
+
+            List<Account> onlineUsers = (List<Account>) context.getAttribute("onlineUsers");
+
             if (onlineUsers != null) {
-                onlineUsers.remove(a.getAccount());
+                onlineUsers.removeIf(u -> u.getAccount().equals(a.getAccount()));
             }
         }
-        
     }
-    
+
 }

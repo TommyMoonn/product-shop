@@ -1,6 +1,8 @@
 package models.services;
 
 import exceptions.ValidationException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -122,11 +124,51 @@ public class OrderService {
                 .getResultList();
     }
 
+    public List<Order> getRecentOrders(int limit) {
+        return em.createQuery("SELECT o FROM Order o ORDER BY o.orderDate DESC", Order.class)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
     public List<OrderDetail> getOrderDetail(int orderId) {
         Order order = em.find(Order.class, orderId);
 
         return em.createQuery("SELECT od FROM OrderDetail od WHERE od.order = :order", OrderDetail.class)
                 .setParameter("order", order)
+                .getResultList();
+    }
+
+    public Long getOrderCount() {
+        return em.createQuery("SELECT COUNT(o) FROM Order o", Long.class).getSingleResult();
+    }
+
+    public Long getOrderCountToday() {
+        LocalDate today = LocalDate.now();
+
+        Date start = java.sql.Timestamp.valueOf(today.atStartOfDay());
+        Date end = java.sql.Timestamp.valueOf(today.plusDays(1).atStartOfDay());
+
+        return em.createQuery(
+                "SELECT COUNT(o) FROM Order o WHERE o.orderDate >= :start AND o.orderDate < :end",
+                Long.class)
+                .setParameter("start", start)
+                .setParameter("end", end)
+                .getSingleResult();
+    }
+
+    public Long getTotalRevenue() {
+        return em.createQuery("SELECT SUM(o.totalValue) FROM Order o", Long.class).getSingleResult();
+    }
+
+    public List<Object[]> getTopSellingProducts(int limit) {
+        return em.createQuery(
+                "SELECT od.product, SUM(od.quantity * od.price) "
+                + "FROM OrderDetail od "
+                + "GROUP BY od.product "
+                + "ORDER BY SUM(od.quantity * od.price) DESC",
+                Object[].class
+        )
+                .setMaxResults(limit)
                 .getResultList();
     }
 }
