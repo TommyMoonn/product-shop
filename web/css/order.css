@@ -1,0 +1,74 @@
+.page-card{
+    background: linear-gradient(135deg,#1a1a1a,#2a2a2a);
+    border-radius:12px;
+    padding:25px;
+    box-shadow:0 0 12px rgba(0,0,0,0.35);
+    border: 1px solid #333;
+}
+
+.page-header{
+    background: linear-gradient(135deg,#1a1a1a,#2a2a2a);
+    border-radius:12px;
+    padding:20px 24px;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.orders-table{
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.orders-table td:first-child,
+.orders-table th:first-child{
+    padding-left:15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.orders-table thead{
+    background:#2f3136;
+    border-bottom:1px solid #3a3d42;
+}
+
+.orders-table tbody tr{
+    transition: background 0.15s ease;
+    cursor: pointer;
+}
+
+.orders-table tbody tr:hover{
+    background:#3f4348;
+}
+
+.orders-table tbody tr:hover td:first-child{
+    border-left:4px solid #4dabf7;
+}
+
+.order-id{
+    font-weight:600;
+    color:#4dabf7;
+}
+
+.order-total{
+    font-weight:700;
+    color:#51cf66;
+}
+
+.badge{
+    padding:6px 10px;
+    font-size:0.85rem;
+}
+
+.empty-state{
+    background:#242526;
+    border-radius:12px;
+    padding:60px 30px;
+}
+
+.empty-state img{
+    opacity:0.85;
+}
+
+.view-btn{
+    border-radius:8px;
+}

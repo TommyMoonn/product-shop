@@ -17,9 +17,8 @@
         <div class="container-fluid py-3 px-4">
 
             <!--Page title and Clear History button-->
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="store-hero d-flex justify-content-between align-items-center mb-2">
                 <div class="d-flex align-items-center gap-2">
-                    <!-- Store Icon -->
                     <img src="${pageContext.request.contextPath}/images/icons/history-icon.png"
                          width="60" height="60">
 
