@@ -1,6 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,33 +30,75 @@ public class LoginController extends HttpServlet {
         String account = request.getParameter("account").trim();
         String pass = request.getParameter("pass").trim();
 
+        // ATTEMPTS
+        HttpSession session = request.getSession();
+
+        Integer attempts = (Integer) session.getAttribute("loginAttempts");
+        Long lockTime = (Long) session.getAttribute("lockTime");
+
+        if (attempts == null) {
+            attempts = 0;
+        }
+
+        if (lockTime != null) {
+            long diff = System.currentTimeMillis() - lockTime;
+
+            if (diff < 600000) {
+                request.setAttribute("error", "Too many failed attempts. Try again later.");
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                return;
+            } else {
+                session.removeAttribute("lockTime");
+                session.setAttribute("loginAttempts", 0);
+                attempts = 0;
+            }
+
+        }
+        //-------------
+
         AccountService accountService = new AccountService();
         Account a = accountService.authenticate(account, pass);
 
         if (a == null) {
-            request.setAttribute("error", "Invalid account or password");
+            attempts++;
+            session.setAttribute("loginAttempts", attempts);
+
+            if (attempts >= 3) {
+                session.setAttribute("lockTime", System.currentTimeMillis());
+                request.setAttribute("error", "Too many failed attempts. Login locked for 10 minutes.");
+            } else {
+                int remaining = 3 - attempts;
+                request.setAttribute("error", "Invalid account or password. Attempts left: " + remaining);
+            }
+
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
 
-        //check if the account is deactivated
         if (!a.getActive()) {
             request.setAttribute("error", "Account is deactivated. Please contact the administrator for more information.");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
 
-        //get the current active session
-        //if it exists -> invalidate it
-        //the false parameter passed in: if there is an active session then return it else return null
         HttpSession oldSession = request.getSession(false);
         if (oldSession != null) {
             oldSession.invalidate();
         }
-        //create a new session
+
         HttpSession newSession = request.getSession();
         newSession.setAttribute("user", a);
 
+        // ONLINE USERS 
+        ServletContext context = getServletContext();
+
+        Map<String, Account> onlineUsers = (Map<String, Account>) context.getAttribute("onlineUsers");
+
+        onlineUsers.put(a.getAccount(), a);
+        //-------------
+
+        newSession.removeAttribute("loginAttempts");
+        newSession.removeAttribute("lockTime");
         if (Role.isCustomer(a.getRoleInSystem())) {
             response.sendRedirect(request.getContextPath() + "/home.jsp");
             return;
