@@ -48,14 +48,14 @@ public class ProductViewService {
         return em.find(ProductView.class, id);
     }
 
-    public List<ProductView> findViewedProducts(String account) {
+    public List<ProductView> findViewedProducts(String account, int amount) {
         Account user = em.find(Account.class, account);
 
         return em.createQuery(
                 "SELECT pv FROM ProductView pv WHERE pv.account = :account ORDER BY pv.viewDate DESC",
                 ProductView.class)
                 .setParameter("account", user)
-                .setMaxResults(20)
+                .setMaxResults(amount)
                 .getResultList();
     }
 

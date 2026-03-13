@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.entities.Account;
 import models.entities.Product;
+import models.entities.ProductView;
 import models.services.CategoryService;
 import models.services.ProductService;
 import models.services.ProductViewService;
@@ -87,11 +88,15 @@ public class ProductController extends HttpServlet {
         Product p = productService.findById(productId);
         Account a = (Account) request.getSession().getAttribute("user");
 
+        if (p != null) {
+            request.setAttribute("featuredProducts", productService.findByCategory(p.getType().getTypeId()));
+        }
+        
         ProductViewService productViewService = new ProductViewService();
         if (a != null && p != null) {
             productViewService.recordView(a.getAccount(), productId);
         }
-        
+
         request.setAttribute("product", p);
         request.getRequestDispatcher("/product-detail.jsp").forward(request, response);
     }

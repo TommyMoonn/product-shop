@@ -157,11 +157,11 @@
         <!-- Viewed Product Grid -->
         <div class="row g-4">
             <c:forEach var="pv" items="${viewedProducts}">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="card product-card h-100 bg-dark text-white border-secondary position-relative">
                         <form method="post"
                               action="${pageContext.request.contextPath}/user/history?action=remove"
-                              class="position-absolute top-0 end-0 m-2"
+                              class="position-absolute top-0 start-0 m-2"
                               onclick="event.stopPropagation();">
 
                             <input type="hidden" name="viewId" value="${pv.viewId}">
@@ -201,8 +201,8 @@
                                             <span class="text-secondary text-decoration-line-through me-2">
                                                 <fmt:formatNumber value="${pv.product.price}" type="number"/> VND
                                             </span>
-                                            <span class="fw-bold text-danger">
-                                                <fmt:formatNumber value="${pv.product.price * (100 - pv.product.discount) / 100}" type="number"/> VND
+                                            <span class="fw-bold text-success">
+                                                <br><fmt:formatNumber value="${pv.product.price * (100 - pv.product.discount) / 100}" type="number"/> VND
                                             </span>
                                         </p>
                                     </c:when>
@@ -213,19 +213,8 @@
                                         </p>
                                     </c:otherwise>
                                 </c:choose>
-
-                                <form method="post"
-                                      action="${pageContext.request.contextPath}/user/cart?action=add"
-                                      class="w-100">
-                                    <input type="hidden" name="productId" value="${pv.product.productId}">
-                                    <input type="hidden" name="redirect" value="history">
-
-                                    <button class="btn btn-success w-100">
-                                        Add To Cart
-                                    </button>
-                                </form>
                                 <!-- Viewed Date -->
-                                <p class="small text-center viewed-date mt-3 mb-0">
+                                <p class="small text-center viewed-date mt-auto mb-0">
                                     Viewed
                                     <fmt:formatDate value="${pv.viewDate}" pattern="dd MMM yyyy - HH:mm"/>
                                 </p>

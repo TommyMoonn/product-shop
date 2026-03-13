@@ -146,7 +146,7 @@
         <!-- Product Grid -->
         <div class="row g-4">
             <c:forEach var="p" items="${requestScope.list}">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="card product-card h-100 bg-dark text-white border-secondary position-relative">
                         <a href="${pageContext.request.contextPath}/product?action=detail&productId=${p.productId}"
                            class="text-decoration-none text-white">
@@ -174,38 +174,25 @@
 
                                 <c:choose>
                                     <c:when test="${p.discount > 0}">
-                                        <p class="product-price mb-3">
+                                        <p class="product-price mt-auto">
                                             <span class="text-secondary text-decoration-line-through me-2">
                                                 <fmt:formatNumber value="${p.price}" type="number"/> VND
                                             </span>
-                                            <span class="fw-bold text-danger">
-                                                <fmt:formatNumber value="${p.price * (100 - p.discount) / 100}" type="number"/> VND
+                                            <span class="fw-bold text-success">
+                                                <br><fmt:formatNumber value="${p.price * (100 - p.discount) / 100}" type="number"/> VND
                                             </span>
                                         </p>
                                     </c:when>
 
                                     <c:otherwise>
-                                        <p class="fw-bold product-price mb-3">
+                                        <p class="fw-bold product-price mt-auto">
                                             <fmt:formatNumber value="${p.price}" type="number"/> VND
                                         </p>
                                     </c:otherwise>
                                 </c:choose>
-
-                                <form method="post"
-                                      action="${pageContext.request.contextPath}/user/cart?action=add"
-                                      class="w-100">
-
-                                    <input type="hidden" name="productId" value="${p.productId}">
-                                    <input type="hidden" name="redirect" value="shop">
-
-                                    <button class="btn btn-success w-100">
-                                        Add To Cart
-                                    </button>
-                                </form>
                             </div>
                     </div>
                 </div>
-
             </c:forEach>
         </div>
     </div>

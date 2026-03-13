@@ -30,7 +30,7 @@
 }
 
 .product-image-container{
-    height:260px;
+    height: 120px;
     background:#111;
     display:flex;
     align-items:center;
@@ -39,14 +39,14 @@
 }
 
 .product-image{
-    height: 450px;
+    height: 270px;
     object-fit: cover;
 }
 
 .discount-badge{
     position:absolute;
     top:10px;
-    left:10px;
+    right:10px;
     font-size:.8rem;
 }
 
