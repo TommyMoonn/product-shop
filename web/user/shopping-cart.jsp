@@ -111,12 +111,14 @@
                                                 <input type="hidden"
                                                        name="productId"
                                                        value="${item.product.productId}">
-                                                <input type="number"
-                                                       name="quantity"
-                                                       value="${item.quantity}"
-                                                       min="1"
-                                                       class="form-control"
-                                                       style="width:70px;">
+                                                <div data-bs-theme="dark">
+                                                    <input type="number"
+                                                           name="quantity"
+                                                           value="${item.quantity}"
+                                                           min="1"
+                                                           class="form-control"
+                                                           style="width:70px;">
+                                                </div>
                                                 <button class="btn btn-outline-light btn-sm">
                                                     Update
                                                 </button>

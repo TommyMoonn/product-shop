@@ -88,9 +88,11 @@ public class ProductController extends HttpServlet {
         Account a = (Account) request.getSession().getAttribute("user");
 
         if (p != null) {
-            request.setAttribute("featuredProducts", productService.findByCategory(p.getType().getTypeId()));
+            List<Product> featuredProducts = productService.findByCategory(p.getType().getTypeId());
+            featuredProducts.remove(p);
+            request.setAttribute("featuredProducts", featuredProducts);
         }
-        
+
         ProductViewService productViewService = new ProductViewService();
         if (a != null && p != null) {
             productViewService.recordView(a.getAccount(), productId);
