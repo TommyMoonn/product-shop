@@ -23,7 +23,7 @@ public class ShoppingCartController extends HttpServlet {
         if (action == null) {
             action = "list";
         }
-        
+
         switch (action) {
             case "list":
                 showShoppingCart(request, response);
@@ -37,8 +37,8 @@ public class ShoppingCartController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        
-        switch(action) {
+
+        switch (action) {
             case "add":
                 addToCart(request, response);
                 break;
@@ -60,20 +60,20 @@ public class ShoppingCartController extends HttpServlet {
     }// </editor-fold>
 
     public void showShoppingCart(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
-        
+
         request.setAttribute("cartItems", shoppingCartService.getItems(a.getAccount()));
         request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
     }
-    
+
     public void addToCart(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
         String productId = request.getParameter("productId");
-        
+
         shoppingCartService.addItem(a.getAccount(), productId, 1);
-        
+
         String redirect = request.getParameter("redirect");
         if ("history".equals(redirect)) {
             response.sendRedirect(request.getContextPath() + "/user/history");
@@ -83,43 +83,43 @@ public class ShoppingCartController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/product");
         }
     }
-        
+
     public void removeFromCart(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
         String productId = request.getParameter("productId");
-        
+
         shoppingCartService.removeItem(a.getAccount(), productId);
-        
+
         showShoppingCart(request, response);
     }
-    
+
     public void updateQuantity(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
         String productId = request.getParameter("productId");
         String quantityParam = request.getParameter("quantity");
-        
+
         if (quantityParam != null) {
             int quantity = Integer.parseInt(quantityParam);
             try {
                 shoppingCartService.updateQuantity(a.getAccount(), productId, quantity);
             } catch (ValidationException e) {
                 request.setAttribute("error", e.getMessage());
-                showShoppingCart(request,response);
+                showShoppingCart(request, response);
                 return;
             }
         }
         request.getSession().setAttribute("success", "Item updated");
         response.sendRedirect(request.getContextPath() + "/user/cart");
     }
-    
+
     public void clearCart(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
-        
+
         shoppingCartService.clearCart(a.getAccount());
-        
+
         request.getSession().setAttribute("success", "Shopping cart cleared");
         response.sendRedirect(request.getContextPath() + "/user/cart");
     }

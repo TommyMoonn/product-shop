@@ -85,9 +85,13 @@
                                 </button>
                             </form>
                             <!-- BUY NOW -->
-                            <form method="post"
-                                  action="${pageContext.request.contextPath}/user/cart?action=buyNow">
+                            <form method="get"
+                                  action="${pageContext.request.contextPath}/user/order">
+
+                                <input type="hidden" name="action" value="checkout">
+                                <input type="hidden" name="buyNow" value="true">
                                 <input type="hidden" name="productId" value="${product.productId}">
+
                                 <button class="btn btn-warning">
                                     Buy Now
                                 </button>
@@ -105,7 +109,7 @@
                     <c:forEach items="${featuredProducts}" var="p">
                         <div class="featured-item">
                             <a class="featured-product-link"
-                               href="${pageContext.request.contextPath}/product?action=detail&productId=${p.productId}"">
+                               href="${pageContext.request.contextPath}/product?action=detail&productId=${p.productId}">
                                 <div class="featured-product-card">
                                     <div class="featured-product-image-box">
                                         <img src="${pageContext.request.contextPath}${p.productImage}"

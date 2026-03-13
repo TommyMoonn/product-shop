@@ -19,6 +19,12 @@
                                 <div class="card-body p-5 text-start">
                                     <form action="${pageContext.request.contextPath}/user/order?action=checkout" 
                                           method="post" accept-charset="UTF-8">
+                                        
+                                        <c:if test="${not empty buyNowProduct}">
+                                            <input type="hidden" name="buyNow" value="true">
+                                            <input type="hidden" name="productId" value="${buyNowProduct.productId}">
+                                        </c:if>
+                                            
                                         <h2 class="fw-bold mb-3">Checkout</h2>
                                         <hr>
 
@@ -71,20 +77,36 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <c:choose>
+                                                    <c:when test="${not empty buyNowProduct}">
+                                                        <c:set var="price" value="${buyNowProduct.price}" />
+                                                        <c:set var="discount" value="${buyNowProduct.discount}" />
+                                                        <c:set var="finalPrice" value="${price - (price * discount / 100)}" />
+                                                        <c:set var="total" value="${finalPrice}" />
+                                                        <tr>
+                                                            <td>${buyNowProduct.productName}</td>
+                                                            <td>1</td>
+                                                            <td><fmt:formatNumber value="${finalPrice}" type="number"/> VND</td>
+                                                        </tr>
+                                                    </c:when>
 
-                                                <c:forEach var="item" items="${cart.items}">
-                                                    <c:set var="price" value="${item.product.price}" />
-                                                    <c:set var="discount" value="${item.product.discount}" />
-                                                    <c:set var="finalPrice" value="${price - (price * discount / 100)}" />
-                                                    <c:set var="subtotal" value="${finalPrice * item.quantity}" />
-                                                    <c:set var="total" value="${total + subtotal}" />
-                                                    <tr>
-                                                        <td>${item.product.productName}</td>
-                                                        <td>${item.quantity}</td>
-                                                        <td><fmt:formatNumber value="${subtotal}" type="number"/> VND</td>
-                                                    </tr>
-                                                </c:forEach>
-
+                                                    <c:otherwise>
+                                                        <c:forEach var="item" items="${cart.items}">
+                                                            <c:set var="price" value="${item.product.price}" />
+                                                            <c:set var="discount" value="${item.product.discount}" />
+                                                            <c:set var="finalPrice" value="${price - (price * discount / 100)}" />
+                                                            <c:set var="subtotal" value="${finalPrice * item.quantity}" />
+                                                            <c:set var="total" value="${total + subtotal}" />
+                                                            <tr>
+                                                                <td>${item.product.productName}</td>
+                                                                <td>${item.quantity}</td>
+                                                                <td>
+                                                                    <fmt:formatNumber value="${subtotal}" type="number"/> VND
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </tbody>
                                         </table>
 
@@ -95,9 +117,9 @@
 
                                         <!-- Buttons -->
                                         <div class="d-flex justify-content-between mt-4">
-                                            <a href="${pageContext.request.contextPath}/user/cart"
+                                            <a onclick="history.back()"
                                                class="btn btn-outline-light">
-                                                ← Back to Cart
+                                                ← Back
                                             </a>
 
                                             <button class="btn btn-success px-4"
