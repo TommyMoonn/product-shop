@@ -75,27 +75,29 @@
                                class="btn btn-outline-light">
                                 ← Back
                             </a>
-                            <!-- ADD TO CART -->
-                            <form method="post"
-                                  action="${pageContext.request.contextPath}/user/cart?action=add">
-                                <input type="hidden" name="productId" value="${product.productId}">
-                                <input type="hidden" name="redirect" value="detail">
-                                <button class="btn btn-success">
-                                    Add to Cart
-                                </button>
-                            </form>
-                            <!-- BUY NOW -->
-                            <form method="get"
-                                  action="${pageContext.request.contextPath}/user/order">
+                            <c:if test="${sessionScope.user != null && sessionScope.user.roleInSystem == 0}" >
+                                <!-- ADD TO CART -->
+                                <form method="post"
+                                      action="${pageContext.request.contextPath}/user/cart?action=add">
+                                    <input type="hidden" name="productId" value="${product.productId}">
+                                    <input type="hidden" name="redirect" value="detail">
+                                    <button class="btn btn-success">
+                                        Add to Cart
+                                    </button>
+                                </form>
+                                <!-- BUY NOW -->
+                                <form method="get"
+                                      action="${pageContext.request.contextPath}/user/order?action">
 
-                                <input type="hidden" name="action" value="checkout">
-                                <input type="hidden" name="buyNow" value="true">
-                                <input type="hidden" name="productId" value="${product.productId}">
+                                    <input type="hidden" name="action" value="checkout">
+                                    <input type="hidden" name="buyNow" value="true">
+                                    <input type="hidden" name="productId" value="${product.productId}">
 
-                                <button class="btn btn-warning">
-                                    Buy Now
-                                </button>
-                            </form>
+                                    <button class="btn btn-warning">
+                                        Buy Now
+                                    </button>
+                                </form>
+                            </c:if>
                         </div>
                     </div>
                 </div>
