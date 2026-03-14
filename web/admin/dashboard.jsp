@@ -117,7 +117,7 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-outline-light btn-sm view-btn"
-                                               href="${pageContext.request.contextPath}/user/order?action=detail&orderId=${order.orderId}">
+                                               href="${pageContext.request.contextPath}/admin/order?action=detail&orderId=${order.orderId}">
                                                 View Details
                                             </a>
                                         </td>

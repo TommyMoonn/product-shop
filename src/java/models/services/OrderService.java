@@ -2,10 +2,10 @@ package models.services;
 
 import exceptions.ValidationException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import models.entities.Account;
 import models.entities.Cart;
 import models.entities.CartItem;
@@ -111,6 +111,15 @@ public class OrderService {
 
         em.getTransaction().commit();
     }
+    
+    public void updateOrderStatus(int orderId, int status) {
+        em.getTransaction().begin();
+        
+        Order order = em.find(Order.class, orderId);
+        order.setOrderStatus(status);
+        
+        em.getTransaction().commit();
+    }
 
     public Order getOrder(int orderId) {
         return em.find(Order.class, orderId);
@@ -130,6 +139,11 @@ public class OrderService {
                 .getResultList();
     }
 
+    public List<Order> getAllOrders() {
+        return em.createQuery("SELECT o FROM Order o ORDER BY o.orderDate DESC", Order.class)
+                .getResultList();
+    }
+    
     public List<OrderDetail> getOrderDetail(int orderId) {
         Order order = em.find(Order.class, orderId);
 
@@ -170,5 +184,22 @@ public class OrderService {
         )
                 .setMaxResults(limit)
                 .getResultList();
+    }
+    
+    public List<Order> getOrdersByStatus(Integer status) {
+        String s = "SELECT o FROM Order o";
+        
+        if (status != null) {
+            s += " WHERE o.orderStatus = :status";
+        }
+        s += " ORDER BY o.orderDate DESC";
+        
+        TypedQuery<Order> query = em.createQuery(s, Order.class);
+        
+        if (status != null) {
+            query.setParameter("status", status);
+        }
+        
+        return query.getResultList();
     }
 }

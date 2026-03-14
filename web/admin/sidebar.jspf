@@ -53,6 +53,14 @@
                 Categories
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link ${activePage == 'orders' ? 'active' : ''}"
+               href="${pageContext.request.contextPath}/admin/order?action=list&status=0">
+                <img src="${pageContext.request.contextPath}/images/icons/order-icon.png"
+                     class="sidebar-icon">
+                Orders
+            </a>
+        </li>
     </ul>
 
     <div class="sidebar-profile mt-auto text-center pb-3">

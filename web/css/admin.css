@@ -218,3 +218,36 @@ body{
 .role-admin{color:#ff4d4f;}
 .role-manager{color:#0dcaf0;}
 .role-staff{color:#cccccc;}
+
+.order-status-steps{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.status-step{
+    padding:6px 14px;
+    border-radius:20px;
+    background:#2a2a2a;
+    color:#bbb;
+    text-decoration:none;
+    font-size:13px;
+    border:1px solid #444;
+    transition:all .2s ease;
+}
+
+.status-step:hover{
+    background:#3a3a3a;
+    color:#fff;
+}
+
+.status-step.active{
+    background:#0d6efd;
+    border-color:#0d6efd;
+    color:white;
+}
+
+.status-arrow{
+    color:#666;
+    font-size:14px;
+}
