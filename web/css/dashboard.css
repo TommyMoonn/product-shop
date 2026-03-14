@@ -154,3 +154,15 @@
     width:40px;
     text-align:center;
 }
+
+.product-link:hover{
+    text-decoration: underline;
+}
+
+.orders-table tbody tr{
+    transition: background 0.15s ease;
+}
+
+.orders-table tbody tr:hover{
+    background:#1f1f1f;
+}

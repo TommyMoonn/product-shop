@@ -6,7 +6,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Products</title>
+
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css"/>
+
         <%@include file="../../head.jspf"%>
     </head>
 
@@ -16,152 +19,251 @@
         <c:set var="activePage" value="products"/>
 
         <div class="container-fluid">
+
             <%@include file="../sidebar.jspf"%>
+
             <div class="admin-content">
+
+                <!-- ERROR MESSAGE -->
                 <c:if test="${not empty error}">
-                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show mb-3">
                         ${error}
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 </c:if>
-                <div class="admin-card">
-                    <!-- PAGE HEADER -->
-                    <div class="admin-header">
-                        <h2>Product Management</h2>
-                        <p class="text-white">Manage all store products</p>
+
+                <!-- PAGE HEADER -->
+                <div class="admin-card mb-4">
+
+                    <div class="admin-header d-flex justify-content-between align-items-center flex-wrap">
+
+                        <div>
+                            <h2>Product Management</h2>
+                            <p class="text-white">Manage all store products</p>
+                        </div>
+
+                        <a class="btn btn-success"
+                           href="${pageContext.request.contextPath}/admin/product?action=add">
+                            + Add Product
+                        </a>
+
                     </div>
-                    <hr>
-                    <div data-bs-theme="dark">
-                        <!-- FILTER BAR -->
-                        <form action="${pageContext.request.contextPath}/admin/product?action=list"
+
+                </div>
+
+                <!-- FILTER BAR -->
+                <div data-bs-theme="dark">
+
+                    <div class="admin-card mb-4">
+
+                        <form action="${pageContext.request.contextPath}/admin/product"
                               method="get"
-                              class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-3">
-                            <div class="d-flex align-items-end gap-3 flex-wrap">
-                                <!-- Category -->
-                                <div>
-                                    <label class="form-label">Category</label>
-                                    <select id="typeId" name="typeId" class="form-select">
-                                        <option value="">All categories</option>
-                                        <c:forEach var="c" items="${requestScope.categories}">
-                                            <option value="${c.typeId}"
-                                                    <c:if test="${param.typeId == c.typeId}">selected</c:if>>
-                                                ${c.categoryName}
-                                            </option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <!-- Sort -->
-                                <div>
-                                    <label class="form-label">Sort</label>
-                                    <select name="sortPrice" class="form-select">
-                                        <option value="">Default</option>
+                              class="d-flex flex-wrap gap-3 align-items-end">
 
-                                        <option value="asc"
-                                                <c:if test="${param.sortPrice == 'asc'}">selected</c:if>>
-                                                    Price ↑
-                                                </option>
+                            <input type="hidden" name="action" value="list"/>
 
-                                                <option value="desc"
-                                                <c:if test="${param.sortPrice == 'desc'}">selected</c:if>>
-                                                    Price ↓
-                                                </option>
+                            <!-- CATEGORY -->
+                            <div>
+                                <label class="form-label">Category</label>
+                                <select name="typeId" class="form-select">
 
-                                        </select>
-                                    </div>
-                                    <!-- Discount -->
-                                    <div>
-                                        <label class="form-label">Discounted</label>
-                                        <div class="form-check mt-1">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   name="discounted"
-                                                   value="true"
-                                                   id="discounted"
-                                            <c:if test="${param.discounted == 'true'}">checked</c:if>>
+                                    <option value="">All categories</option>
 
-                                            <label class="form-check-label" for="discounted">
-                                                Yes
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- RIGHT BUTTONS -->
-                                <div class="d-flex gap-2">
-                                    <button type="submit" class="btn btn-primary">
-                                        Filter
-                                    </button>
-                                    <a class="btn btn-success"
-                                       href="${pageContext.request.contextPath}/admin/product?action=add">
-                                    + Add Product
-                                </a>
+                                    <c:forEach var="c" items="${categories}">
+                                        <option value="${c.typeId}"
+                                                <c:if test="${param.typeId == c.typeId}">selected</c:if>>
+                                            ${c.categoryName}
+                                        </option>
+                                    </c:forEach>
+
+                                </select>
                             </div>
+
+                            <!-- SORT -->
+                            <div>
+                                <label class="form-label">Sort</label>
+
+                                <select name="sortPrice" class="form-select">
+
+                                    <option value="">Default</option>
+
+                                    <option value="asc"
+                                            <c:if test="${param.sortPrice == 'asc'}">selected</c:if>>
+                                                Price ↑
+                                            </option>
+
+                                            <option value="desc"
+                                            <c:if test="${param.sortPrice == 'desc'}">selected</c:if>>
+                                                Price ↓
+                                            </option>
+
+                                    </select>
+
+                                </div>
+
+                                <!-- DISCOUNT -->
+                                <div>
+                                    <label class="form-label mb-2">Discount</label>
+
+                                    <div class="form-check mt-1">
+
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               name="discounted"
+                                               value="true"
+                                               id="discounted"
+                                        <c:if test="${param.discounted == 'true'}">checked</c:if>>
+
+                                        <label class="form-check-label" for="discounted">
+                                            Yes
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <!-- BUTTONS -->
+                                <div class="d-flex gap-2">
+
+                                    <button type="submit" class="btn btn-primary">
+                                        Apply
+                                    </button>
+
+                                    <a class="btn btn-outline-light"
+                                       href="${pageContext.request.contextPath}/admin/product?action=list">
+                                    Reset
+                                </a>
+
+                            </div>
+
                         </form>
+
                     </div>
-                    <!-- PRODUCT TABLE -->
-                    <div class="table-responsive">
-                        <table class="table table-dark table-striped table-bordered table-hover align-middle">
+                </div>
+                <!-- PRODUCT TABLE -->
+                <div class="admin-card">
+
+                    <div class="admin-header">
+                        <h5>Products</h5>
+                    </div>
+
+                    <div class="table-responsive orders-table">
+
+                        <table class="table table-dark table-borderless align-middle mb-0">
+
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th class="text-center">Image</th>
-                                    <th>Category</th>
-                                    <th>Price</th>
-                                    <th>Discount</th>
+                                    <th width="400">Product</th>
+                                    <th width="180">Category</th>
+                                    <th width="160">Price</th>
+                                    <th width="120">Discount</th>
 
                                     <c:if test="${sessionScope.user != null}">
-                                        <th class="text-center">Actions</th>
+                                        <th width="220" class="text-center">Actions</th>
                                         </c:if>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                <c:forEach var="p" items="${requestScope.list}">
+
+                                <c:forEach var="p" items="${list}">
+
                                     <tr>
+
+                                        <!-- PRODUCT -->
                                         <td>
-                                            <a class="text-white product-link"
-                                               href="${pageContext.request.contextPath}/admin/product?action=detail&productId=${p.productId}">
-                                                ${p.productName}
-                                            </a>
+
+                                            <div class="d-flex align-items-center gap-3">
+
+                                                <img src="${pageContext.request.contextPath}${p.productImage}"
+                                                     width="70"
+                                                     height="70"
+                                                     class="rounded border border-secondary">
+
+                                                <div>
+
+                                                    <a class="text-white product-link"
+                                                       href="${pageContext.request.contextPath}/admin/product?action=detail&productId=${p.productId}">
+
+                                                        <div class="fw-bold">
+                                                            ${p.productName}
+                                                        </div>
+
+                                                    </a>
+
+                                                    <small class="text-secondary">
+                                                        ID #${p.productId}
+                                                    </small>
+
+                                                </div>
+
+                                            </div>
+
                                         </td>
-                                        <td class="text-center">
-                                            <img src="${pageContext.request.contextPath}${p.productImage}"
-                                                 width="95"
-                                                 height="95"
-                                                 class="border border-2 border-secondary rounded">
+
+                                        <!-- CATEGORY -->
+                                        <td>
+                                            ${p.type.categoryName}
                                         </td>
-                                        <td>${p.type.categoryName}</td>
-                                        <td>${p.price}</td>
-                                        <td>${p.discount}%</td>
+
+                                        <!-- PRICE -->
+                                        <td>
+                                            ${p.price}
+                                        </td>
+
+                                        <!-- DISCOUNT -->
+                                        <td>
+                                            ${p.discount}%
+                                        </td>
+
+                                        <!-- ACTIONS -->
                                         <c:if test="${sessionScope.user != null}">
                                             <td class="text-center">
-                                                <div class="d-flex flex-column gap-2">
-                                                    <a class="btn btn-primary"
+
+                                                <div class="d-flex justify-content-center gap-2">
+
+                                                    <a class="btn btn-outline-light btn-sm"
                                                        href="${pageContext.request.contextPath}/admin/product?action=update&productId=${p.productId}">
-                                                        <img src="${pageContext.request.contextPath}/images/icons/edit-icon.png"
-                                                             width="20" height="20">
                                                         Update
                                                     </a>
+
                                                     <c:if test="${sessionScope.user.roleInSystem != 3}">
-                                                        <form action="${pageContext.request.contextPath}/admin/product?action=delete&productId=${p.productId}"
+
+                                                        <form action="${pageContext.request.contextPath}/admin/product"
                                                               method="post">
-                                                            <button class="btn btn-danger w-100"
+
+                                                            <input type="hidden" name="action" value="delete"/>
+                                                            <input type="hidden" name="productId" value="${p.productId}"/>
+
+                                                            <button class="btn btn-danger btn-sm"
                                                                     type="submit"
                                                                     onclick="return confirm('Delete this product?')">
-                                                                <img src="${pageContext.request.contextPath}/images/icons/delete-icon.png"
-                                                                     width="20">
                                                                 Delete
                                                             </button>
+
                                                         </form>
+
                                                     </c:if>
+
                                                 </div>
+
                                             </td>
                                         </c:if>
+
                                     </tr>
+
                                 </c:forEach>
+
                             </tbody>
+
                         </table>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </body>
 </html>
