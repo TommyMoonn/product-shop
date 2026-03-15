@@ -20,6 +20,9 @@
         <div class="container-fluid">
             <%@include file="sidebar.jspf"%>
             <div class="admin-content">
+                <div class="text-center text-secondary pb-3">
+                    No analytics data yet
+                </div>
                 <div class="admin-card mb-4">
                     <div class="admin-header">
                         <h2>Dashboard</h2>
@@ -31,7 +34,7 @@
                     <div class="col-md-3">
                         <div class="admin-metric-card">
                             <div class="metric-label">Total Orders</div>
-                            <div class="metric-value fw-bold">${totalOrders}</div>
+                            <div class="metric-value fw-bold">${empty totalOrders ? 0 : totalOrders}</div>
                         </div>
                     </div>
 
@@ -39,7 +42,7 @@
                         <div class="admin-metric-card">
                             <div class="metric-label">Total Revenue</div>
                             <div class="metric-value text-success fw-bold">
-                                <fmt:formatNumber value="${totalRevenue}" type="number"/> VND
+                                <fmt:formatNumber value="${empty totalRevenue ? 0 : totalRevenue}" type="number"/> VND
                             </div>
                         </div>
                     </div>
@@ -47,14 +50,14 @@
                     <div class="col-md-3">
                         <div class="admin-metric-card">
                             <div class="metric-label">Orders Today</div>
-                            <div class="metric-value fw-bold">${ordersToday}</div>
+                            <div class="metric-value fw-bold">${empty ordersToday ? 0 : ordersToday}</div>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="admin-metric-card">
                             <div class="metric-label">Online Staff</div>
-                            <div class="metric-value fw-bold">${onlineStaffCount}</div>
+                            <div class="metric-value fw-bold">${empty onlineStaffCount ? 0 : onlineStaffCount}</div>
                         </div>
                     </div>
                 </div>
@@ -76,53 +79,57 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="order" items="${recentOrders}">
-                                    <tr>
-                                        <td class="order-id">
-                                            #${order.orderId}
-                                        </td>
-                                        <td>
-                                            ${order.customerName}
-                                        </td>
-                                        <td>
-                                            <fmt:formatDate value="${order.orderDate}"
-                                                            pattern="dd MMM yyyy, HH:mm"/>
-                                        </td>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${order.orderStatus == 0}">
-                                                    <span class="badge bg-warning text-dark">
-                                                        Pending
-                                                    </span>
-                                                </c:when>
-                                                <c:when test="${order.orderStatus == 1}">
-                                                    <span class="badge bg-info">
-                                                        Processing
-                                                    </span>
-                                                </c:when>
-                                                <c:when test="${order.orderStatus == 2}">
-                                                    <span class="badge bg-success">
-                                                        Completed
-                                                    </span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span class="badge bg-secondary">
-                                                        Unknown
-                                                    </span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </td>
-                                        <td class="order-total">
-                                            <fmt:formatNumber value="${order.totalValue}" type="number"/> VND
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-outline-light btn-sm view-btn"
-                                               href="${pageContext.request.contextPath}/admin/order?action=detail&orderId=${order.orderId}">
-                                                View Details
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${not empty recentOrders}">
+                                        <c:forEach var="order" items="${recentOrders}">
+                                            <tr>
+                                                <td class="order-id">
+                                                    #${order.orderId}
+                                                </td>
+                                                <td>
+                                                    ${order.customerName}
+                                                </td>
+                                                <td>
+                                                    <fmt:formatDate value="${order.orderDate}"
+                                                                    pattern="dd MMM yyyy, HH:mm"/>
+                                                </td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${order.orderStatus == 0}">
+                                                            <span class="badge bg-warning text-dark">Pending</span>
+                                                        </c:when>
+                                                        <c:when test="${order.orderStatus == 1}">
+                                                            <span class="badge bg-info">Processing</span>
+                                                        </c:when>
+                                                        <c:when test="${order.orderStatus == 2}">
+                                                            <span class="badge bg-success">Completed</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span class="badge bg-secondary">Unknown</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td class="order-total">
+                                                    <fmt:formatNumber value="${order.totalValue}" type="number"/> VND
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-outline-light btn-sm view-btn"
+                                                       href="${pageContext.request.contextPath}/admin/order?action=detail&orderId=${order.orderId}">
+                                                        View Details
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        <tr>
+                                            <td colspan="6" class="text-center text-secondary py-4">
+                                                No recent orders
+                                            </td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                             </tbody>
                         </table>
                     </div>

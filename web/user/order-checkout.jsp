@@ -11,6 +11,8 @@
     <body class="darkmode">
         <%@include file="../navbar.jspf"%>
         <div class="container-fluid row">
+            ${cart}
+            ${cart.items}
             <div data-bs-theme="dark">
                 <div class="col py-5">
                     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -19,13 +21,13 @@
                                 <div class="card-body p-5 text-start">
                                     <form action="${pageContext.request.contextPath}/user/order?action=checkout" 
                                           method="post" accept-charset="UTF-8">
-                                        
+
                                         <c:if test="${not empty buyNowProduct}">
                                             <input type="hidden" name="buyNow" value="true">
                                             <input type="hidden" name="productId" value="${buyNowProduct.productId}">
                                             <input type="hidden" name="quantity" value="${quantity}">
                                         </c:if>
-                                            
+
                                         <h2 class="fw-bold mb-3">Checkout</h2>
                                         <hr>
 
@@ -93,6 +95,7 @@
                                                     </c:when>
 
                                                     <c:otherwise>
+                                                        <c:set var="total" value="0"/>
                                                         <c:forEach var="item" items="${cart.items}">
                                                             <c:set var="price" value="${item.product.price}" />
                                                             <c:set var="discount" value="${item.product.discount}" />

@@ -4,7 +4,8 @@ body{
 
 .admin-content{
     margin-left:200px;
-    padding: 20px 30px;
+    padding-left: 30px;
+    padding-right: 30px;
     width:calc(100% - 200px);
 }
 

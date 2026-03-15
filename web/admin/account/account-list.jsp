@@ -152,11 +152,15 @@
                                             <c:choose>
 
                                                 <c:when test="${a.active}">
-                                                    <span class="badge bg-success">Active</span>
+                                                    <a href="${pageContext.request.contextPath}/admin/account?action=deactivate&account=${a.account}">
+                                                        <span class="badge bg-success">Active</span>
+                                                    </a>
                                                 </c:when>
 
                                                 <c:otherwise>
-                                                    <span class="badge bg-secondary">Inactive</span>
+                                                    <a href="${pageContext.request.contextPath}/admin/account?action=activate&account=${a.account}">
+                                                        <span class="badge bg-secondary">Inactive</span>
+                                                    </a>
                                                 </c:otherwise>
 
                                             </c:choose>
