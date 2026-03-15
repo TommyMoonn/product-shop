@@ -11,8 +11,6 @@
     <body class="darkmode">
         <%@include file="../navbar.jspf"%>
         <div class="container-fluid row">
-            ${cart}
-            ${cart.items}
             <div data-bs-theme="dark">
                 <div class="col py-5">
                     <div class="row d-flex justify-content-center align-items-center h-100">
