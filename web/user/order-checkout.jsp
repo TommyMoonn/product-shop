@@ -23,6 +23,7 @@
                                         <c:if test="${not empty buyNowProduct}">
                                             <input type="hidden" name="buyNow" value="true">
                                             <input type="hidden" name="productId" value="${buyNowProduct.productId}">
+                                            <input type="hidden" name="quantity" value="${quantity}">
                                         </c:if>
                                             
                                         <h2 class="fw-bold mb-3">Checkout</h2>
@@ -81,11 +82,12 @@
                                                     <c:when test="${not empty buyNowProduct}">
                                                         <c:set var="price" value="${buyNowProduct.price}" />
                                                         <c:set var="discount" value="${buyNowProduct.discount}" />
+                                                        <c:set var="quantity" value="${requestScope.quantity}" />
                                                         <c:set var="finalPrice" value="${price - (price * discount / 100)}" />
-                                                        <c:set var="total" value="${finalPrice}" />
+                                                        <c:set var="total" value="${finalPrice * quantity}" />
                                                         <tr>
                                                             <td>${buyNowProduct.productName}</td>
-                                                            <td>1</td>
+                                                            <td>${quantity}</td>
                                                             <td><fmt:formatNumber value="${finalPrice}" type="number"/> VND</td>
                                                         </tr>
                                                     </c:when>

@@ -53,7 +53,11 @@ public class OrderController extends HttpServlet {
         String buyNow = request.getParameter("buyNow");
         if ("true".equals(buyNow)) {
             String productId = request.getParameter("productId");
-            orderService.checkoutSingleProduct(a.getAccount(), productId, customerName, customerPhone, customerAddress);
+            String quantityParam = request.getParameter("quantity");
+            
+            int quantity = (quantityParam != null) ? Integer.parseInt(quantityParam) : 1;
+            
+            orderService.checkoutSingleProduct(a.getAccount(), productId, customerName, customerPhone, customerAddress, quantity);
 
         } else {
             orderService.checkout(a.getAccount(), customerName, customerPhone, customerAddress);
@@ -91,10 +95,13 @@ public class OrderController extends HttpServlet {
         if ("true".equals(buyNow)) {
 
             String productId = request.getParameter("productId");
-
+            String quantity = request.getParameter("quantity");
+            
+            
             ProductService productService = new ProductService();
             Product p = productService.findById(productId);
 
+            request.setAttribute("quantity", quantity);
             request.setAttribute("buyNowProduct", p);
 
         } else {

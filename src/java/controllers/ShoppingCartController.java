@@ -66,10 +66,14 @@ public class ShoppingCartController extends HttpServlet {
             throws ServletException, IOException {
         Account a = (Account) request.getSession().getAttribute("user");
         String productId = request.getParameter("productId");
+        String quantityParam = request.getParameter("quantity");
+        
+        int quantity = (quantityParam != null) ? Integer.parseInt(quantityParam) : 1;
 
-        shoppingCartService.addItem(a.getAccount(), productId, 1);
+        shoppingCartService.addItem(a.getAccount(), productId, quantity);
 
         String redirect = request.getParameter("redirect");
+        
         if ("history".equals(redirect)) {
             response.sendRedirect(request.getContextPath() + "/user/history");
         } else if ("detail".equals(redirect)) {

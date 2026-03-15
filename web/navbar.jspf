@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" %>
 
-<nav class="navbar navbar-expand-sm navbar-dark shop-navbar"
+<nav class="navbar navbar-expand-sm navbar-dark shop-navbar fixed-top"
      style="${isAdminPage ? 'margin-left:180px;' : ''}">
 
     <div class="container-fluid">
@@ -15,7 +15,6 @@
 
             <span class="brand-text">Product Shop</span>
         </a>
-
 
         <!-- LEFT NAV LINKS -->
         <ul class="navbar-nav align-items-center">
