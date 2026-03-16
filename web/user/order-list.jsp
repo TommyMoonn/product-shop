@@ -32,8 +32,8 @@
             <c:if test="${empty orders}">
                 <div class="text-center empty-state">
 
-                    <img src="${pageContext.request.contextPath}/images/icons/empty-cart.png"
-                         width="110" class="mb-3">
+                    <img src="${pageContext.request.contextPath}/images/icons/empty-cart-icon.png"
+                         width="70" height="70" class="mb-3">
 
                     <h4 class="text-light">You have no orders yet</h4>
 
